@@ -66,8 +66,4 @@ class Client
         $response = $request->send();
         return $response;
     }
-
-    public function serverObject() {
-        return new Server($this);
-    }
 }
