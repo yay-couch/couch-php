@@ -56,12 +56,17 @@ class Curl
             if ($this->result === false) {
                 $this->failCode = curl_errno($this->link);
                 $this->failText = curl_error($this->link);
+
+                curl_close($this->link);
+                $this->link = null;
+
+                return false;
             }
 
             curl_close($this->link);
             $this->link = null;
 
-            return $this->result;
+            return true;
         }
 
         return false;
