@@ -49,13 +49,10 @@ class Client
         }
 
         $uri = sprintf('%s:%s/%s', $this->host, $this->port, trim($match[2], '/'));
-        if (!empty($uriParams)) {
-            $uri = sprintf('%s?%s', $uri, http_build_query($uriParams));
-        }
 
         $this->request = (new Request($this))
             ->setMethod($match[1])
-            ->setUri($uri)
+            ->setUri($uri, $uriParams)
             ->setBody($body);
         if (!empty($headers)) {
             foreach ($headers as $key => $value) {

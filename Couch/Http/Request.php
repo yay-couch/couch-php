@@ -44,8 +44,11 @@ class Request
         $this->method = strtoupper($method);
         return $this;
     }
-    public function setUri($uri) {
+    public function setUri($uri, array $uriParams = null) {
         $this->uri = $uri;
+        if (!empty($uriParams)) {
+            $this->uri = sprintf('%s?%s', $this->uri, http_build_query($uriParams));
+        }
         return $this;
     }
 
