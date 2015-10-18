@@ -55,7 +55,7 @@ class Sock
             fclose($this->link);
             $this->link = null;
 
-            return $this->result;
+            return true;
         }
 
         return false;
