@@ -14,12 +14,15 @@ class Curl
         $this->link =@ curl_init($request->uri);
         if (is_resource($this->link)) {
             $headers = [];
-            $headers[] = 'Expect: '; // proper response headers/body pairs
+            // proper response headers/body pairs
+            $headers[] = 'Expect: ';
+            // method override
             $headers[] = 'X-HTTP-Method-Override: '. $request->method;
             foreach ($request->headers as $key => $value) {
                 $headers[] = sprintf('%s: %s', $key, $value);
             }
 
+            // cURL options
             $options = [
                 CURLOPT_CUSTOMREQUEST  => $request->method,
                 CURLOPT_HEADER         => true,
@@ -36,8 +39,10 @@ class Curl
             } else {
                 $options[CURLOPT_RETURNTRANSFER] = true;
             }
+
             curl_setopt_array($this->link, $options);
 
+            // prevent output whole reponse if NOBODY=1
             ob_start();
             $result =@ curl_exec($this->link);
             $this->result = ob_get_clean();
