@@ -35,14 +35,7 @@ class Sock
                 fwrite($this->link, sprintf("%s: %s\r\n", $key, $val));
             }
             fwrite($this->link, "\r\n");
-
-            $body = $request->body;
-            if (is_array($body)) {
-                $body = json_encode($body);
-            }
-            fwrite($this->link, $body);
-
-            $request->setBodyRaw($body);
+            fwrite($this->link, $request->body);
 
             stream_set_timeout($this->link, $this->config['timeout']);
             stream_set_blocking($this->link, $this->config['blocking']);
