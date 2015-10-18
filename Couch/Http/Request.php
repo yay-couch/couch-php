@@ -30,7 +30,7 @@ class Request
 
     public function send() {
         $agent = $this->client->couch->getHttpAgent();
-        $agent->run($this)
+        $agent->run($this);
 
         if ($agent->isFail()) {
             throw new \Exception(
