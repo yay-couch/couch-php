@@ -18,7 +18,6 @@ class Server
 
     public function ping() {
         $response = $this->client->request('GET /');
-        return isset($response->headers['_status']['code'])
-            && $response->headers['_status']['code'] == 200;
+        return (200 === $response->statusCode);
     }
 }
