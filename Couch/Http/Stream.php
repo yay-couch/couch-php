@@ -7,8 +7,17 @@ abstract class Stream
     protected $headers = [];
 
     // alias
-    public function getData() {
-        return $this->body;
+    public function getData($key = null) {
+        if ($key === null) {
+            return $this->body;
+        }
+
+        $value =& $this->body;
+        foreach (explode('.', $key) as $key) {
+            $value =& $value[$key];
+        }
+
+        return $value;
     }
 
     public function getBody() {
