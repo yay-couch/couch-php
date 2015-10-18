@@ -11,13 +11,13 @@ class Server
         $this->client = $client;
     }
 
-    public function info() {
-        $response = $this->client->request('GET /');
-        return $response->body;
-    }
-
     public function ping() {
         $response = $this->client->request('GET /');
         return (200 === $response->statusCode);
+    }
+
+    public function info() {
+        $response = $this->client->request('GET /');
+        return $response->body;
     }
 }
