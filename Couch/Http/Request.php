@@ -36,11 +36,11 @@ class Request
             'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
 
         $agent = $this->client->couch->getHttpAgent();
-        if (false === ($result = $agent->run($this))) {
+        if (false === $agent->run($this)) {
             throw new \Exception('Error!');
         }
 
-        return new Response($result);
+        return new Response($agent);
     }
 
     public function setMethod($method) {

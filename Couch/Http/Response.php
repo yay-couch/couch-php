@@ -14,8 +14,9 @@ class Response
             $bodyRaw;
     private $headers = [];
 
-    public function __construct($result) {
-        @list($headers, $body) = explode("\r\n\r\n", $result, 2);
+    public function __construct(Agent $agent) {
+        @list($headers, $body) = explode(
+            "\r\n\r\n", $agent->getResult(), 2);
 
         $this->setBody($body)
              ->setBodyRaw($body);
