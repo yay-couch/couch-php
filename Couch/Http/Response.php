@@ -17,8 +17,6 @@ class Response
         @list($headers, $body) =
             explode("\r\n\r\n", $agent->getResult(), 2);
 
-        $this->setBody($body);
-
         $headers = Agent::parseResponseHeaders($headers);
         foreach ($headers as $key => $value) {
             $this->setHeader($key, $value);
@@ -28,6 +26,10 @@ class Response
             $this->setStatusCode($headers['_status']['code'])
                  ->setStatusText($headers['_status']['text']);
         }
+
+        $this->setBody($body,
+            (isset($headers['Content-Type']) &&
+                   $headers['Content-Type'] == 'application/json'));
     }
 
     public function setStatusCode($statusCode) {
@@ -46,8 +48,9 @@ class Response
         return $this->statusText;
     }
 
-    public function setBody($body) {
-        $this->body = json_decode($body, true);
+    public function setBody($body, $isJson = true) {
+        $this->body = $isJson
+            ? json_decode($body, true) : $body;
         return $this;
     }
     public function setHeader($key, $value) {
