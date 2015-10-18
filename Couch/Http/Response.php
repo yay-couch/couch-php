@@ -12,11 +12,6 @@ class Response
             $statusText;
 
     public function __construct(Agent $agent) {
-        if ($agent->isFail()) {
-            throw new \Exception(
-                $agent->getFailText(), $agent->getFailCode());
-        }
-
         @list($headers, $body) =
             explode("\r\n\r\n", $agent->getResult(), 2);
 

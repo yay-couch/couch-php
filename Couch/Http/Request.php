@@ -30,9 +30,13 @@ class Request
 
     public function send() {
         $agent = $this->client->couch->getHttpAgent();
-        if (false === $agent->run($this)) {
-            throw new \Exception('Error!');
+        $agent->run($this)
+
+        if ($agent->isFail()) {
+            throw new \Exception(
+                $agent->getFailText(), $agent->getFailCode());
         }
+
         return new Response($agent);
     }
 
