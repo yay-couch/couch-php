@@ -54,6 +54,13 @@ class Request
         return $this;
     }
 
+    public function getMethod() {
+        return $this->method;
+    }
+    public function getUri() {
+        return $this->uri;
+    }
+
     public function setBody($body) {
         if (is_array($body) || is_object($body)) {
             $body = json_encode($body);
