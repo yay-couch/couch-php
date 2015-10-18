@@ -28,24 +28,21 @@ class Sock
             $headers['Connection'] = 'close';
             $headers = $headers + $request->headers;
 
-            $payload = sprintf("%s %s%s HTTP/1.1\r\n",
-                $request->method, $url['path'], $url['query']);
+            fwrite($this->link,
+                sprintf("%s %s%s HTTP/1.1\r\n",
+                    $request->method, $url['path'], $url['query']));
             foreach ($headers as $key => $val) {
-                $payload .= sprintf("%s: %s\r\n", $key, $val);
+                fwrite($this->link, sprintf("%s: %s\r\n", $key, $val));
             }
-            $payload .= "\r\n";
+            fwrite($this->link, "\r\n");
 
             $body = $request->body;
-            if (!empty($body) && is_array($body)) {
+            if (is_array($body)) {
                 $body = json_encode($body);
-            } else {
-                $body = '';
             }
-            $payload .= $body;
+            fwrite($this->link, $body);
 
             $request->setBodyRaw($body);
-
-            fwrite($this->link, $payload);
 
             stream_set_timeout($this->link, $this->config['timeout']);
             stream_set_blocking($this->link, $this->config['blocking']);
