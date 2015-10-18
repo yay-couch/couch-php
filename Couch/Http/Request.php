@@ -53,7 +53,7 @@ class Request
     }
 
     public function setBody($body) {
-        if (is_array($body)) {
+        if (is_array($body) || is_object($body)) {
             $body = json_encode($body);
         }
         $this->body = $body;
