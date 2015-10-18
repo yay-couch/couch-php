@@ -31,7 +31,7 @@ class Sock
             $payload = sprintf("%s %s%s HTTP/1.1\r\n",
                 $request->method, $url['path'], $url['query']);
             foreach ($headers as $key => $val) {
-                $payload .= sprintf("%s:%s\r\n", $key, $val);
+                $payload .= sprintf("%s: %s\r\n", $key, $val);
             }
             $payload .= "\r\n";
 
