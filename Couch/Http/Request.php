@@ -66,9 +66,11 @@ class Request
             $body = json_encode($body);
         }
 
-        $this->setHeader('Content-Length', strlen($body));
-        if ($isJson) {
-            $this->setHeader('Content-Type', 'application/json');
+        if (!empty($body)) {
+            $this->setHeader('Content-Length', strlen($body));
+            if ($isJson) {
+                $this->setHeader('Content-Type', 'application/json');
+            }
         }
 
         $this->body = $body;
