@@ -12,12 +12,10 @@ class Server
     }
 
     public function ping() {
-        $response = $this->client->request('GET /');
-        return (200 === $response->statusCode);
+        return (200 === $this->client->head('/')->getStatusCode());
     }
 
     public function info() {
-        $response = $this->client->request('GET /');
-        return $response->body;
+        return $this->client->get('/')->getData();
     }
 }
