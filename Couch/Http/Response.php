@@ -23,8 +23,7 @@ class Response
         @list($headers, $body) =
             explode("\r\n\r\n", $agent->getResult(), 2);
 
-        $this->setBody($body)
-             ->setBodyRaw($body);
+        $this->setBody($body);
 
         $headers = Agent::parseResponseHeaders($headers);
         foreach ($headers as $key => $value) {
@@ -48,10 +47,6 @@ class Response
 
     public function setBody($body) {
         $this->body = json_decode($body, true);
-        return $this;
-    }
-    public function setBodyRaw($bodyRaw) {
-        $this->bodyRaw = $bodyRaw;
         return $this;
     }
     public function setHeader($key, $value) {

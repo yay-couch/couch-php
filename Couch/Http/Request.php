@@ -59,10 +59,6 @@ class Request
         $this->body = $body;
         return $this;
     }
-    public function setBodyRaw($bodyRaw) {
-        $this->bodyRaw = $bodyRaw;
-        return $this;
-    }
     public function setHeader($key, $value) {
         $this->headers[$key] = $value;
         return $this;
