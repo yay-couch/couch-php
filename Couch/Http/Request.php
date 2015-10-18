@@ -40,24 +40,7 @@ class Request
             throw new \Exception('Error!');
         }
 
-        @list($headers, $body) = explode("\r\n\r\n", $result, 2);
-
-        $response = (new Response())
-            ->setBody($body)
-            ->setBodyRaw($body);
-
-        $headers = Agent::parseResponseHeaders($headers);
-        foreach ($headers as $key => $value) {
-            $response->setHeader($key, $value);
-        }
-
-        if (isset($response->headers['_status']['code'],
-                  $response->headers['_status']['text'])) {
-            $response->setStatusCode($response->headers['_status']['code'])
-                     ->setStatusText($response->headers['_status']['text']);
-        }
-
-        return $response;
+        return new Response($result);
     }
 
     public function setMethod($method) {

@@ -14,6 +14,23 @@ class Response
             $bodyRaw;
     private $headers = [];
 
+    public function __construct($result) {
+        @list($headers, $body) = explode("\r\n\r\n", $result, 2);
+
+        $this->setBody($body)
+             ->setBodyRaw($body);
+
+        $headers = Agent::parseResponseHeaders($headers);
+        foreach ($headers as $key => $value) {
+            $this->setHeader($key, $value);
+        }
+
+        if (isset($headers['_status']['code'], $headers['_status']['text'])) {
+            $this->setStatusCode($headers['_status']['code'])
+                 ->setStatusText($headers['_status']['text']);
+        }
+    }
+
     public function setStatusCode($statusCode) {
         $this->statusCode = $statusCode;
         return $this;
