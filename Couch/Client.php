@@ -58,6 +58,7 @@ class Client
             ->setMethod($match[1])
             ->setUri($uri, $uriParams)
             ->setBody($body);
+
         if (!empty($headers)) {
             foreach ($headers as $key => $value) {
                 $this->request->setHeader($key, $value);
