@@ -20,8 +20,8 @@ class Client
     private $username,
             $password;
 
-    // private $request,
-    //         $response;
+    private $request,
+            $response;
 
     public function __construct(Couch $couch, array $config = []) {
         $this->couch = $couch;
@@ -53,17 +53,23 @@ class Client
             $uri = sprintf('%s?%s', $uri, http_build_query($uriParams));
         }
 
-        $request = (new Request($this))
+        $this->request = (new Request($this))
             ->setMethod($match[1])
             ->setUri($uri)
             ->setBody($body);
         if (!empty($headers)) {
             foreach ($headers as $key => $value) {
-                $request->setHeader($key, $value);
+                $this->request->setHeader($key, $value);
             }
         }
 
-        $response = $request->send();
-        return $response;
+        return ($this->response = $this->request->send());
+    }
+
+    public function getRequest() {
+        return $this->request;
+    }
+    public function getResponse() {
+        return $this->response;
     }
 }
