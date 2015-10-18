@@ -63,4 +63,5 @@ abstract class Agent
     }
 
     abstract public function run(Request $request);
+    abstract public function clean();
 }

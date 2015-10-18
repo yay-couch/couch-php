@@ -43,20 +43,28 @@ class Sock
             $this->result = '';
             while (!feof($this->link)) {
                 if ($meta['timed_out']) {
-                    fclose($this->link);
-                    $this->link = null;
+
+                    $this->clean();
+
                     throw new Exception('Time out!');
                 }
+
                 $this->result .= fgets($this->link, 1024);
                 $meta = stream_get_meta_data($this->link);
             }
 
-            fclose($this->link);
-            $this->link = null;
+            $this->clean();
 
             return true;
         }
 
         return false;
+    }
+
+    public function clean() {
+        if (is_resource($this->link)) {
+            fclose($this->link);
+            $this->link = null;
+        }
     }
 }

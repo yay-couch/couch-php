@@ -57,18 +57,23 @@ class Curl
                 $this->failCode = curl_errno($this->link);
                 $this->failText = curl_error($this->link);
 
-                curl_close($this->link);
-                $this->link = null;
+                $this->clean();
 
                 return false;
             }
 
-            curl_close($this->link);
-            $this->link = null;
+            $this->clean();
 
             return true;
         }
 
         return false;
+    }
+
+    public function clean() {
+        if (is_resource($this->link)) {
+            curl_close($this->link);
+            $this->link = null;
+        }
     }
 }
