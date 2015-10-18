@@ -11,7 +11,7 @@ abstract class Agent
 
     protected $config = [
         'timeout' => 5,
-        'blocking' => true
+        'blocking' => 1
     ];
 
     public function __construct(array $config = []) {
