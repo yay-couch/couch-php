@@ -38,6 +38,9 @@ class Curl
                 $options[CURLOPT_FOLLOWLOCATION] = true;
             } else {
                 $options[CURLOPT_RETURNTRANSFER] = true;
+                if ($request->method != Request::METHOD_GET) {
+                    $options[CURLOPT_POSTFIELDS] = $request->body;
+                }
             }
 
             curl_setopt_array($this->link, $options);
