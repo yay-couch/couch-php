@@ -32,12 +32,12 @@ class Sock
             $headers['Connection'] = 'close';
             $headers = $headers + $request->headers;
 
-            $theRequest = sprintf("%s %s%s HTTP/1.1\r\n",
+            $payload = sprintf("%s %s%s HTTP/1.1\r\n",
                 $request->method, $url['path'], $url['query']);
             foreach ($headers as $key => $val) {
-                $theRequest .= sprintf("%s:%s\r\n", $key, $val);
+                $payload .= sprintf("%s:%s\r\n", $key, $val);
             }
-            $theRequest .= "\r\n";
+            $payload .= "\r\n";
 
             $body = $request->body;
             if (!empty($body) && is_array($body)) {
@@ -45,11 +45,11 @@ class Sock
             } else {
                 $body = '';
             }
-            $theRequest .= $body;
+            $payload .= $body;
 
             $request->setBodyRaw($body);
 
-            fwrite($this->link, $theRequest);
+            fwrite($this->link, $payload);
 
             stream_set_timeout($this->link, $this->config['timeout']);
             stream_set_blocking($this->link, $this->config['blocking']);
