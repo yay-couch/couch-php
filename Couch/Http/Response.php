@@ -10,8 +10,7 @@ class Response
     private $statusCode,
             $statusText;
 
-    private $body,
-            $bodyRaw;
+    private $body;
     private $headers = [];
 
     public function __construct(Agent $agent) {
