@@ -37,6 +37,13 @@ class Response
         return $this;
     }
 
+    public function getStatusCode() {
+        return $this->statusCode;
+    }
+    public function getStatusText() {
+        return $this->statusText;
+    }
+
     public function setBody($body) {
         $this->body = json_decode($body, true);
         return $this;
