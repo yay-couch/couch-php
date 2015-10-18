@@ -18,6 +18,7 @@ class Request
           METHOD_DELETE = 'DELETE';
 
     private $client;
+
     private $method;
     private $uri;
 
@@ -32,12 +33,13 @@ class Request
         $agent = $this->client->couch->getHttpAgent();
         $agent->run($this);
 
+        // request failed?
         if ($agent->isFail()) {
             throw new Exception(
                 $agent->getFailText(), $agent->getFailCode());
         }
 
-        return new Response($agent);
+        return $agent;
     }
 
     public function setMethod($method) {

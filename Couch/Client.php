@@ -60,7 +60,9 @@ class Client
             }
         }
 
-        return ($this->response = $this->request->send());
+        $agent = $this->request->send();
+
+        return ($this->response = new Response($agent));
     }
 
     public function getRequest() {
