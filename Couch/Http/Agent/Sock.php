@@ -22,10 +22,6 @@ class Sock
             $this->config['timeout']
         );
 
-        if ($this->failText !== '') {
-            throw new \Exception($this->failText, $this->failCode);
-        }
-
         if (is_resource($this->link)) {
             $headers = [];
             $headers['Host'] = $url['host'];

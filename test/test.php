@@ -21,7 +21,6 @@ pre($serverInfo);
 
 
 
-
 // $s = fsockopen('ssl://localhost', 5984, $ec, $et);
 // prd(error_get_last());
 // prd($s);

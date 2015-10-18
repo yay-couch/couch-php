@@ -35,10 +35,6 @@ class Curl
                 $this->failText = curl_error($this->link);
             }
 
-            if ($this->failText !== '') {
-                throw new \Exception($this->failText, $this->failCode);
-            }
-
             curl_close($this->link);
             $this->link = null;
 
