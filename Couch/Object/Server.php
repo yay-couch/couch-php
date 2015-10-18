@@ -22,4 +22,7 @@ class Server
     public function getActiveTasks() {
         return $this->client->get('/_active_tasks')->getData();
     }
+    public function getAllDatabases() {
+        return $this->client->get('/_all_dbs')->getData();
+    }
 }
