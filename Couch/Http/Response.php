@@ -12,6 +12,8 @@ class Response
             $statusText;
 
     public function __construct(Agent $agent) {
+        // pre($agent->getResult(),1);
+
         @list($headers, $body) =
             explode("\r\n\r\n", $agent->getResult(), 2);
 
