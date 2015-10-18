@@ -25,6 +25,7 @@ class Request
             $bodyRaw;
     private $headers = [
         'Accept' => 'application/json',
+        'User-Agent' => 'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)',
     ];
 
     public function __construct(Client $client) {
@@ -32,14 +33,10 @@ class Request
     }
 
     public function send() {
-        $this->headers['User-Agent'] =
-            'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
-
         $agent = $this->client->couch->getHttpAgent();
         if (false === $agent->run($this)) {
             throw new \Exception('Error!');
         }
-
         return new Response($agent);
     }
 
