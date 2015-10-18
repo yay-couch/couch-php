@@ -47,7 +47,7 @@ class Sock
             }
             $theRequest .= $body;
 
-            $request->setBodyRaw($theRequest);
+            $request->setBodyRaw($body);
 
             fwrite($this->link, $theRequest);
 
