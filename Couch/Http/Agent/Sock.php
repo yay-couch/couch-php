@@ -28,9 +28,8 @@ class Sock
             $headers['Connection'] = 'close';
             $headers = $headers + $request->headers;
 
-            fwrite($this->link,
-                sprintf("%s %s%s HTTP/1.1\r\n",
-                    $request->method, $url['path'], $url['query']));
+            fwrite($this->link, sprintf("%s %s%s HTTP/1.1\r\n",
+                $request->method, $url['path'], $url['query']));
             foreach ($headers as $key => $val) {
                 fwrite($this->link, sprintf("%s: %s\r\n", $key, $val));
             }
