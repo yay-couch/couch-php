@@ -15,6 +15,10 @@ abstract class Stream
             ? $this->headers[$key] : null;
     }
 
+    public function getHeaderAll() {
+        return $this->headers;
+    }
+
     abstract public function setBody($body);
     abstract public function setHeader($key, $value);
 }
