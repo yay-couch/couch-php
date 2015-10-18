@@ -56,18 +56,23 @@ class Request
 
     public function setMethod($method) {
         $this->method = $method;
+        return $this;
     }
     public function setUri($uri) {
         $this->uri = $uri;
+        return $this;
     }
 
     public function setBody($body) {
         $this->body = $body;
+        return $this;
     }
     public function setBodyRaw($bodyRaw) {
         $this->bodyRaw = $bodyRaw;
+        return $this;
     }
     public function setHeader($key, $value) {
         $this->headers[$key] = $value;
+        return $this;
     }
 }

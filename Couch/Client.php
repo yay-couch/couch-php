@@ -53,10 +53,10 @@ class Client
             $uri = sprintf('%s?%s', $uri, http_build_query($uriParams));
         }
 
-        $request = new Request($this);
-        $request->setMethod($match[1]);
-        $request->setUri($uri);
-        $request->setBody($body);
+        $request = (new Request($this))
+            ->setMethod($match[1])
+            ->setUri($uri)
+            ->setBody($body);
         if (!empty($headers)) {
             foreach ($headers as $key => $value) {
                 $request->setHeader($key, $value);
