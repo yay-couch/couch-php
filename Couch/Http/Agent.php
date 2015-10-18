@@ -50,6 +50,7 @@ abstract class Agent
             if (!$key) {
                 continue;
             }
+            $value = trim($value);
             // handle multi-headers as array
             if (isset($return[$key])) {
                 $return[$key] = array_merge((array) $return[$key], [$value]);
