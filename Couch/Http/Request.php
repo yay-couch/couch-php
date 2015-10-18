@@ -35,8 +35,8 @@ class Request
         $this->headers['User-Agent'] =
             'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
 
-        $result = $this->client->couch->getHttpAgent()->run($this);
-        if ($result === false) {
+        $agent = $this->client->couch->getHttpAgent();
+        if (false === ($result = $agent->run($this))) {
             throw new \Exception('Error!');
         }
 
