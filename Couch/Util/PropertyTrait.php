@@ -4,7 +4,7 @@ namespace Couch\Util;
 trait PropertyTrait
 {
     /**
-     * Forbid mutate actions.
+     * Setter method (forbids mutate actions).
      *
      * @param  string $name
      * @param  any    $value
@@ -13,7 +13,7 @@ trait PropertyTrait
      */
     public function __set($name, $value) {
         throw new \Exception(sprintf(
-            '`%s` object is readonly', get_called_class()));
+            '`%s` object is read-only!', get_called_class()));
     }
 
     /**
