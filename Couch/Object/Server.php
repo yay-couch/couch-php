@@ -15,8 +15,13 @@ class Server
         return (200 === $this->client->head('/')->getStatusCode());
     }
 
-    public function info() {
-        return $this->client->get('/')->getData();
+    public function info($key = null) {
+        $info = $this->client->get('/')->getData();
+        return ($key && isset($info[$key]))
+            ? $info[$key] : $info;
+    }
+    public function version() {
+        return $this->info('version');
     }
 
     public function getActiveTasks() {
