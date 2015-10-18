@@ -16,20 +16,36 @@ class Curl
             $headers = [];
             // proper response headers/body pairs
             $headers[] = 'Expect: ';
+            $headers[] = 'X-HTTP-Method-Override: '. $request->method;
             foreach ($request->headers as $key => $value) {
                 $headers[] = sprintf('%s: %s', $key, $value);
             }
 
-            curl_setopt_array($this->link, [
+            $options = [
                 CURLOPT_CUSTOMREQUEST  => $request->method,
-                CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HEADER         => true,
                 CURLOPT_HTTPHEADER     => $headers,
                 CURLOPT_USERAGENT      => $request->headers['User-Agent'],
+                CURLOPT_CONNECTTIMEOUT => $this->config['timeout'],
+                CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
                 CURLINFO_HEADER_OUT    => true
-            ]);
+            ];
 
-            $this->result =@ curl_exec($this->link);
+            if ($request->method == Request::METHOD_HEAD) {
+                $options[CURLOPT_NOBODY] = true;
+                $options[CURLOPT_FOLLOWLOCATION] = true;
+            } else {
+                $options[CURLOPT_RETURNTRANSFER] = true;
+            }
+            curl_setopt_array($this->link, $options);
+
+            ob_start();
+            $result =@ curl_exec($this->link);
+            $this->result = ob_get_clean();
+            if (is_string($result)) {
+                $this->result = $result;
+            }
+
             if ($this->result === false) {
                 $this->failCode = curl_errno($this->link);
                 $this->failText = curl_error($this->link);
