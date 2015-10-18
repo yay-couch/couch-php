@@ -51,6 +51,12 @@ class Request
             $response->setHeader($key, $value);
         }
 
+        if (isset($response->headers['_status']['code'],
+                  $response->headers['_status']['text'])) {
+            $response->setStatusCode($response->headers['_status']['code'])
+                     ->setStatusText($response->headers['_status']['text']);
+        }
+
         return $response;
     }
 
