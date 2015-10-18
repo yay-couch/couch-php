@@ -47,8 +47,7 @@ class Response
     }
 
     public function setBody($body) {
-        $body = json_decode($body, true);
-        $this->body = $body;
+        $this->body = json_decode($body, true);
         return $this;
     }
     public function setBodyRaw($bodyRaw) {
