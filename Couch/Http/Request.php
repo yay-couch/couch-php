@@ -49,6 +49,7 @@ class Request
 
     public function setMethod($method) {
         $this->method = strtoupper($method);
+        $this->setHeader('X-HTTP-Method-Override', $this->method);
 
         return $this;
     }
