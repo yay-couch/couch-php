@@ -21,7 +21,7 @@ class Curl
             }
 
             curl_setopt_array($this->link, [
-                CURLOPT_CUSTOMREQUEST  => Request::METHOD_GET,
+                CURLOPT_CUSTOMREQUEST  => $request->method,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HEADER         => true,
                 CURLOPT_HTTPHEADER     => $headers,
