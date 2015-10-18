@@ -55,19 +55,19 @@ class Sock
             stream_set_blocking($this->link, $this->config['blocking']);
             $meta = stream_get_meta_data($this->link);
 
-            $theResponse = '';
+            $this->result = '';
             while (!feof($this->link)) {
                 if ($meta['timed_out']) {
                     throw new \Exception('Time out!');
                 }
-                $theResponse .= fgets($this->link, 1024);
+                $this->result .= fgets($this->link, 1024);
                 $meta = stream_get_meta_data($this->link);
             }
 
             fclose($this->link);
             $this->link = null;
 
-            return $theResponse;
+            return $this->result;
         }
 
         return false;

@@ -29,8 +29,8 @@ class Curl
                 CURLINFO_HEADER_OUT    => true
             ]);
 
-            $theResponse =@ curl_exec($this->link);
-            if ($theResponse === false) {
+            $this->result =@ curl_exec($this->link);
+            if ($this->result === false) {
                 $this->failCode = curl_errno($this->link);
                 $this->failText = curl_error($this->link);
             }
@@ -42,7 +42,7 @@ class Curl
             curl_close($this->link);
             $this->link = null;
 
-            return $theResponse;
+            return $this->result;
         }
 
         return false;

@@ -4,6 +4,7 @@ namespace Couch\Http;
 abstract class Agent
 {
     protected $link;
+    protected $result;
 
     protected $failCode = 0,
               $failText = '';
