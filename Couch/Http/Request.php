@@ -42,9 +42,9 @@ class Request
 
         @list($headers, $body) = explode("\r\n\r\n", $result, 2);
 
-        $response = new Response();
-        $response->setBody($body);
-        $response->setBodyRaw($body);
+        $response = (new Response())
+            ->setBody($body)
+            ->setBodyRaw($body);
 
         $headers = Agent::parseResponseHeaders($headers);
         foreach ($headers as $key => $value) {
