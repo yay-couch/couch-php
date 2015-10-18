@@ -51,6 +51,8 @@ class Sock
             $this->result = '';
             while (!feof($this->link)) {
                 if ($meta['timed_out']) {
+                    fclose($this->link);
+                    $this->link = null;
                     throw new \Exception('Time out!');
                 }
                 $this->result .= fgets($this->link, 1024);
