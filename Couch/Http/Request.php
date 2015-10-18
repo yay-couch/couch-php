@@ -23,13 +23,13 @@ class Request
 
     private $body,
             $bodyRaw;
-    private $headers = [
-        'Accept' => 'application/json',
-        'User-Agent' => 'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)',
-    ];
+    private $headers = [];
 
     public function __construct(Client $client) {
         $this->client = $client;
+
+        $this->headers['Accept'] = 'application/json';
+        $this->headers['User-Agent'] = 'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
     }
 
     public function send() {
