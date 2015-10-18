@@ -25,6 +25,11 @@ class Request
     public function __construct(Client $client) {
         $this->client = $client;
 
+        if ($client->username && $client->password) {
+            $this->headers['Authorization'] =
+                'Basic '. base64_encode($client->username .':'. $client->password);
+        }
+
         $this->headers['Accept'] = 'application/json';
         $this->headers['User-Agent'] = 'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
     }
@@ -44,6 +49,7 @@ class Request
 
     public function setMethod($method) {
         $this->method = strtoupper($method);
+
         return $this;
     }
     public function setUri($uri, array $uriParams = null) {
@@ -51,6 +57,7 @@ class Request
         if (!empty($uriParams)) {
             $this->uri = sprintf('%s?%s', $this->uri, http_build_query($uriParams));
         }
+
         return $this;
     }
 
@@ -79,6 +86,7 @@ class Request
     }
     public function setHeader($key, $value) {
         $this->headers[$key] = $value;
+
         return $this;
     }
 }
