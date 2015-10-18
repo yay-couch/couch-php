@@ -4,14 +4,12 @@ namespace Couch\Http;
 use \Couch\Util\PropertyTrait as Property;
 
 class Response
+    extends Stream
 {
     use Property;
 
     private $statusCode,
             $statusText;
-
-    private $body;
-    private $headers = [];
 
     public function __construct(Agent $agent) {
         if ($agent->isFail()) {

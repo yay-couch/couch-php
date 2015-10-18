@@ -6,6 +6,7 @@ use \Couch\Client;
 use \Couch\Util\PropertyTrait as Property;
 
 class Request
+    extends Stream
 {
     use Property;
 
@@ -17,12 +18,8 @@ class Request
           METHOD_DELETE = 'DELETE';
 
     private $client;
-
     private $method;
     private $uri;
-
-    private $body;
-    private $headers = [];
 
     public function __construct(Client $client) {
         $this->client = $client;
