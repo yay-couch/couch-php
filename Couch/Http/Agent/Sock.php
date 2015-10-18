@@ -24,7 +24,7 @@ class Sock
 
         if (is_resource($this->link)) {
             $headers = [];
-            $headers['Host'] = $url['host'];
+            $headers['Host'] = $url['host'] .':'. $url['port'];
             $headers['Connection'] = 'close';
             $headers = $headers + $request->headers;
 
