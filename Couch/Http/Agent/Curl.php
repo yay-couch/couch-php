@@ -14,8 +14,7 @@ class Curl
         $this->link =@ curl_init($request->uri);
         if (is_resource($this->link)) {
             $headers = [];
-            // proper response headers/body pairs
-            $headers[] = 'Expect: ';
+            $headers[] = 'Expect: '; // proper response headers/body pairs
             $headers[] = 'X-HTTP-Method-Override: '. $request->method;
             foreach ($request->headers as $key => $value) {
                 $headers[] = sprintf('%s: %s', $key, $value);
