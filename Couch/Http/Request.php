@@ -33,7 +33,7 @@ class Request
         $agent->run($this);
 
         if ($agent->isFail()) {
-            throw new \Exception(
+            throw new Exception(
                 $agent->getFailText(), $agent->getFailCode());
         }
 
