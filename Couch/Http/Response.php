@@ -15,8 +15,13 @@ class Response
     private $headers = [];
 
     public function __construct(Agent $agent) {
-        @list($headers, $body) = explode(
-            "\r\n\r\n", $agent->getResult(), 2);
+        if ($agent->isFail()) {
+            throw new \Exception(
+                $agent->getFailText(), $agent->getFailCode());
+        }
+
+        @list($headers, $body) =
+            explode("\r\n\r\n", $agent->getResult(), 2);
 
         $this->setBody($body)
              ->setBodyRaw($body);

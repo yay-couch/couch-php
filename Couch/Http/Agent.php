@@ -22,15 +22,14 @@ abstract class Agent
         return $this->result;
     }
 
+    public function isFail() {
+        return ('' !== $this->failText);
+    }
     public function getFailCode() {
         return $this->failCode;
     }
     public function getFailText() {
         return $this->failText;
-    }
-
-    public function isFail() {
-        return ('' !== $this->failText);
     }
 
     public static function parseRequestHeaders($headers) {}
