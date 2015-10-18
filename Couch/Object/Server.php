@@ -18,4 +18,8 @@ class Server
     public function info() {
         return $this->client->get('/')->getData();
     }
+
+    public function getActiveTasks() {
+        return $this->client->get('/_active_tasks')->getData();
+    }
 }
