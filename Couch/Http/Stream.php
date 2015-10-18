@@ -6,6 +6,11 @@ abstract class Stream
     protected $body;
     protected $headers = [];
 
+    // alias
+    public function getData() {
+        return $this->body;
+    }
+
     public function getBody() {
         return $this->body;
     }
