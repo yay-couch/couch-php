@@ -16,8 +16,6 @@ class Curl
             $headers = [];
             // proper response headers/body pairs
             $headers[] = 'Expect: ';
-            // method override
-            $headers[] = 'X-HTTP-Method-Override: '. $request->method;
             foreach ($request->headers as $key => $value) {
                 $headers[] = sprintf('%s: %s', $key, $value);
             }
