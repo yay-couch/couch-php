@@ -4,9 +4,6 @@ namespace Couch;
 use \Couch\Couch;
 use \Couch\Http\Request,
     \Couch\Http\Response;
-use \Couch\Object\Server,
-    \Couch\Object\Database,
-    \Couch\Object\Document;
 use \Couch\Util\PropertyTrait as Property;
 
 class Client
