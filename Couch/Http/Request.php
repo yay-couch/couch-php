@@ -41,7 +41,7 @@ class Request
     }
 
     public function setMethod($method) {
-        $this->method = $method;
+        $this->method = strtoupper($method);
         return $this;
     }
     public function setUri($uri) {
