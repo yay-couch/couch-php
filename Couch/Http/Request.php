@@ -61,11 +61,18 @@ class Request
         return $this->uri;
     }
 
-    public function setBody($body) {
+    public function setBody($body, $isJson = true) {
         if (is_array($body) || is_object($body)) {
             $body = json_encode($body);
         }
+
+        $this->setHeader('Content-Length', strlen($body));
+        if ($isJson) {
+            $this->setHeader('Content-Type', 'application/json');
+        }
+
         $this->body = $body;
+
         return $this;
     }
     public function setHeader($key, $value) {
