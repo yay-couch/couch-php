@@ -21,8 +21,7 @@ class Request
     private $method;
     private $uri;
 
-    private $body,
-            $bodyRaw;
+    private $body;
     private $headers = [];
 
     public function __construct(Client $client) {
