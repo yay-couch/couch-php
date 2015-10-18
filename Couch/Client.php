@@ -39,6 +39,13 @@ class Client
         }
     }
 
+    public function getRequest() {
+        return $this->request;
+    }
+    public function getResponse() {
+        return $this->response;
+    }
+
     public function request($uri, array $uriParams = null, $body = null, array $headers = []) {
         preg_match('~^([a-z]+)\s+(/.*)~i', $uri, $match);
         if (!isset($match[1], $match[2])) {
@@ -60,12 +67,5 @@ class Client
         $agent = $this->request->send();
 
         return ($this->response = new Response($agent));
-    }
-
-    public function getRequest() {
-        return $this->request;
-    }
-    public function getResponse() {
-        return $this->response;
     }
 }
