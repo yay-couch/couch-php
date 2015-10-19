@@ -111,4 +111,22 @@ class Database
 
         return $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
     }
+
+    public function deleteDocument($document) {
+        $data = $this->deleteDocumentAll([$document]);
+        if (isset($data[0])) {
+            return $data[0];
+        }
+    }
+    public function deleteDocumentAll(array $documents) {
+        $docs = [];
+        foreach ($documents as $document) {
+            if ($document instanceof Document) {
+                $document = $document->getData();
+            }
+            $docs[] = $document + ['_deleted' => true];
+        }
+
+        return $this->updateDocumentAll($docs);
+    }
 }
