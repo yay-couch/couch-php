@@ -65,17 +65,9 @@ class Database
         }
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#db-bulk-docs
+    // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#inserting-documents-in-bulk
     public function createDocument($document) {
-        if ($document instanceof Document) {
-            $document = $document->getData();
-        }
-        // this is create method, no update allowed
-        if (isset($document['_id']))      unset($document['_id']);
-        if (isset($document['_rev']))     unset($document['_rev']);
-        if (isset($document['_deleted'])) unset($document['_deleted']);
-
-        $data = $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => [$document]])->getData();
+        $data = $this->createDocumentAll([$document]);
         if (isset($data[0])) {
             return $data[0];
         }
@@ -91,6 +83,29 @@ class Database
             if (isset($document['_rev']))     unset($document['_rev']);
             if (isset($document['_deleted'])) unset($document['_deleted']);
 
+            $docs[] = $document;
+        }
+
+        return $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
+    }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#updating-documents-in-bulk
+    public function updateDocument($document) {
+        $data = $this->updateDocumentAll([$document]);
+        if (isset($data[0])) {
+            return $data[0];
+        }
+    }
+    public function updateDocumentAll(array $documents) {
+        $docs = [];
+        foreach ($documents as $document) {
+            if ($document instanceof Document) {
+                $document = $document->getData();
+            }
+            // these are required params
+            if (!isset($document['_id'], $document['_rev'])) {
+                throw new Exception('Both _id & _rev fields are required!');
+            }
             $docs[] = $document;
         }
 
