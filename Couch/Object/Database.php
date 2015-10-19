@@ -159,4 +159,11 @@ class Database
             ])->getData();
         }
     }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-ensure-full-commit
+    public function ensureFullCommit() {
+        return $this->client->post('/'. $this->name .'/_ensure_full_commit', null, null, [
+            'Content-Type' => 'application/json'
+        ])->getData();
+    }
 }
