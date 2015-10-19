@@ -12,4 +12,10 @@ abstract class Util
     public static function quote($input) {
         return str_replace('"', '%022', $input);
     }
+
+    public static function getArrayValue($key, array $array) {
+        if (array_key_exists($key, $array)) {
+            return $array[$key];
+        }
+    }
 }
