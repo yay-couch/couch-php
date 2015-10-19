@@ -35,8 +35,8 @@ class Sock
             // http://forums.devnetwork.net/viewtopic.php?f=1&t=113225#p595221
             fwrite($this->link, sprintf("%s %s%s HTTP/1.0\r\n",
                 $request->method, $url['path'], $url['query']));
-            foreach ($headers as $key => $val) {
-                fwrite($this->link, sprintf("%s: %s\r\n", $key, $val));
+            foreach ($headers as $key => $value) {
+                fwrite($this->link, sprintf("%s: %s\r\n", $key, $value));
             }
             fwrite($this->link, "\r\n");
             fwrite($this->link, $request->body);
