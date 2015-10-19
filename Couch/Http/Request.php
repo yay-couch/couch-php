@@ -57,7 +57,7 @@ class Request
         $this->uri = $uri;
         if (!empty($uriParams)) {
             // convert booleans
-            foreach ($$uriParams as $key => $value) {
+            foreach ($uriParams as $key => $value) {
                 if (is_bool($value)) {
                     $uriParams[$key] = $value ? 'true' : 'false';
                 }
