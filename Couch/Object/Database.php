@@ -40,6 +40,11 @@ class Database
     public function remove() {
         return (true === $this->client->delete('/'. $this->name)->getData('ok'));
     }
+    public function replicate($target) {
+        return $this->client->post('/_replicate', null, [
+            'source' => $this->name, 'target' => $target, 'create_target' => true
+        ])->getData();
+    }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#get--{db}-_all_docs
     public function getDocument($key) {
