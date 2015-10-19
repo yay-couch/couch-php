@@ -166,4 +166,11 @@ class Database
             'Content-Type' => 'application/json'
         ])->getData();
     }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-view-cleanup
+    public function viewCleanup() {
+        return $this->client->post('/'. $this->name .'/_view_cleanup', null, null, [
+            'Content-Type' => 'application/json'
+        ])->getData();
+    }
 }
