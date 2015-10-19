@@ -26,3 +26,8 @@ $server = new Couch\Object\Server($client);
 // pre($server->getStats());
 // pre($server->getStats('/couchdb/request_time'));
 // pre($server->getUuid(3));
+// pre($server->getConfig());
+// pre($server->getConfig('couchdb'));
+// pre($server->getConfig('couchdb', 'uuid'));
+// prd($server->setConfig('couchdb', 'foo', 'the foo!'));
+// prd($server->removeConfig('couchdb', 'foo'));
