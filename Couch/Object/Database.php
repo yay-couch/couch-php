@@ -2,6 +2,7 @@
 namespace Couch\Object;
 
 use Couch\Client;
+use Couch\Util\Util;
 
 class Database
     extends \Couch\Object
@@ -41,11 +42,58 @@ class Database
     }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#get--{db}-_all_docs
-    public function getAllDocuments(array $query = null, array $keys = []) {
+    public function getDocument($key) {
+        $data = $this->client->get('/'. $this->name .'/_all_docs', [
+            'include_docs' => true,
+            'key' => sprintf('"%s"', Util::quote($key))
+        ])->getData();
+
+        if (isset($data['rows'][0])) {
+            return $data['rows'][0];
+        }
+    }
+    public function getDocumentAll(array $query = null, array $keys = []) {
+        // always get docs
+        if (!isset($query['include_docs'])) {
+            $query['include_docs'] = true;
+        }
+
         if (empty($keys)) {
             return $this->client->get('/'. $this->name .'/_all_docs', $query)->getData();
         } else {
             return $this->client->post('/'. $this->name .'/_all_docs', null, ['keys' => $keys])->getData();
         }
+    }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#db-bulk-docs
+    public function createDocument($document) {
+        if ($document instanceof Document) {
+            $document = $document->getData();
+        }
+        // this is create method, no update allowed
+        if (isset($document['_id']))      unset($document['_id']);
+        if (isset($document['_rev']))     unset($document['_rev']);
+        if (isset($document['_deleted'])) unset($document['_deleted']);
+
+        $data = $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => [$document]])->getData();
+        if (isset($data[0])) {
+            return $data[0];
+        }
+    }
+    public function createDocumentAll(array $documents) {
+        $docs = [];
+        foreach ($documents as $document) {
+            if ($document instanceof Document) {
+                $document = $document->getData();
+            }
+            // this is create method, no update allowed
+            if (isset($document['_id']))      unset($document['_id']);
+            if (isset($document['_rev']))     unset($document['_rev']);
+            if (isset($document['_deleted'])) unset($document['_deleted']);
+
+            $docs[] = $document;
+        }
+
+        return $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
     }
 }
