@@ -39,7 +39,11 @@ class Database
     }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#get--{db}-_all_docs
-    public function getAllDocuments(array $query = null) {
-        return $this->client->get('/'. $this->name .'/_all_docs', $query)->getData();
+    public function getAllDocuments(array $query = null, array $keys = []) {
+        if (empty($keys)) {
+            return $this->client->get('/'. $this->name .'/_all_docs', $query)->getData();
+        } else {
+            return $this->client->post('/'. $this->name .'/_all_docs', null, ['keys' => $keys])->getData();
+        }
     }
 }
