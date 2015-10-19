@@ -2,6 +2,7 @@
 namespace Couch\Object;
 
 use Couch\Client;
+use Couch\Util\Util;
 
 class Server
     extends \Couch\Object
@@ -21,8 +22,10 @@ class Server
     // http://docs.couchdb.org/en/1.5.1/api/server/common.html#api-server-root
     public function info($key = null) {
         $info = $this->client->get('/')->getData();
-        return ($key && isset($info[$key]))
-            ? $info[$key] : $info;
+        if ($key) {
+            return Util::getArrayValue($key, $info);
+        }
+        return $info;
     }
 
     // http://docs.couchdb.org/en/1.5.1/api/server/common.html#active-tasks
