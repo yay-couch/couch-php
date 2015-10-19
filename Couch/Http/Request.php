@@ -56,6 +56,12 @@ class Request
     public function setUri($uri, array $uriParams = null) {
         $this->uri = $uri;
         if (!empty($uriParams)) {
+            // convert booleans
+            foreach ($$uriParams as $key => $value) {
+                if (is_bool($value)) {
+                    $uriParams[$key] = $value ? 'true' : 'false';
+                }
+            }
             $this->uri = sprintf('%s?%s', $this->uri, http_build_query($uriParams));
         }
 
