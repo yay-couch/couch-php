@@ -14,16 +14,15 @@ $client = new Couch\Client($couch);
 // pre($r);
 
 $server = new Couch\Object\Server($client);
-prd($server->ping());
-$serverInfo = $server->info();
-pre($serverInfo);
-
-
-
-
-// $s = fsockopen('ssl://localhost', 5984, $ec, $et);
-// prd(error_get_last());
-// prd($s);
-// prd($ec);
-// prd($et);
-// @fclose($s);
+// prd($server->ping());
+// pre($server->info());
+// pre($server->version());
+// pre($server->getActiveTasks());
+// pre($server->getAllDatabases());
+// pre($server->getDatabaseUpdates());
+// pre($server->getLogs());
+// pre($server->replicate(['source' => 'foo', 'target' => 'foo_replica', 'create_target' => true]));
+// prd($server->restart());
+// pre($server->getStats());
+// pre($server->getStats('/couchdb/request_time'));
+// pre($server->getUuid(3));
