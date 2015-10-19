@@ -129,4 +129,16 @@ class Database
 
         return $this->updateDocumentAll($docs);
     }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/changes.html#get--{db}-_changes
+    public function getChanges(array $query = null, array $docIds = []) {
+        if (empty($docIds)) {
+            return $this->client->get('/'. $this->name .'/_changes', $query)->getData();
+        } else {
+            if (!isset($query['filter'])) {
+                $query['filter'] = '_doc_ids';
+            }
+            return $this->client->post('/'. $this->name .'/_changes', $query, ['doc_ids' => $docIds])->getData();
+        }
+    }
 }
