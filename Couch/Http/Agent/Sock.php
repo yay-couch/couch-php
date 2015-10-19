@@ -7,6 +7,9 @@ class Sock
     extends \Couch\Http\Agent
 {
     public function run(Request $request) {
+        // @tmp
+        // pre($request->body,1);
+
         $url = parse_url($request->uri);
         if (isset($url['query'])) {
             $url['query'] = '?'. $url['query'];
