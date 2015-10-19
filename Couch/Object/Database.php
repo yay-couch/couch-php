@@ -173,6 +173,13 @@ class Database
             'Content-Type' => 'application/json'
         ])->getData();
     }
+    // http://docs.couchdb.org/en/1.5.1/api/database/temp-views.html#db-temp-view
+    public function viewTemp($map, $reduce = null) {
+        return $this->client->post('/'. $this->name .'/_temp_view', null, [
+            'map' => $map,
+            'reduce' => $reduce
+        ])->getData();
+    }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/security.html#get--{db}-_security
     public function getSecurity() {
