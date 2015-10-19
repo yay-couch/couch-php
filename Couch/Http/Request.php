@@ -70,10 +70,7 @@ class Request
     }
 
     public function setBody($body, $isJson = true) {
-        if (is_array($body) || is_object($body)) {
-            $body = json_encode($body);
-        }
-
+        $body = json_encode($body);
         if (!empty($body)) {
             $this->setHeader('Content-Length', strlen($body));
             if ($isJson) {
