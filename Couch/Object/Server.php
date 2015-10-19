@@ -53,13 +53,29 @@ class Server
         return (202 === $this->client->post('/_restart')->getStatusCode());
     }
     // http://docs.couchdb.org/en/1.5.1/api/server/common.html#stats
-    public function getStats($path = '') {
-        return $this->client->get('/_stats'. $path)->getData();
+    public function getStats($path = null) {
+        return $this->client->get('/_stats/'. $path)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/server/common.html#uuids
     public function getUuid($count = 1) {
         $data = $this->client->get('/_uuids', ['count' => $count])->getData('uuids');
         return ($count === 1) ? $data[0] : $data;
     }
-
+    // http://docs.couchdb.org/en/1.5.1/api/server/configuration.html
+    public function getConfig($section = null, $key = null) {
+        $path = join('/', array_filter([$section, $key]));
+        return $this->client->get('/_config/'. $path)->getData();
+    }
+    public function setConfig($section, $key, $value) {
+        $path = join('/', [$section, $key]);
+        $response = $this->client->put('/_config/'. $path, null, $value);
+        return (200 === $response->getStatusCode())
+            ? $response->getData() : false;
+    }
+    public function removeConfig($section, $key) {
+        $path = join('/', [$section, $key]);
+        $response = $this->client->delete('/_config/'. $path);
+        return (200 === $response->getStatusCode())
+            ? $response->getData() : false;
+    }
 }
