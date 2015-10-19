@@ -69,16 +69,12 @@ class Request
         return $this->uri;
     }
 
-    public function setBody($body, $isJson = true) {
-        $body = json_encode($body);
+    public function setBody($body) {
         if (!empty($body)) {
-            $this->setHeader('Content-Length', strlen($body));
-            if ($isJson) {
-                $this->setHeader('Content-Type', 'application/json');
-            }
+            $this->body = json_encode($body);
+            $this->setHeader('Content-Type', 'application/json');
+            $this->setHeader('Content-Length', strlen($this->body));
         }
-
-        $this->body = $body;
 
         return $this;
     }
