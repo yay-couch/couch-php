@@ -8,7 +8,7 @@ class Sock
 {
     public function run(Request $request) {
         // @tmp
-        // pre($request->body,1);
+        pre($request->toString(),1);
 
         $url = parse_url($request->uri);
         if (isset($url['query'])) {
