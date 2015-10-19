@@ -173,4 +173,22 @@ class Database
             'Content-Type' => 'application/json'
         ])->getData();
     }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/security.html#get--{db}-_security
+    public function getSecurity() {
+        return $this->client->get('/'. $this->name .'/_security')->getData();
+    }
+    // http://docs.couchdb.org/en/1.5.1/api/database/security.html#put--{db}-_security
+    public function setSecurity(array $admins, array $members) {
+        if (!isset($admins['names'], $admins['roles']) ||
+            !isset($members['names'], $members['roles'])) {
+            throw new Exception('Specify admins and/or members with names=>roles fields!');
+        }
+
+        return $this->client->put('/'. $this->name .'/_security', null, [
+            'admins' => $admins,
+            'members' => $members
+        ])->getData();
+    }
 }
+
