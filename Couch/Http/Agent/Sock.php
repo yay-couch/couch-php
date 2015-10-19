@@ -28,7 +28,9 @@ class Sock
             $headers['Connection'] = 'close';
             $headers = $headers + $request->headers;
 
-            fwrite($this->link, sprintf("%s %s%s HTTP/1.1\r\n",
+            // http://bugs.php.net/16452
+            // http://forums.devnetwork.net/viewtopic.php?f=1&t=113225#p595221
+            fwrite($this->link, sprintf("%s %s%s HTTP/1.0\r\n",
                 $request->method, $url['path'], $url['query']));
             foreach ($headers as $key => $val) {
                 fwrite($this->link, sprintf("%s: %s\r\n", $key, $val));
@@ -43,13 +45,11 @@ class Sock
             $this->result = '';
             while (!feof($this->link)) {
                 if ($meta['timed_out']) {
-
                     $this->clean();
-
                     throw new Exception('Time out!');
                 }
 
-                $this->result .= fgets($this->link, 1024);
+                $this->result .= fread($this->link, 1024);
                 $meta = stream_get_meta_data($this->link);
             }
 
