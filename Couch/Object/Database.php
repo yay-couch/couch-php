@@ -146,4 +146,17 @@ class Database
             return $this->client->post('/'. $this->name .'/_changes', $query, ['doc_ids' => $docIds])->getData();
         }
     }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact
+    public function compact($designDocument = null) {
+        if (empty($designDocument)) {
+            return $this->client->post('/'. $this->name .'/_compact', null, null, [
+                'Content-Type' => 'application/json'
+            ])->getData();
+        } else {
+            return $this->client->post('/'. $this->name .'/_compact/'. $designDocument, null, null, [
+                'Content-Type' => 'application/json'
+            ])->getData();
+        }
+    }
 }
