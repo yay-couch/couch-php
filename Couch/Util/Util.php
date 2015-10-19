@@ -13,9 +13,10 @@ abstract class Util
         return str_replace('"', '%022', $input);
     }
 
-    public static function getArrayValue($key, array $array) {
+    public static function getArrayValue($key, array $array, $defaultValue = null) {
         if (array_key_exists($key, $array)) {
-            return $array[$key];
+            $defaultValue = $array[$key];
         }
+        return $defaultValue;
     }
 }
