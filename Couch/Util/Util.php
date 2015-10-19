@@ -8,4 +8,8 @@ abstract class Util
         $skip = $page * $limit;
         return $skip;
     }
+
+    public static function quote($input) {
+        return str_replace('"', '%022', $input);
+    }
 }
