@@ -12,6 +12,8 @@ class Response
             $statusText;
 
     public function __construct(Agent $agent) {
+        $this->type = parent::TYPE_RESPONSE;
+
         // @tmp
         pre($agent->getResult());
 

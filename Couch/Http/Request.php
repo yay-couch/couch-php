@@ -23,6 +23,8 @@ class Request
     private $uri;
 
     public function __construct(Client $client) {
+        $this->type = parent::TYPE_REQUEST;
+
         $this->client = $client;
 
         if ($client->username && $client->password) {
