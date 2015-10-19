@@ -14,9 +14,7 @@ abstract class Util
     }
 
     public static function getArrayValue($key, array $array, $defaultValue = null) {
-        if (array_key_exists($key, $array)) {
-            $defaultValue = $array[$key];
-        }
-        return $defaultValue;
+        return array_key_exists($key, $array)
+            ? $array[$key] : $defaultValue;
     }
 }
