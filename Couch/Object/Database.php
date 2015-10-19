@@ -1,12 +1,14 @@
 <?php
 namespace Couch\Object;
 
+use Couch\Client;
+
 class Database
     extends \Couch\Object
 {
     private $name;
 
-    public function __construct($client, $name) {
+    public function __construct(Client $client, $name) {
         parent::__construct($client);
 
         $this->setName($name);

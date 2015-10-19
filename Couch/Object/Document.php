@@ -1,14 +1,19 @@
 <?php
 namespace Couch\Object;
 
+use Couch\Client;
+
 class Document
     extends \Couch\Object
 {
     private $id, $rev;
+    private $database;
     private $data = [];
 
-    public function __construct($client, array $data = null) {
+    public function __construct(Client $client, Database $database, array $data = null) {
         parent::__construct($client);
+
+        $this->database = $database;
 
         if (!empty($data)) {
             $this->setData($data);

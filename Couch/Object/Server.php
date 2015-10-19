@@ -1,9 +1,15 @@
 <?php
 namespace Couch\Object;
 
+use Couch\Client;
+
 class Server
     extends \Couch\Object
 {
+    public function __construct(Client $client) {
+        parent::__construct($client);
+    }
+
     public function ping() {
         return (200 === $this->client->head('/')->getStatusCode());
     }
