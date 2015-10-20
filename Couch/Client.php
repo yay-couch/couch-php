@@ -47,7 +47,7 @@ class Client
     }
 
     public function request($uri, array $uriParams = null, $body = null, array $headers = []) {
-        preg_match('~^([a-z]+)\s+/+(.*)~i', $uri, $match);
+        preg_match('~^([a-z]+)\s+(/.*)~i', $uri, $match);
         if (!isset($match[1], $match[2])) {
             throw new Exception('Usage: <REQUEST METHOD> <REQUEST URI>');
         }
