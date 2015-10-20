@@ -109,4 +109,14 @@ $db = new Couch\Object\Database($client, 'foo2');
 
 $doc = new Couch\Object\Document($db);
 $doc->_id = 'test';
-pre($doc);
+$doc->_rev = '1-906991234e081f87f7b5fad971302cac';
+// $doc->a1 = 'The Title (update)!';
+// $doc->a2 = 1.9;
+// pre($doc->save());
+// pre($doc->copy('test_copy1'));
+
+// $doc = new Couch\Object\Document($db);
+// $doc->_id = 'test_copy1';
+// $doc->_rev = '3-e9f9a64f96bc4932a8c21d091ffa04e8';
+// pre($doc->remove());
+
