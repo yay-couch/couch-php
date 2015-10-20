@@ -105,7 +105,7 @@ $db = new Couch\Object\Database($client, 'foo2');
 // prd($doc->ping());
 // prd($doc->isExists());
 // prd($doc->isNotModified());
-// pre($doc->get());
+// pre($doc->find());
 // pre($doc->getRevisions());
 
 $doc = new Couch\Object\Document($db);

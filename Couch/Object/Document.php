@@ -103,7 +103,7 @@ class Document
     }
 
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#get--{db}-{docid}
-    public function get(array $query = null) {
+    public function find(array $query = null) {
         if (empty($this->id)) {
             throw new Exception('_id field could not be empty!');
         }
@@ -111,7 +111,7 @@ class Document
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#getting-a-list-of-revisions
     public function getRevisions() {
-        $data = $this->get(['revs' => true]);
+        $data = $this->find(['revs' => true]);
         if (isset($data['_revisions'])) {
             return $data['_revisions'];
         }
