@@ -39,10 +39,10 @@ class Document
         $this->deleted = (bool) $deleted;
     }
 
-    public function getId($id) {
+    public function getId() {
         return $this->id;
     }
-    public function getRev($rev) {
+    public function getRev() {
         return $this->rev;
     }
     public function getDeleted() {
