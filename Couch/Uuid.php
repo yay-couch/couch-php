@@ -15,9 +15,9 @@ class Uuid
 
     public function __construct($value) {
         if ($value === true) {
-            $this->value = self::generate();
+            $this->setValue(self::generate());
         } else {
-            $this->value = $value;
+            $this->setValue($value);
         }
     }
 
