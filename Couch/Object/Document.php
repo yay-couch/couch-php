@@ -1,23 +1,20 @@
 <?php
 namespace Couch\Object;
 
-use Couch\Client;
 use Couch\Util\Util;
 
 class Document
     extends \Couch\Object
 {
     private $id, $rev, $deleted = false;
-    private $database;
+    private $db, $database;
     private $data = [];
 
-    public function __construct(Client $client = null, Database $database = null, array $data = []) {
-        if ($client) {
-            parent::__construct($client);
-        }
-
+    public function __construct(Database $database = null, array $data = []) {
         if ($database) {
-            $this->database = $database;
+            $this->db = $this->database = $database;
+
+            parent::__construct($database->getClient());
         }
 
         if (!empty($data)) {
@@ -67,5 +64,53 @@ class Document
             return Util::getArrayValue($key, $this->data);
         }
         return $this->data;
+    }
+
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#head--{db}-{docid}
+    public function ping($statusCode = 200) {
+        if (empty($this->id)) {
+            return false;
+        }
+        $headers = [];
+        if (!empty($this->rev)) {
+            $headers['If-None-Match'] = sprintf('"%s"', $this->rev);
+        }
+        $response = $this->client->head('/'. $this->db->getName(). '/'. $this->id, null, $headers);
+        return in_array($response->getStatusCode(), (array) $statusCode);
+    }
+    public function isExists() {
+        $this->checkId();
+        return $this->ping([200, 304]);
+    }
+    public function isModified() {
+        $this->checkId();
+        $this->checkRev();
+        return $this->ping(304);
+    }
+
+    public function get() {}
+
+
+    public function copy() {}
+    public function copyFrom($destination) {
+        // from: this doc
+        // To copy from a specific version, use the rev argument to the query string or If-Match:
+    }
+    public function copyTo($destination) {
+        // from: this doc
+        // To copy to an existing document, you must specify the current revision string for the target document by appending the rev parameter to the Destination header string.
+    }
+
+
+
+    private function checkId() {
+        if (!isset($this->id)) {
+            throw new Exception('_id field is required!');
+        }
+    }
+    private function checkRev() {
+        if (!isset($this->rev)) {
+            throw new Exception('_rev field is required!');
+        }
     }
 }
