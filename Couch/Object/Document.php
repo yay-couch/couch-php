@@ -100,8 +100,8 @@ class Document
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
     // http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
     public function save($batch = false, $fullCommit = false) {
         $batch = $batch ? '?batch=ok' : '';
         $headers = [];
@@ -111,11 +111,41 @@ class Document
         }
         return $this->client->post($this->db->getName() . $batch, null, $this->getData(), $headers)->getData();
     }
-
-    public function copy() {}
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#delete--{db}-{docid}
+    public function remove($batch = false, $fullCommit = false) {
+        if (empty($this->id) || empty($this->rev)) {
+            throw new Exception('Both _id & _rev fields could not be empty!');
+        }
+        $batch = $batch ? '?batch=ok' : '';
+        $headers = [];
+        $headers['If-Match'] = $this->rev;
+        if ($fullCommit) {
+            $headers['X-Couch-Full-Commit'] = 'true';
+        }
+        return $this->client->delete($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
+    }
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copy--{db}-{docid}
+    public function copy($destination, $batch = false, $fullCommit = false) {
+        if (empty($this->id)) {
+            throw new Exception('_id field could not be empty!');
+        }
+        $batch = $batch ? '?batch=ok' : '';
+        $headers = [];
+        if (!empty($this->rev)) {
+            $headers['If-Match'] = $this->rev;
+        }
+        $headers['Destination'] = $destination;
+        if ($fullCommit) {
+            $headers['X-Couch-Full-Commit'] = 'true';
+        }
+        return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
+    }
     public function copyFrom($destination) {
         // from: this doc
         // To copy from a specific version, use the rev argument to the query string or If-Match:
+        // $headers = [];
+        // $headers['If-Match']
+        // $headers['Destination']
     }
     public function copyTo($destination) {
         // from: this doc
