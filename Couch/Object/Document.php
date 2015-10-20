@@ -31,6 +31,9 @@ class Document
     }
 
     public function setId($id) {
+        if (!$this->id instanceof Uuid) {
+            $id = new Uuid($id);
+        }
         $this->id = $id;
     }
     public function setRev($rev) {
