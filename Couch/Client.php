@@ -86,11 +86,11 @@ class Client
         return $this->request(Request::METHOD_PUT .' /'. $uri, $uriParams, $body, $headers);
     }
 
-    public function copy($uri, array $uriParams = null, $body = null, array $headers = []) {
+    public function copy($uri, array $uriParams = null, array $headers = []) {
         return $this->request(Request::METHOD_COPY .' /'. $uri, $uriParams, null, $headers);
     }
 
-    public function delete($uri, array $uriParams = null, $body = null, array $headers = []) {
+    public function delete($uri, array $uriParams = null, array $headers = []) {
         return $this->request(Request::METHOD_DELETE .' /'. $uri, $uriParams, null, $headers);
     }
 }
