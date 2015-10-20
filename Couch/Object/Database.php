@@ -82,6 +82,8 @@ class Database
         foreach ($documents as $document) {
             if ($document instanceof Document) {
                 $document = $document->getData();
+            } elseif ($document instanceof \stdClass) {
+                $document = (array) $document;
             }
             // this is create method, no update allowed
             if (isset($document['_id']))      unset($document['_id']);
