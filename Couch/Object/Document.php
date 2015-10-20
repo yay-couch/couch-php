@@ -98,6 +98,10 @@ class Document
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
 
+    // X-Couch-Full-Commit
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid}
+    // public function save() {}
+
     public function copy() {}
     public function copyFrom($destination) {
         // from: this doc

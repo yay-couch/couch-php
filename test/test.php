@@ -55,7 +55,7 @@ $db = new Couch\Object\Database($client, 'foo');
 // pre($db->createDocument(['test' => 'test 3']));
 // pre($db->createDocumentAll([
 //     ['test' => 'test 4'],
-//     new Couch\Object\Document(null, null, ['test' => 'the test 5']),
+//     new Couch\Object\Document(null, ['test' => 'the test 5']),
 // ]));
 
 // $doc = new Couch\Object\Document();
@@ -66,13 +66,13 @@ $db = new Couch\Object\Database($client, 'foo');
 //     ['_id' => 'e90636c398458a9d5969d2e71b04b0a4',
 //      '_rev' => '1-afa338dcbc6870f1a1dd441557f79859',
 //      'test' => 'test 2 (update)'],
-//     new Couch\Object\Document(null, null, [
+//     new Couch\Object\Document(null, [
 //         '_id' => 'e90636c398458a9d5969d2e71b04b2e4',
 //         '_rev' => '1-186677ba2134699278e769e075f772f6',
 //         'test' => 'the test 3 (update)']),
 // ]));
 
-// $doc = new Couch\Object\Document(null, null, [
+// $doc = new Couch\Object\Document(null, [
 //     '_id' => 'e90636c398458a9d5969d2e71b04b0a4',
 //     '_rev' => '2-d4ef449903f67ee5559f1ee42bafcfcf',
 // ]);
@@ -98,3 +98,15 @@ $db = new Couch\Object\Database($client, 'foo2');
 
 // pre($db->getRevisionLimit());
 // pre($db->setRevisionLimit(1001));
+
+// $doc = new Couch\Object\Document($db);
+// $doc->_id = 'e90636c398458a9d5969d2e71b04b2e4';
+// $doc->_rev = '2-393dbbc2cca7eea546a3c750ebeddd70';
+// prd($doc->ping());
+// prd($doc->isExists());
+// prd($doc->isNotModified());
+// pre($doc->get());
+
+$doc = new Couch\Object\Document($db);
+$doc->_id = 'test';
+pre($doc);
