@@ -98,7 +98,7 @@ class Document
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid}
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
     // http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
     public function save($batch = false, $fullCommit = false) {
         $batch = $batch ? '?batch=ok' : '';
