@@ -6,6 +6,7 @@ use Couch\Util\Util;
 
 class Document
     extends \Couch\Object
+         implements \JsonSerializable
 {
     private $id, $rev, $deleted = false, $attachments = [];
     private $db, $database;
@@ -28,6 +29,9 @@ class Document
     }
     public function __get($key) {
         return $this->getData($key);
+    }
+    public function jsonSerialize() {
+        return $this->data;
     }
 
     public function setId($id) {

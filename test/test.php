@@ -123,3 +123,5 @@ $doc->_rev = '1-906991234e081f87f7b5fad971302cac';
 // prd($doc->findRevisions());
 // prd($doc->findAttachments());
 // prd($doc->findAttachments(true, ['2-6a0508cce9d2b4f3b83159648415c5e0']));
+
+// pre(json_encode($doc));
