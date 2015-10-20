@@ -13,7 +13,7 @@ class Uuid
 
     private $value;
 
-    public function __construct($value = null) {
+    public function __construct($value) {
         if ($value === true) {
             $this->value = self::generate();
         } else {
