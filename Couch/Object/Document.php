@@ -109,6 +109,13 @@ class Document
         }
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#getting-a-list-of-revisions
+    public function getRevisions() {
+        $data = $this->get(['revs' => true]);
+        if (isset($data['_revisions'])) {
+            return $data['_revisions'];
+        }
+    }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
