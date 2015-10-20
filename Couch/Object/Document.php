@@ -116,6 +116,19 @@ class Document
             return $data['_revisions'];
         }
     }
+    public function findAttachments($attrEncInfo = false, array $attrsSince = null) {
+        $query = ['attachments' => true];
+        if ($attrEncInfo) {
+            $query['att_encoding_info' => true];
+        }
+        if ($attrsSince)  {
+            $query['atts_since' => $attrsSince];
+        }
+        $data = $this->find($query);
+        if (isset($data['_attachments'])) {
+            return $data['_attachments'];
+        }
+    }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
