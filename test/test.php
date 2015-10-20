@@ -106,7 +106,6 @@ $db = new Couch\Object\Database($client, 'foo2');
 // prd($doc->isExists());
 // prd($doc->isNotModified());
 // pre($doc->find());
-// pre($doc->getRevisions());
 
 $doc = new Couch\Object\Document($db);
 $doc->_id = 'test';
@@ -121,3 +120,6 @@ $doc->_rev = '1-906991234e081f87f7b5fad971302cac';
 // $doc->_rev = '3-e9f9a64f96bc4932a8c21d091ffa04e8';
 // pre($doc->remove());
 
+// prd($doc->findRevisions());
+// prd($doc->findAttachments());
+// prd($doc->findAttachments(true, ['2-6a0508cce9d2b4f3b83159648415c5e0']));
