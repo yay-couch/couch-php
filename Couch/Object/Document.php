@@ -98,10 +98,17 @@ class Document
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
 
-    // X-Couch-Full-Commit
-    // To update an existing document you must specify the current revision number within the _rev parameter.
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid}
-    // public function save() {}
+    // http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
+    public function save($batch = false, $fullCommit = false) {
+        $batch = $batch ? '?batch=ok' : '';
+        $headers = [];
+        $headers['Content-Type'] = 'application/json';
+        if ($fullCommit) {
+            $headers['X-Couch-Full-Commit'] = 'true';
+        }
+        return $this->client->post($this->db->getName() . $batch, null, $this->getData(), $headers)->getData();
+    }
 
     public function copy() {}
     public function copyFrom($destination) {
