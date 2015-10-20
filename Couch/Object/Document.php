@@ -73,7 +73,7 @@ class Document
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#head--{db}-{docid}
     public function ping($statusCode = 200) {
         if (empty($this->id)) {
-            return false;
+            throw new Exception('_id field is could not be empty!');
         }
         $headers = [];
         if ($this->rev) {
@@ -83,18 +83,20 @@ class Document
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
     public function isExists() {
-        $this->checkId();
         return $this->ping([200, 304]);
     }
     public function isNotModified() {
-        $this->checkId();
-        $this->checkRev();
+        if (empty($this->rev)) {
+            throw new Exception('_rev field is could not be empty!');
+        }
         return $this->ping(304);
     }
 
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#get--{db}-{docid}
     public function get(array $query = null) {
-        $this->checkId();
+        if (empty($this->id)) {
+            throw new Exception('_id field is could not be empty!');
+        }
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
 
@@ -118,18 +120,5 @@ class Document
     public function copyTo($destination) {
         // from: this doc
         // To copy to an existing document, you must specify the current revision string for the target document by appending the rev parameter to the Destination header string.
-    }
-
-
-
-    private function checkId() {
-        if (empty($this->id)) {
-            throw new Exception('_id field is could not be empty!');
-        }
-    }
-    private function checkRev() {
-        if (empty($this->rev)) {
-            throw new Exception('_rev field is could not be empty!');
-        }
     }
 }
