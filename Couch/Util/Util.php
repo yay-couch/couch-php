@@ -10,7 +10,7 @@ abstract class Util
     }
 
     public static function quote($input) {
-        return str_replace('"', '%022', $input);
+        return str_replace('"', '%22', $input);
     }
 
     public static function getArrayValue($key, array $array, $defaultValue = null) {
