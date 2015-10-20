@@ -99,6 +99,7 @@ class Document
     }
 
     // X-Couch-Full-Commit
+    // To update an existing document you must specify the current revision number within the _rev parameter.
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid}
     // public function save() {}
 
@@ -115,12 +116,12 @@ class Document
 
 
     private function checkId() {
-        if ('' === trim($this->id)) {
+        if (empty($this->id)) {
             throw new Exception('_id field is could not be empty!');
         }
     }
     private function checkRev() {
-        if ('' === trim($this->rev)) {
+        if (empty($this->rev)) {
             throw new Exception('_rev field is could not be empty!');
         }
     }
