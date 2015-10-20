@@ -7,7 +7,7 @@ use Couch\Util\Util;
 class Document
     extends \Couch\Object
 {
-    private $id, $rev, $deleted = false;
+    private $id, $rev, $deleted = false, $attachments = [];
     private $db, $database;
     private $data = [];
 
@@ -53,10 +53,20 @@ class Document
         return $this->deleted;
     }
 
+    public function setAttachment($attachment) {}
+    public function getAttachment($name) {}
+    public function getAttachmentAll() {}
+    public function unsetAttachment($name) {}
+    public function unsetAttachmentAll() {}
+
     public function setData(array $data) {
         if (isset($data['_id']))      $this->setId($data['_id']);
         if (isset($data['_rev']))     $this->setRev($data['_rev']);
         if (isset($data['_deleted'])) $this->setDeleted($data['_deleted']);
+        if (isset($data['_attachments'])) {
+            // unset?
+            $this->setAttachment($data['_attachments']);
+        }
 
         foreach ($data as $key => $value) {
             $this->data[$key] = $value;
