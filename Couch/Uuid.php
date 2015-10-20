@@ -21,6 +21,10 @@ class Uuid
         }
     }
 
+    public function __toString() {
+        return $this->getValue();
+    }
+
     public function setValue($value) {
         $this->value = $value;
     }
