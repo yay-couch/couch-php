@@ -1,6 +1,7 @@
 <?php
 namespace Couch\Object;
 
+use Couch\Uuid;
 use Couch\Util\Util;
 
 class Document
@@ -30,6 +31,9 @@ class Document
     }
 
     public function setId($id) {
+        if ($id instanceof Uuid) {
+            $id = $this->id->getValue();
+        }
         $this->id = trim($id);
     }
     public function setRev($rev) {
@@ -40,6 +44,9 @@ class Document
     }
 
     public function getId() {
+        if ($this->id instanceof Uuid) {
+            return $this->id->getValue();
+        }
         return $this->id;
     }
     public function getRev() {
