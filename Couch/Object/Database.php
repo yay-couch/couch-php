@@ -205,5 +205,27 @@ class Database
             ['Content-Type' => 'application/json']
         )->getData();
     }
+    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-missing-revs
+    public function getMissingRevisions($docId, array $docRevs) {
+        return $this->client->post('/'. $this->name .'/_missing_revs', null,
+            [$docId => $docRevs],
+            ['Content-Type' => 'application/json']
+        )->getData();
+    }
+    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-revs-diff
+    public function getMissingRevisionsDiff($docId, array $docRevs) {
+        return $this->client->post('/'. $this->name .'/_revs_diff', null,
+            [$docId => $docRevs],
+            ['Content-Type' => 'application/json']
+        )->getData();
+    }
+    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#get--{db}-_revs_limit
+    public function getRevisionLimit() {
+        return $this->client->get('/'. $this->name .'/_revs_limit')->getData();
+    }
+    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#put--{db}-_revs_limit
+    public function setRevisionLimit($limit) {
+        return $this->client->put('/'. $this->name .'/_revs_limit', null, $limit)->getData();
+    }
 }
 
