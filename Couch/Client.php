@@ -47,7 +47,7 @@ class Client
     }
 
     public function request($uri, array $uriParams = null, $body = null, array $headers = []) {
-        preg_match('~^([a-z]+)\s+(/.*)~i', $uri, $match);
+        preg_match('~^([a-z]+)\s+/+(.*)~i', $uri, $match);
         if (!isset($match[1], $match[2])) {
             throw new Exception('Usage: <REQUEST METHOD> <REQUEST URI>');
         }
@@ -71,26 +71,26 @@ class Client
     }
 
     public function head($uri, array $uriParams = null, array $headers = []) {
-        return $this->request(Request::METHOD_HEAD .' '. $uri, $uriParams, null, $headers);
+        return $this->request(Request::METHOD_HEAD .'/'. $uri, $uriParams, null, $headers);
     }
 
     public function get($uri, array $uriParams = null, array $headers = []) {
-        return $this->request(Request::METHOD_GET .' '. $uri, $uriParams, null, $headers);
+        return $this->request(Request::METHOD_GET .'/'. $uri, $uriParams, null, $headers);
     }
 
     public function post($uri, array $uriParams = null, $body = null, array $headers = []) {
-        return $this->request(Request::METHOD_POST .' '. $uri, $uriParams, $body, $headers);
+        return $this->request(Request::METHOD_POST .'/'. $uri, $uriParams, $body, $headers);
     }
 
     public function put($uri, array $uriParams = null, $body = null, array $headers = []) {
-        return $this->request(Request::METHOD_PUT .' '. $uri, $uriParams, $body, $headers);
+        return $this->request(Request::METHOD_PUT .'/'. $uri, $uriParams, $body, $headers);
     }
 
     public function copy($uri, array $uriParams = null, $body = null, array $headers = []) {
-        return $this->request(Request::METHOD_COPY .' '. $uri, $uriParams, null, $headers);
+        return $this->request(Request::METHOD_COPY .'/'. $uri, $uriParams, null, $headers);
     }
 
     public function delete($uri, array $uriParams = null, $body = null, array $headers = []) {
-        return $this->request(Request::METHOD_DELETE .' '. $uri, $uriParams, null, $headers);
+        return $this->request(Request::METHOD_DELETE .'/'. $uri, $uriParams, null, $headers);
     }
 }
