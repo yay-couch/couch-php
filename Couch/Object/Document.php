@@ -82,7 +82,7 @@ class Document
         $this->checkId();
         return $this->ping([200, 304]);
     }
-    public function isModified() {
+    public function isNotModified() {
         $this->checkId();
         $this->checkRev();
         return $this->ping(304);
