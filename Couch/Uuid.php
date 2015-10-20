@@ -15,10 +15,11 @@ class Uuid
 
     public function __construct($value) {
         if ($value === true) {
-            $this->setValue(self::generate());
-        } else {
-            $this->setValue($value);
+            $value = self::generate();
+        } elseif ($value instanceof \Couch\Object\Server) {
+            $value = $value->getUuid();
         }
+        $this->setValue($value);
     }
 
     public function __toString() {
