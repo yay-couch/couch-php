@@ -98,7 +98,6 @@ class Document
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
 
-
     public function copy() {}
     public function copyFrom($destination) {
         // from: this doc
@@ -112,13 +111,13 @@ class Document
 
 
     private function checkId() {
-        if (!isset($this->id)) {
-            throw new Exception('_id field is required!');
+        if ('' === trim($this->id)) {
+            throw new Exception('_id field is could not be empty!');
         }
     }
     private function checkRev() {
-        if (!isset($this->rev)) {
-            throw new Exception('_rev field is required!');
+        if ('' === trim($this->rev)) {
+            throw new Exception('_rev field is could not be empty!');
         }
     }
 }
