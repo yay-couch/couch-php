@@ -72,7 +72,7 @@ class Document
             return false;
         }
         $headers = [];
-        if (!empty($this->rev)) {
+        if ($this->rev) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->rev);
         }
         $response = $this->client->head('/'. $this->db->getName(). '/'. $this->id, null, $headers);
@@ -88,7 +88,11 @@ class Document
         return $this->ping(304);
     }
 
-    public function get() {}
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#get--{db}-{docid}
+    public function get(array $query = null) {
+        $this->checkId();
+        return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
+    }
 
 
     public function copy() {}
