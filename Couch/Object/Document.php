@@ -116,13 +116,17 @@ class Document
             return $data['_revisions'];
         }
     }
-    public function findAttachments($attrEncInfo = false, array $attrsSince = null) {
-        $query = ['attachments' => true];
-        if ($attrEncInfo) {
-            $query['att_encoding_info' => true];
-        }
-        if ($attrsSince)  {
-            $query['atts_since' => $attrsSince];
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#attachments
+    public function findAttachments($attEncInfo = false, array $attsSince = null) {
+        $query = [];
+        $query['attachments'] = true;
+        $query['att_encoding_info'] = $attEncInfo;
+        if ($attsSince)  {
+            $attsSinceArray = [];
+            foreach ($attsSince as $attsSinceValue) {
+                $attsSinceArray[] = sprintf('"%s"', Util::quote($attsSinceValue));
+            }
+            $query['atts_since'] = sprintf('[%s]', join(',', $attsSinceArray));
         }
         $data = $this->find($query);
         if (isset($data['_attachments'])) {
