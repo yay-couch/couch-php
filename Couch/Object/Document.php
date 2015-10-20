@@ -32,7 +32,7 @@ class Document
 
     public function setId($id) {
         if ($id instanceof Uuid) {
-            $id = $this->id->getValue();
+            $id = $id->getValue();
         }
         $this->id = trim($id);
     }
