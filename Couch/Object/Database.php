@@ -197,5 +197,13 @@ class Database
             'members' => $members
         ])->getData();
     }
+
+    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-purge
+    public function purge($docId, array $docRevs) {
+        return $this->client->post('/'. $this->name .'/_purge', null,
+            [$docId => $docRevs],
+            ['Content-Type' => 'application/json']
+        )->getData();
+    }
 }
 
