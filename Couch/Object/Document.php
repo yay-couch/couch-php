@@ -31,13 +31,10 @@ class Document
     }
 
     public function setId($id) {
-        if ($id instanceof Uuid) {
-            $id = $id->getValue();
-        }
-        $this->id = trim($id);
+        $this->id = $id;
     }
     public function setRev($rev) {
-        $this->rev = trim($rev);
+        $this->rev = $rev;
     }
     public function setDeleted($deleted) {
         $this->deleted = (bool) $deleted;
