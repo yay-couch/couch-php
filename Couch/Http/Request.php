@@ -56,7 +56,6 @@ class Request
         return $this;
     }
     public function setUri($uri, array $uriParams = null) {
-        $this->uri = $uri;
         if (!empty($uriParams)) {
             // convert booleans
             foreach ($uriParams as $key => $value) {
@@ -64,8 +63,10 @@ class Request
                     $uriParams[$key] = $value ? 'true' : 'false';
                 }
             }
-            $this->uri = sprintf('%s?%s', $this->uri, http_build_query($uriParams));
+            $uri = str_replace(['%5B', '%5D'], ['[', ']'],
+                sprintf('%s?%s', $uri, http_build_query($uriParams)));
         }
+        $this->uri = $uri;
 
         return $this;
     }
