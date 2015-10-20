@@ -87,7 +87,7 @@ class Document
     }
     public function isNotModified() {
         if (empty($this->rev)) {
-            throw new Exception('_rev field is could not be empty!');
+            throw new Exception('_rev field could not be empty!');
         }
         return $this->ping(304);
     }
@@ -95,7 +95,7 @@ class Document
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#get--{db}-{docid}
     public function get(array $query = null) {
         if (empty($this->id)) {
-            throw new Exception('_id field is could not be empty!');
+            throw new Exception('_id field could not be empty!');
         }
         return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
     }
