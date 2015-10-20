@@ -41,9 +41,6 @@ class Document
     }
 
     public function getId() {
-        if ($this->id instanceof Uuid) {
-            return $this->id->getValue();
-        }
         return $this->id;
     }
     public function getRev() {
