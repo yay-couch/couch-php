@@ -56,14 +56,15 @@ class Client
 
         $this->request = (new Request($this))
             ->setMethod($match[1])
-            ->setUri($uri, $uriParams)
-            ->setBody($body);
+            ->setUri($uri, $uriParams);
 
         if (!empty($headers)) {
             foreach ($headers as $key => $value) {
                 $this->request->setHeader($key, $value);
             }
         }
+
+        $this->request->setBody($body);
 
         $agent = $this->request->send();
 
