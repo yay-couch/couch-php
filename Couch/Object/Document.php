@@ -120,6 +120,13 @@ class Document
             return $data['_revisions'];
         }
     }
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#obtaining-an-extended-revision-history
+    public function findRevisionsExtended() {
+        $data = $this->find(['revs_info' => true]);
+        if (isset($data['_revs_info'])) {
+            return $data['_revs_info'];
+        }
+    }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#attachments
     public function findAttachments($attEncInfo = false, array $attsSince = null) {
         $query = [];
