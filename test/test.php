@@ -108,12 +108,17 @@ $db = new Couch\Object\Database($client, 'foo2');
 // pre($doc->find());
 
 $doc = new Couch\Object\Document($db);
-$doc->_id = 'test';
-$doc->_rev = '1-906991234e081f87f7b5fad971302cac';
+// $doc->_id = 'test';
+// $doc->_rev = '1-906991234e081f87f7b5fad971302cac';
 // $doc->a1 = 'The Title (update)!';
 // $doc->a2 = 1.9;
 // pre($doc->save());
 // pre($doc->copy('test_copy1'));
+
+// $doc->_id = 'test_copy1';
+// $doc->_rev = '1-c3a3fd49deadd7470e8db28b79116003';
+// pre($doc->copyFrom('test_copy2'));
+// pre($doc->copyTo('test_copy2', '2-d8b6ac4a5fc5b5506b6817c9d0e509a5'));
 
 // $doc = new Couch\Object\Document($db);
 // $doc->_id = 'test_copy1';
