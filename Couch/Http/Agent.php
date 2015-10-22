@@ -38,8 +38,12 @@ abstract class Agent
         $headers =@ explode("\r\n", trim($headers));
         preg_match('~^HTTP/\d\.\d (\d+) ([\w- ]+)~i', array_shift($headers), $match);
 
-        $statusCode = (int) $match[1];
-        $statusText = $match[2];
+        $statusCode = 0;
+        $statusText = '';
+        if (isset($match[1], $match[2])) {
+            $statusCode = (int) $match[1];
+            $statusText = $match[2];
+        }
 
         $return = [];
         $return['_status']['code'] = $statusCode;
