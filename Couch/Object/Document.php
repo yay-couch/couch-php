@@ -74,11 +74,22 @@ class Document
         $this->attachments[$attachment->fileName] =
             $this->data['_attachments'][$attachment->fileName] = $attachment;
     }
-
-    public function getAttachment($name) {}
-    public function getAttachmentAll() {}
-    public function unsetAttachment($name) {}
-    public function unsetAttachmentAll() {}
+    public function getAttachment($name) {
+        if (isset($this->attachments[$name])) {
+            return $this->attachments[$name];
+        }
+    }
+    public function getAttachmentAll() {
+        return $this->attachments;
+    }
+    public function unsetAttachment($name) {
+        if (isset($this->attachments[$name])) {
+            unset($this->attachments[$name]);
+        }
+    }
+    public function unsetAttachmentAll() {
+        $this->attachments = [];
+    }
 
     public function setData(array $data) {
         if (isset($data['_id']))      $this->setId($data['_id']);
