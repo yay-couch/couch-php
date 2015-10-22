@@ -2,6 +2,7 @@
 namespace Couch\Object;
 
 use Couch\Client;
+use Couch\Query;
 use Couch\Util\Util;
 
 class Database
@@ -57,7 +58,10 @@ class Database
             return $data['rows'][0];
         }
     }
-    public function getDocumentAll(array $query = null, array $keys = []) {
+    public function getDocumentAll($query = null, array $keys = []) {
+        if ($query instanceof Query) {
+            $query = $query->toArray();
+        }
         // always get docs
         if (!isset($query['include_docs'])) {
             $query['include_docs'] = true;
