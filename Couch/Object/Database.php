@@ -61,6 +61,8 @@ class Database
     public function getDocumentAll($query = null, array $keys = []) {
         if ($query instanceof Query) {
             $query = $query->toArray();
+        } elseif (is_string($query)) {
+            parse_str($query, $query);
         }
         // always get docs
         if (!isset($query['include_docs'])) {
