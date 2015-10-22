@@ -141,3 +141,8 @@ $doc = new Couch\Object\Document($db);
 // $doc->_id = 'attc_test1';
 // $doc->_attachments = [['file' => './attc1.txt'], ['file' => './attc2.txt']];
 // pre($doc->save());
+
+// $doc->setAttachment(['file' => './attc1.txt', 'file_name' => 'attc1']);
+// pre($doc->getAttachment('attc1')->toJson());
+// pre($doc->getAttachment('attc1')->toArray());
+// pre($doc);
