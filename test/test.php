@@ -107,7 +107,7 @@ $db = new Couch\Object\Database($client, 'foo2');
 // prd($doc->isNotModified());
 // pre($doc->find());
 
-$doc = new Couch\Object\Document($db);
+// $doc = new Couch\Object\Document($db);
 // $doc->_id = 'test';
 // $doc->_rev = '1-906991234e081f87f7b5fad971302cac';
 // $doc->a1 = 'The Title (update)!';
@@ -132,7 +132,7 @@ $doc = new Couch\Object\Document($db);
 
 // pre(json_encode($doc));
 
-$doc = new Couch\Object\Document($db);
+// $doc = new Couch\Object\Document($db);
 // $doc->_id = 'attc_test';
 // $doc->_attachments = [['file' => './attc1.txt']];
 // $doc->setAttachment(['file' => './attc1.txt']);
@@ -146,3 +146,15 @@ $doc = new Couch\Object\Document($db);
 // pre($doc->getAttachment('attc1')->toJson());
 // pre($doc->getAttachment('attc1')->toArray());
 // pre($doc);
+
+// $query = new Couch\Query();
+// $query->setDatabase($db);
+// $query->set('conflicts', true)
+//     ->set('stale', 'ok')
+//     ->skip(1)
+//     ->limit(2)
+// ;
+// pre($query->toString());
+// pre($query);
+// pre($query->run());
+// pre($db->getDocumentAll($query));
