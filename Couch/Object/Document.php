@@ -174,6 +174,9 @@ class Document
         if (empty($this->id)) {
             throw new Exception('_id field could not be empty!');
         }
+        if (empty($destination)) {
+            throw new Exception('Destination could not be empty!');
+        }
         $batch = $batch ? '?batch=ok' : '';
         $headers = [];
         $headers['Destination'] = $destination;
@@ -187,6 +190,9 @@ class Document
         if (empty($this->id) || empty($this->rev)) {
             throw new Exception('Both _id & _rev fields could not be empty!');
         }
+        if (empty($destination)) {
+            throw new Exception('Destination could not be empty!');
+        }
         $batch = $batch ? '?batch=ok' : '';
         $headers = [];
         $headers['If-Match'] = $this->rev;
@@ -197,14 +203,17 @@ class Document
         return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-to-an-existing-document
-    public function copyTo($destination, $destinationRev, $batch = false, $fullCommit = false) {
+    public function copyTo($destination, $destinationRevision, $batch = false, $fullCommit = false) {
         if (empty($this->id) || empty($this->rev)) {
             throw new Exception('Both _id & _rev fields could not be empty!');
+        }
+        if (empty($destination)) {
+            throw new Exception('Destination and destination revision could not be empty!');
         }
         $batch = $batch ? '?batch=ok' : '';
         $headers = [];
         $headers['If-Match'] = $this->rev;
-        $headers['Destination'] = sprintf('%s?rev=%s', $destination, $destinationRev);
+        $headers['Destination'] = sprintf('%s?rev=%s', $destination, $destinationRevision);
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
