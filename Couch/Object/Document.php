@@ -176,24 +176,38 @@ class Document
         }
         $batch = $batch ? '?batch=ok' : '';
         $headers = [];
-        if (!empty($this->rev)) {
-            $headers['If-Match'] = $this->rev;
-        }
         $headers['Destination'] = $destination;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
         return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
     }
-    public function copyFrom($destination) {
-        // from: this doc
-        // To copy from a specific version, use the rev argument to the query string or If-Match:
-        // $headers = [];
-        // $headers['If-Match']
-        // $headers['Destination']
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-from-a-specific-revision
+    public function copyFrom($destination, $batch = false, $fullCommit = false) {
+        if (empty($this->id) || empty($this->rev)) {
+            throw new Exception('Both _id & _rev fields could not be empty!');
+        }
+        $batch = $batch ? '?batch=ok' : '';
+        $headers = [];
+        $headers['If-Match'] = $this->rev;
+        $headers['Destination'] = $destination;
+        if ($fullCommit) {
+            $headers['X-Couch-Full-Commit'] = 'true';
+        }
+        return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
     }
-    public function copyTo($destination) {
-        // from: this doc
-        // To copy to an existing document, you must specify the current revision string for the target document by appending the rev parameter to the Destination header string.
+    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-to-an-existing-document
+    public function copyTo($destination, $destinationRev, $batch = false, $fullCommit = false) {
+        if (empty($this->id) || empty($this->rev)) {
+            throw new Exception('Both _id & _rev fields could not be empty!');
+        }
+        $batch = $batch ? '?batch=ok' : '';
+        $headers = [];
+        $headers['If-Match'] = $this->rev;
+        $headers['Destination'] = sprintf('%s?rev=%s', $destination, $destinationRev);
+        if ($fullCommit) {
+            $headers['X-Couch-Full-Commit'] = 'true';
+        }
+        return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
     }
 }
