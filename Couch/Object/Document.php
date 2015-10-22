@@ -57,7 +57,24 @@ class Document
         return $this->deleted;
     }
 
-    public function setAttachment($attachment) {}
+    public function setAttachment($attachment) {
+        if (!$attachment instanceof DocumentAttachment) {
+            if (!isset($attachment['file'])) {
+                throw new Exception('Attachment file is required!');
+            }
+            $file =& $attachment['file'];
+            $fileName =& $attachment['file_name'];
+            $attachment = new DocumentAttachment($file, $fileName);
+        }
+
+        if (isset($this->data['_attachments'][$attachment->fileName])) {
+            throw new Exception('Attachment is alredy exists on this document!');
+        }
+
+        $this->attachments[$attachment->fileName] =
+            $this->data['_attachments'][$attachment->fileName] = $attachment;
+    }
+
     public function getAttachment($name) {}
     public function getAttachmentAll() {}
     public function unsetAttachment($name) {}
@@ -68,8 +85,10 @@ class Document
         if (isset($data['_rev']))     $this->setRev($data['_rev']);
         if (isset($data['_deleted'])) $this->setDeleted($data['_deleted']);
         if (isset($data['_attachments'])) {
-            // unset?
-            $this->setAttachment($data['_attachments']);
+            foreach ($data['_attachments'] as $attachment) {
+                $this->setAttachment($attachment);
+            }
+            unset($data['_attachments']);
         }
 
         foreach ($data as $key => $value) {
@@ -154,7 +173,13 @@ class Document
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->client->post($this->db->getName() . $batch, null, $this->getData(), $headers)->getData();
+        $data = $this->getData();
+        if (!empty($this->attachments)) {
+            foreach ($this->attachments as $name => $attachment) {
+                $data['_attachments'][$name] = $attachment->toArray();
+            }
+        }
+        return $this->client->post($this->db->getName() . $batch, null, $data, $headers)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#delete--{db}-{docid}
     public function remove($batch = false, $fullCommit = false) {
