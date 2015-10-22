@@ -131,3 +131,13 @@ $doc = new Couch\Object\Document($db);
 // prd($doc->findAttachments(true, ['2-6a0508cce9d2b4f3b83159648415c5e0']));
 
 // pre(json_encode($doc));
+
+$doc = new Couch\Object\Document($db);
+// $doc->_id = 'attc_test';
+// $doc->_attachments = [['file' => './attc1.txt']];
+// $doc->setAttachment(['file' => './attc1.txt']);
+// $doc->setAttachment(['file' => './attc1.txt', 'file_name' => 'attc1']);
+
+// $doc->_id = 'attc_test1';
+// $doc->_attachments = [['file' => './attc1.txt'], ['file' => './attc2.txt']];
+// pre($doc->save());
