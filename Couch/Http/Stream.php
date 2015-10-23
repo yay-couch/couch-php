@@ -29,8 +29,9 @@ abstract class Stream
     }
 
     public function getHeader($key) {
-        return isset($this->headers[$key])
-            ? $this->headers[$key] : null;
+        if (isset($this->headers[$key])) {
+            return $this->headers[$key];
+        }
     }
 
     public function getHeaderAll() {
