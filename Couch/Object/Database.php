@@ -58,7 +58,7 @@ class Database
             return $data['rows'][0];
         }
     }
-    public function getDocumentAll($query = null, array $keys = []) {
+    public function getDocumentAll($query = null, array $keys = array()) {
         if ($query instanceof Query) {
             $query = $query->toArray();
         } elseif (is_string($query)) {
@@ -84,7 +84,7 @@ class Database
         }
     }
     public function createDocumentAll(array $documents) {
-        $docs = [];
+        $docs = array();
         foreach ($documents as $document) {
             if ($document instanceof Document) {
                 $document = $document->getData();
@@ -110,7 +110,7 @@ class Database
         }
     }
     public function updateDocumentAll(array $documents) {
-        $docs = [];
+        $docs = array();
         foreach ($documents as $document) {
             if ($document instanceof Document) {
                 $document = $document->getData();
@@ -132,7 +132,7 @@ class Database
         }
     }
     public function deleteDocumentAll(array $documents) {
-        $docs = [];
+        $docs = array();
         foreach ($documents as $document) {
             if ($document instanceof Document) {
                 $document = $document->getData();
@@ -144,7 +144,7 @@ class Database
     }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/changes.html#get--{db}-_changes
-    public function getChanges(array $query = null, array $docIds = []) {
+    public function getChanges(array $query = null, array $docIds = array()) {
         if (empty($docIds)) {
             return $this->client->get('/'. $this->name .'/_changes', $query)->getData();
         } else {
