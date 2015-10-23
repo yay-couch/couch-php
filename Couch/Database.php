@@ -15,15 +15,7 @@ class Database
 
     public function __construct(Client $client, $name) {
         $this->client = $client;
-
-        $this->setName($name);
-    }
-
-    public function setName($name) {
         $this->name = $name;
-    }
-    public function getName() {
-        return $this->name;
     }
 
     // http://docs.couchdb.org/en/1.5.1/api/database/common.html#head--{db}
