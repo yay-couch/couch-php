@@ -35,6 +35,13 @@ class Document
         return $this->data;
     }
 
+    public function setDatabase(Database $database) {
+        $this->database = $database;
+    }
+    public function getDatabase() {
+        return $this->database;
+    }
+
     public function setId($id) {
         if (!$this->id instanceof Uuid) {
             $id = new Uuid($id);
