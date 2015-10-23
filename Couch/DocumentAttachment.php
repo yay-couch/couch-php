@@ -168,7 +168,7 @@ class DocumentAttachment
 
         $database = $this->document->getDatabase();
         return $database->client->delete(sprintf('%s/%s/%s%s',
-            $database->name->getName(), $docId, urlencode($this->fileName), $batch
+            $database->name, $docId, urlencode($this->fileName), $batch
         ), null, $headers)->getData();
     }
 
