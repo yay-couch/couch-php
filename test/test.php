@@ -149,13 +149,17 @@ $db = new Couch\Object\Database($client, 'foo2');
 
 $doc = new Couch\Object\Document($db);
 $doc->_id = 'attc_test';
-// $doc->_rev = '1-1a2ec5b9698df1e153bac4ff0630800e';
+$doc->_rev = '1-1a2ec5b9698df1e153bac4ff0630800e';
 // pre($doc->find());
-$attc = new Couch\Object\DocumentAttachment($doc);
-$attc->fileName = 'attc.txt';
+// $attc = new Couch\Object\DocumentAttachment($doc);
+// $attc->fileName = 'attc.txt';
 // $attc->digest = 'U1p5BLvdnOZVRyR6YrXBoQ==';
 // prd($attc->ping([200,304]));
-pre($attc->find());
+// pre($attc->find());
+// $attc = new Couch\Object\DocumentAttachment($doc);
+// $attc->file = './attc1.txt';
+// $attc->fileName = 'attc_new.txt';
+// pre($attc->save());
 
 // $query = new Couch\Query();
 // $query->setDatabase($db);
