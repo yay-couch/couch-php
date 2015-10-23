@@ -99,7 +99,11 @@ class DocumentAttachment
             $return['content'] = $response->getData();
             $return['content_type'] = $response->getHeader('Content-Type');
             $return['content_length'] = $response->getHeader('Content-Length');
-            $return['digest'] = 'md5-'. trim($response->getHeader('ETag'), '"');
+            if ($md5 = $response->getHeader('Content-MD5')) {
+                $return['digest'] = 'md5-'. $md5;
+            } else {
+                $return['digest'] = 'md5-'. trim($response->getHeader('ETag'), '"');
+            }
             return $return;
         }
     }
