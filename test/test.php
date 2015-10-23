@@ -16,7 +16,7 @@ $client = new Couch\Client($couch);
 // $r = $client->request('GET /');
 // pre($r);
 
-$server = new Couch\Object\Server($client);
+$server = new Couch\Server($client);
 // prd($server->ping());
 // pre($server->info());
 // pre($server->version());
@@ -35,7 +35,7 @@ $server = new Couch\Object\Server($client);
 // prd($server->setConfig('couchdb', 'foo', 'the foo!'));
 // prd($server->removeConfig('couchdb', 'foo'));
 
-$db = new Couch\Object\Database($client, 'foo');
+$db = new Couch\Database($client, 'foo');
 // prd($db->ping());
 // pre($db->info());
 // prd($db->create());
@@ -52,16 +52,16 @@ $db = new Couch\Object\Database($client, 'foo');
 // ++$offset; // and continue
 
 
-// $doc = new Couch\Object\Document();
+// $doc = new Couch\Document();
 // $doc->test = 'the test 2';
 // pre($db->createDocument($doc));
 // pre($db->createDocument(['test' => 'test 3']));
 // pre($db->createDocumentAll([
 //     ['test' => 'test 4'],
-//     new Couch\Object\Document(null, ['test' => 'the test 5']),
+//     new Couch\Document(null, ['test' => 'the test 5']),
 // ]));
 
-// $doc = new Couch\Object\Document();
+// $doc = new Couch\Document();
 // $doc->_id = 'e90636c398458a9d5969d2e71b04ad81';
 // $doc->_rev = '3-9aeefae43b9fad5df8cc87fe8bcc2718';
 // pre($db->updateDocument($doc));
@@ -69,13 +69,13 @@ $db = new Couch\Object\Database($client, 'foo');
 //     ['_id' => 'e90636c398458a9d5969d2e71b04b0a4',
 //      '_rev' => '1-afa338dcbc6870f1a1dd441557f79859',
 //      'test' => 'test 2 (update)'],
-//     new Couch\Object\Document(null, [
+//     new Couch\Document(null, [
 //         '_id' => 'e90636c398458a9d5969d2e71b04b2e4',
 //         '_rev' => '1-186677ba2134699278e769e075f772f6',
 //         'test' => 'the test 3 (update)']),
 // ]));
 
-// $doc = new Couch\Object\Document(null, [
+// $doc = new Couch\Document(null, [
 //     '_id' => 'e90636c398458a9d5969d2e71b04b0a4',
 //     '_rev' => '2-d4ef449903f67ee5559f1ee42bafcfcf',
 // ]);
@@ -91,7 +91,7 @@ $db = new Couch\Object\Database($client, 'foo');
 // pre($db->setSecurity(['names' => ['superuser'], 'roles' => ['admins']],
 //                      ['names' => ['user1', 'user2'], 'roles' => ['developers']]));
 
-$db = new Couch\Object\Database($client, 'foo2');
+$db = new Couch\Database($client, 'foo2');
 // pre($db->getChanges());
 
 // $db->viewTemp('function(doc){ if(doc.name) { emit(doc.name, null); }}');
@@ -102,7 +102,7 @@ $db = new Couch\Object\Database($client, 'foo2');
 // pre($db->getRevisionLimit());
 // pre($db->setRevisionLimit(1001));
 
-// $doc = new Couch\Object\Document($db);
+// $doc = new Couch\Document($db);
 // $doc->_id = 'e90636c398458a9d5969d2e71b04b2e4';
 // $doc->_rev = '2-393dbbc2cca7eea546a3c750ebeddd70';
 // prd($doc->ping());
@@ -110,7 +110,7 @@ $db = new Couch\Object\Database($client, 'foo2');
 // prd($doc->isNotModified());
 // pre($doc->find());
 
-// $doc = new Couch\Object\Document($db);
+// $doc = new Couch\Document($db);
 // $doc->_id = 'test';
 // $doc->_rev = '1-906991234e081f87f7b5fad971302cac';
 // $doc->a1 = 'The Title (update)!';
@@ -123,7 +123,7 @@ $db = new Couch\Object\Database($client, 'foo2');
 // pre($doc->copyFrom('test_copy2'));
 // pre($doc->copyTo('test_copy2', '2-d8b6ac4a5fc5b5506b6817c9d0e509a5'));
 
-// $doc = new Couch\Object\Document($db);
+// $doc = new Couch\Document($db);
 // $doc->_id = 'test_copy1';
 // $doc->_rev = '3-e9f9a64f96bc4932a8c21d091ffa04e8';
 // pre($doc->remove());
@@ -135,7 +135,7 @@ $db = new Couch\Object\Database($client, 'foo2');
 
 // pre(json_encode($doc));
 
-// $doc = new Couch\Object\Document($db);
+// $doc = new Couch\Document($db);
 // $doc->_id = 'attc_test';
 // $doc->_attachments = [['file' => './attc1.txt']];
 // $doc->setAttachment(['file' => './attc1.txt']);
@@ -150,20 +150,20 @@ $db = new Couch\Object\Database($client, 'foo2');
 // pre($doc->getAttachment('attc1')->toArray());
 // pre($doc);
 
-// $doc = new Couch\Object\Document($db);
+// $doc = new Couch\Document($db);
 // $doc->_id = 'attc_test';
 // $doc->_rev = '1-1a2ec5b9698df1e153bac4ff0630800e';
 // pre($doc->find());
-// $attc = new Couch\Object\DocumentAttachment($doc);
+// $attc = new Couch\DocumentAttachment($doc);
 // $attc->fileName = 'attc.txt';
 // $attc->digest = 'U1p5BLvdnOZVRyR6YrXBoQ==';
 // prd($attc->ping([200,304]));
 // pre($attc->find());
-// $attc = new Couch\Object\DocumentAttachment($doc);
+// $attc = new Couch\DocumentAttachment($doc);
 // $attc->file = './attc1.txt';
 // $attc->fileName = 'attc3.txt';
 // pre($attc->save());
-// $attc = new Couch\Object\DocumentAttachment($doc);
+// $attc = new Couch\DocumentAttachment($doc);
 // $attc->fileName = 'attc3.txt';
 // pre($attc->remove());
 
