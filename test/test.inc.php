@@ -16,6 +16,6 @@ function prd($input, $exit = false){
 }
 
 // simple autoload
-spl_autoload_register(function($name) {
-    require(sprintf('%s/../%s.php', __dir__, ltrim(str_replace('\\', '/', $name), '/')));
-});
+// spl_autoload_register(function($name) {
+//     require(sprintf('%s/../%s.php', __dir__, ltrim(str_replace('\\', '/', $name), '/')));
+// });
