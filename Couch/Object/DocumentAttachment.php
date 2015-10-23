@@ -44,6 +44,7 @@ class DocumentAttachment
         return $this->document;
     }
 
+    // http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#head--{db}-{docid}-{attname}
     public function ping($statusCode = 200) {
         if (!isset($this->document)) {
             throw new Exception('Attachment document is not defined!');
@@ -69,6 +70,7 @@ class DocumentAttachment
             $this->document->getDatabase()->getName(), $docId, $this->fileName), $query, $headers);
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
+    // http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#get--{db}-{docid}-{attname}
     public function find() {
         if (!isset($this->document)) {
             throw new Exception('Attachment document is not defined!');
