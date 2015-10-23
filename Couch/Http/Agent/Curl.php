@@ -13,7 +13,7 @@ class Curl
 
         $this->link =@ curl_init($request->uri);
         if (is_resource($this->link)) {
-            $headers = [];
+            $headers = array();
             // proper response headers/body pairs
             $headers[] = 'Expect: ';
             foreach ($request->headers as $key => $value) {
