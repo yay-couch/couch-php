@@ -96,10 +96,10 @@ class DocumentAttachment
             $this->document->getDatabase()->getName(), $docId, $this->fileName), $query, $headers);
         if (in_array($response->getStatusCode(), [200, 304])) {
             $return = [];
+            $return['content'] = $response->getData();
             $return['content_type'] = $response->getHeader('Content-Type');
             $return['content_length'] = $response->getHeader('Content-Length');
-            $return['digest'] = trim($response->getHeader('ETag'), '"');
-            $return['data'] = $response->getData();
+            $return['digest'] = 'md5-'. trim($response->getHeader('ETag'), '"');
             return $return;
         }
     }
