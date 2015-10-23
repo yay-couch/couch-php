@@ -38,7 +38,7 @@ class Sock
                 $headers[$key] = $value;
             }
 
-            // http://bugs.php.net/16452
+            // use HTTP/1.0 cos of => http://bugs.php.net/16452 :))
             // http://forums.devnetwork.net/viewtopic.php?f=1&t=113225#p595221
             fwrite($this->link, sprintf("%s %s%s HTTP/1.0\r\n",
                 $request->method, $url['path'], $url['query']));
