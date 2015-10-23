@@ -30,7 +30,6 @@ class Curl
                 CURLOPT_CUSTOMREQUEST  => $request->method,
                 CURLOPT_HEADER         => true,
                 CURLOPT_HTTPHEADER     => $headers,
-                CURLOPT_USERAGENT      => $request->headers['User-Agent'],
                 CURLOPT_CONNECTTIMEOUT => $this->config['timeout'],
                 CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
                 CURLINFO_HEADER_OUT    => true
