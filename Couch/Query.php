@@ -3,11 +3,14 @@ namespace Couch;
 
 class Query
 {
+    private $database;
     private $data = array(),
             $dataString = '';
-    private $database;
 
-    public function __construct(array $data = array()) {
+    public function __construct(Database $database = null, array $data = array()) {
+        if ($database) {
+            $this->database = $database;
+        }
         if (!empty($data)) {
             $this->data = $data;
         }
@@ -26,7 +29,7 @@ class Query
     public function run() {
         if (!$this->database) {
             throw new Exception(sprintf(
-                'Set database first calling %s::setDatabase() to run a request!', __class__));
+                'Set database first on init or calling %s::setDatabase() to run a request!', __class__));
         }
         return $this->database->getDocumentAll($this->data);
     }
