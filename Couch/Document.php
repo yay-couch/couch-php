@@ -143,6 +143,10 @@ class Document
         if (empty($this->id)) {
             throw new Exception('_id field could not be empty!');
         }
+        if (!empty($this->rev) && !isset($query['rev'])) {
+            $query['rev'] = $this->rev;
+        }
+
         return $this->database->client->get($this->database->name .'/'. $this->id, $query)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#getting-a-list-of-revisions
