@@ -14,7 +14,7 @@ abstract class Agent
         'blocking' => 1
     ];
 
-    public function __construct(array $config = []) {
+    public function __construct(array $config = array()) {
         $this->config = array_merge($this->config, $config);
     }
 
@@ -45,7 +45,7 @@ abstract class Agent
             $statusText = $match[2];
         }
 
-        $return = [];
+        $return = array();
         $return['_status']['code'] = $statusCode;
         $return['_status']['text'] = $statusText;
 
