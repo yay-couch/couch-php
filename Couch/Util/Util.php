@@ -13,7 +13,7 @@ abstract class Util
         return str_replace('"', '%22', $input);
     }
 
-    public static function getArrayValue($key, array $array, $defaultValue = null) {
+    public static function dig($key, array $array, $defaultValue = null) {
         return array_key_exists($key, $array)
             ? $array[$key] : $defaultValue;
     }

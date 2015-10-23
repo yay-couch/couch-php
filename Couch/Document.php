@@ -111,7 +111,7 @@ class Document
 
     public function getData($key = null) {
         if ($key) {
-            return Util\Util::getArrayValue($key, $this->data);
+            return Util\Util::dig($key, $this->data);
         }
         return $this->data;
     }

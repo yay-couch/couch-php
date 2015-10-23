@@ -21,7 +21,7 @@ class Server
     public function info($key = null) {
         $info = $this->client->get('/')->getData();
         if ($key) {
-            return Util\Util::getArrayValue($key, $info);
+            return Util\Util::dig($key, $info);
         }
         return $info;
     }
