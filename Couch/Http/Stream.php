@@ -7,7 +7,6 @@ abstract class Stream
           TYPE_RESPONSE = 2;
 
     protected $type;
-
     protected $body;
     protected $headers = [];
 
@@ -15,12 +14,10 @@ abstract class Stream
         if ($key === null) {
             return $this->body;
         }
-
         $value =& $this->body;
         foreach (explode('.', $key) as $key) {
             $value =& $value[$key];
         }
-
         return $value;
     }
 
