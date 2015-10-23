@@ -175,3 +175,5 @@ $db = new Couch\Object\Database($client, 'foo2');
 // pre($query);
 // pre($query->run());
 // pre($db->getDocumentAll($query));
+
+// pre($client->request('GET /foo/_design/repsum/_view/repsum?group=true')->getData());
