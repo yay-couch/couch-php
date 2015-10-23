@@ -101,6 +101,8 @@ class DocumentAttachment
             return $return;
         }
     }
+    public function save() {}
+    public function remove() {}
 
     public function toArray($encode = true) {
         $this->readFile($encode);
