@@ -5,6 +5,9 @@
 // define('COUCH_USERNAME', '');
 // define('COUCH_PASSWORD', '');
 
+$autoload = include('../Couch/Autoload.php');
+$autoload->register();
+
 $couch = new Couch\Couch();
 // pre($couch);
 $client = new Couch\Client($couch);
