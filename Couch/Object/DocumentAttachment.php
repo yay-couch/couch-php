@@ -57,7 +57,7 @@ class DocumentAttachment
         if (empty($this->fileName)) {
             throw new Exception('Attachment file name is not defined!');
         }
-        $query = $headers = [];
+        $query = $headers = array();
         if (!empty($docRev)) {
             $query['rev'] = $docRev;
             // cancel using rev in headers @see https://issues.apache.org/jira/browse/COUCHDB-2860
@@ -83,7 +83,7 @@ class DocumentAttachment
         if (empty($this->fileName)) {
             throw new Exception('Attachment file name is not defined!');
         }
-        $query = $headers = [];
+        $query = $headers = array();
         if (!empty($docRev)) {
             $query['rev'] = $docRev;
             // cancel using rev in headers @see https://issues.apache.org/jira/browse/COUCHDB-2860
@@ -95,7 +95,7 @@ class DocumentAttachment
         $response = $this->document->getClient()->get(sprintf('%s/%s/%s',
             $this->document->getDatabase()->getName(), $docId, $this->fileName), $query, $headers);
         if (in_array($response->getStatusCode(), [200, 304])) {
-            $return = [];
+            $return = array();
             $return['content'] = $response->getData();
             $return['content_type'] = $response->getHeader('Content-Type');
             $return['content_length'] = $response->getHeader('Content-Length');
@@ -112,7 +112,7 @@ class DocumentAttachment
 
     public function toArray($encode = true) {
         $this->readFile($encode);
-        $array = [];
+        $array = array();
         $array['data'] = $this->data;
         $array['content_type'] = $this->contentType;
         return $array;
