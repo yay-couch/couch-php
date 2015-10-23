@@ -13,8 +13,7 @@ $couch = new Couch\Couch();
 $client = new Couch\Client($couch);
 // pre($client);
 
-// $r = $client->request('GET /');
-// pre($r);
+// pre($client->request('GET /'));
 
 $server = new Couch\Server($client);
 // prd($server->ping());
