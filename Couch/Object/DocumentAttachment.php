@@ -112,7 +112,30 @@ class DocumentAttachment
             return $return;
         }
     }
-    public function save() {}
+     // http://docs.couchdb.org/en/latest/api/document/attachments.html#put--db-docid-attname
+    public function save() {
+        if (!isset($this->document)) {
+            throw new Exception('Attachment document is not defined!');
+        }
+        $docId = $this->document->getId();
+        $docRev = $this->document->getRev();
+        if (empty($docId)) {
+            throw new Exception('Attachment document _id is required!');
+        }
+        if (empty($docRev)) {
+            throw new Exception('Attachment document _rev is required!');
+        }
+        if (empty($this->fileName)) {
+            throw new Exception('Attachment file name is required!');
+        }
+        $this->readFile(false);
+        $headers = array();
+        $headers['If-Match'] = $docRev;
+        $headers['Content-Type'] = $this->contentType;
+        return $this->document->getClient()->put(sprintf('%s/%s/%s',
+            $this->document->getDatabase()->getName(), $docId, urlencode($this->fileName)
+        ), null, $this->data, $headers)->getData();
+    }
     public function remove() {}
 
     public function toArray($encode = true) {
