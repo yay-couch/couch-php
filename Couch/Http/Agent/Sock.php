@@ -30,7 +30,13 @@ class Sock
             $headers = array();
             $headers['Host'] = $url['host'] .':'. $url['port'];
             $headers['Connection'] = 'close';
-            $headers = $headers + $request->headers;
+            foreach ($request->headers as $key => $value) {
+                // actually remove header command
+                if ($value === null) {
+                    continue;
+                }
+                $headers[$key] = $value;
+            }
 
             // http://bugs.php.net/16452
             // http://forums.devnetwork.net/viewtopic.php?f=1&t=113225#p595221
