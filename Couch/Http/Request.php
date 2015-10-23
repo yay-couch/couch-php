@@ -55,7 +55,11 @@ class Request
 
     public function setMethod($method) {
         $this->method = strtoupper($method);
-        $this->setHeader('X-HTTP-Method-Override', $this->method);
+        if ($this->method != self::METHOD_HEAD &&
+            $this->method != self::METHOD_GET &&
+            $this->method != self::METHOD_POST) {
+            $this->setHeader('X-HTTP-Method-Override', $this->method);
+        }
 
         return $this;
     }
