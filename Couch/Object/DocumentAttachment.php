@@ -136,7 +136,32 @@ class DocumentAttachment
             $this->document->getDatabase()->getName(), $docId, urlencode($this->fileName)
         ), null, $this->data, $headers)->getData();
     }
-    public function remove() {}
+    // http://docs.couchdb.org/en/latest/api/document/attachments.html#delete--db-docid-attname
+    public function remove($batch = false, $fullCommit = false) {
+        if (!isset($this->document)) {
+            throw new Exception('Attachment document is not defined!');
+        }
+        $docId = $this->document->getId();
+        $docRev = $this->document->getRev();
+        if (empty($docId)) {
+            throw new Exception('Attachment document _id is required!');
+        }
+        if (empty($docRev)) {
+            throw new Exception('Attachment document _rev is required!');
+        }
+        if (empty($this->fileName)) {
+            throw new Exception('Attachment file name is required!');
+        }
+        $batch = $batch ? '?batch=ok' : '';
+        $headers = array();
+        $headers['If-Match'] = $docRev;
+        if ($fullCommit) {
+            $headers['X-Couch-Full-Commit'] = 'true';
+        }
+        return $this->document->getClient()->delete(sprintf('%s/%s/%s%s',
+            $this->document->getDatabase()->getName(), $docId, urlencode($this->fileName), $batch
+        ), null, $headers)->getData();
+    }
 
     public function toArray($encode = true) {
         $this->readFile($encode);
