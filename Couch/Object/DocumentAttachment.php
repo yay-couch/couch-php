@@ -27,6 +27,11 @@ class DocumentAttachment
             throw new \Exception(sprintf(
                 '`%s` property does not exists on this object!', $name));
         }
+        if ($name == 'file') {
+            $this->file = $value;
+            $this->fileName = basename($value);
+            return;
+        }
         $this->{$name} = $value;
     }
     public function __get($name) {
@@ -93,7 +98,7 @@ class DocumentAttachment
             $headers['If-None-Match'] = sprintf('"%s"', $this->digest);
         }
         $response = $this->document->getClient()->get(sprintf('%s/%s/%s',
-            $this->document->getDatabase()->getName(), $docId, $this->fileName), $query, $headers);
+            $this->document->getDatabase()->getName(), $docId, urlencode($this->fileName)), $query, $headers);
         if (in_array($response->getStatusCode(), [200, 304])) {
             $return = array();
             $return['content'] = $response->getData();
