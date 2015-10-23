@@ -96,6 +96,8 @@ class DocumentAttachment
             // $headers['If-Match'] = $docRev;
             $query['rev'] = $docRev;
         }
+        $headers['Accept'] = '*/*';
+        $headers['Content-Type'] = null;
         if (!empty($this->digest)) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->digest);
         }
