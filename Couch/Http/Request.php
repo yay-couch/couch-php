@@ -94,8 +94,6 @@ class Request
                 $this->body = $body;
             }
             $this->headers['Content-Length'] = strlen($this->body);
-        } else {
-            unset($this->headers['Content-Type']);
         }
 
         return $this;
