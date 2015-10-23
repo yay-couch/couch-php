@@ -93,8 +93,10 @@ class Request
             } else {
                 $this->body = $body;
             }
+            $this->headers['Content-Length'] = strlen($this->body);
+        } else {
+            unset($this->headers['Content-Type']);
         }
-        $this->headers['Content-Length'] = strlen($this->body);
 
         return $this;
     }
