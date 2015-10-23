@@ -21,7 +21,6 @@ class Query
     public function setDatabase(Database $database) {
         $this->database = $database;
     }
-
     public function getDatabase() {
         return $this->database;
     }
