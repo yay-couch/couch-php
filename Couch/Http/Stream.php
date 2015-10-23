@@ -48,7 +48,13 @@ abstract class Stream
             $headers = array();
             $headers['Host'] = $url['host'] .':'. $url['port'];
             $headers['Connection'] = 'close';
-            $headers = $headers + $this->headers;
+            foreach ($this->headers as $key => $value) {
+                // actually remove header command
+                if ($value === null) {
+                    continue;
+                }
+                $headers[$key] = $value;
+            }
 
             $string = sprintf("%s %s%s HTTP/1.0\r\n", $this->method, $url['path'], $url['query']);
             foreach ($headers as $key => $value) {
