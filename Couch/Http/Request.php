@@ -33,10 +33,14 @@ class Request
         }
 
         $this->headers['Accept'] = 'application/json';
+        $this->headers['Content-Type'] = 'application/json';
         $this->headers['User-Agent'] = 'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
     }
 
     public function send() {
+        // just only debugging outbound headers in an order
+        ksort($this->headers);
+
         $agent = $this->client->couch->getHttpAgent();
         $agent->run($this);
 
@@ -80,10 +84,13 @@ class Request
 
     public function setBody($body) {
         if (!empty($body)) {
-            $this->body = json_encode($body);
-            $this->setHeader('Content-Type', 'application/json');
-            $this->setHeader('Content-Length', strlen($this->body));
+            if ($this->headers['Content-Type'] == 'application/json') {
+                $this->body = json_encode($body);
+            } else {
+                $this->body = $body;
+            }
         }
+        $this->headers['Content-Length'] = strlen($this->body);
 
         return $this;
     }
