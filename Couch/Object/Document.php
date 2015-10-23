@@ -8,11 +8,11 @@ class Document
     extends \Couch\Object
          implements \JsonSerializable
 {
-    private $id, $rev, $deleted = false, $attachments = [];
+    private $id, $rev, $deleted = false, $attachments = array();
     private $db, $database;
-    private $data = [];
+    private $data = array();
 
-    public function __construct(Database $database = null, array $data = []) {
+    public function __construct(Database $database = null, array $data = array()) {
         if ($database) {
             $this->db = $this->database = $database;
 
@@ -96,7 +96,7 @@ class Document
         }
     }
     public function unsetAttachmentAll() {
-        $this->attachments = [];
+        $this->attachments = array();
     }
 
     public function setData(array $data) {
@@ -127,7 +127,7 @@ class Document
         if (empty($this->id)) {
             throw new Exception('_id field is could not be empty!');
         }
-        $headers = [];
+        $headers = array();
         if ($this->rev) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->rev);
         }
@@ -167,11 +167,11 @@ class Document
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#attachments
     public function findAttachments($attEncInfo = false, array $attsSince = null) {
-        $query = [];
+        $query = array();
         $query['attachments'] = true;
         $query['att_encoding_info'] = $attEncInfo;
         if ($attsSince)  {
-            $attsSinceArray = [];
+            $attsSinceArray = array();
             foreach ($attsSince as $attsSinceValue) {
                 $attsSinceArray[] = sprintf('"%s"', Util::quote($attsSinceValue));
             }
@@ -187,7 +187,7 @@ class Document
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
     public function save($batch = false, $fullCommit = false) {
         $batch = $batch ? '?batch=ok' : '';
-        $headers = [];
+        $headers = array();
         $headers['Content-Type'] = 'application/json';
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
@@ -206,7 +206,7 @@ class Document
             throw new Exception('Both _id & _rev fields could not be empty!');
         }
         $batch = $batch ? '?batch=ok' : '';
-        $headers = [];
+        $headers = array();
         $headers['If-Match'] = $this->rev;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
@@ -222,7 +222,7 @@ class Document
             throw new Exception('Destination could not be empty!');
         }
         $batch = $batch ? '?batch=ok' : '';
-        $headers = [];
+        $headers = array();
         $headers['Destination'] = $destination;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
@@ -238,7 +238,7 @@ class Document
             throw new Exception('Destination could not be empty!');
         }
         $batch = $batch ? '?batch=ok' : '';
-        $headers = [];
+        $headers = array();
         $headers['If-Match'] = $this->rev;
         $headers['Destination'] = $destination;
         if ($fullCommit) {
@@ -255,7 +255,7 @@ class Document
             throw new Exception('Destination and destination revision could not be empty!');
         }
         $batch = $batch ? '?batch=ok' : '';
-        $headers = [];
+        $headers = array();
         $headers['If-Match'] = $this->rev;
         $headers['Destination'] = sprintf('%s?rev=%s', $destination, $destinationRevision);
         if ($fullCommit) {
