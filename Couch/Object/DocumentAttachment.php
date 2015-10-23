@@ -85,9 +85,9 @@ class DocumentAttachment
         }
         $query = $headers = array();
         if (!empty($docRev)) {
-            $query['rev'] = $docRev;
             // cancel using rev in headers @see https://issues.apache.org/jira/browse/COUCHDB-2860
             // $headers['If-Match'] = $docRev;
+            $query['rev'] = $docRev;
         }
         if (!empty($this->digest)) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->digest);
