@@ -52,10 +52,10 @@ class DocumentAttachment
         $docId = $this->document->getId();
         $docRev = $this->document->getRev();
         if (empty($docId)) {
-            throw new Exception('Attachment document _id is not defined!');
+            throw new Exception('Attachment document _id is required!');
         }
         if (empty($this->fileName)) {
-            throw new Exception('Attachment file name is not defined!');
+            throw new Exception('Attachment file name is required!');
         }
         $query = $headers = array();
         if (!empty($docRev)) {
@@ -78,10 +78,10 @@ class DocumentAttachment
         $docId = $this->document->getId();
         $docRev = $this->document->getRev();
         if (empty($docId)) {
-            throw new Exception('Attachment document _id is not defined!');
+            throw new Exception('Attachment document _id is required!');
         }
         if (empty($this->fileName)) {
-            throw new Exception('Attachment file name is not defined!');
+            throw new Exception('Attachment file name is required!');
         }
         $query = $headers = array();
         if (!empty($docRev)) {
