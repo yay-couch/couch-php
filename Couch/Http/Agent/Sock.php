@@ -2,6 +2,7 @@
 namespace Couch\Http\Agent;
 
 use \Couch\Http\Request;
+use \Couch\Http\Exception;
 
 class Sock
     extends \Couch\Http\Agent

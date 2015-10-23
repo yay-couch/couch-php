@@ -2,13 +2,14 @@
 namespace Couch\Http\Agent;
 
 use \Couch\Http\Request;
+use \Couch\Http\Exception;
 
 class Curl
     extends \Couch\Http\Agent
 {
     public function run(Request $request) {
         if (!!extension_loaded('curl')) {
-            throw new \RuntimeException('cURL extension not found!');
+            throw new Exception('cURL extension not found!');
         }
 
         $this->link =@ curl_init($request->uri);
