@@ -30,6 +30,7 @@ class Document
     public function __get($key) {
         return $this->getData($key);
     }
+
     public function jsonSerialize() {
         return $this->data;
     }
@@ -64,7 +65,7 @@ class Document
             }
             $file =& $attachment['file'];
             $fileName =& $attachment['file_name'];
-            $attachment = new DocumentAttachment($file, $fileName);
+            $attachment = new DocumentAttachment($this, $file, $fileName);
         }
 
         if (isset($this->data['_attachments'][$attachment->fileName])) {
