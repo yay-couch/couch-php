@@ -41,7 +41,6 @@ $db = new Couch\Database($client, 'foo');
 // prd($db->remove());
 // pre($db->replicate('foo2'));
 
-// 667b0208441066a0954717b50c0008a9 83b5e0a0b3bd41d9a21cee7ae8000615
 // pre($db->getDocument('667b0208441066a0954717b50c0008a9'));
 // pre($db->getDocumentAll());
 // pre($db->getDocumentAll(null, ['667b0208441066a0954717b50c0008a9','83b5e0a0b3bd41d9a21cee7ae8000615']));
@@ -52,9 +51,9 @@ $db = new Couch\Database($client, 'foo');
 
 
 // $doc = new Couch\Document();
-// $doc->test = 'the test 2';
+// $doc->test = 'the test 20';
 // pre($db->createDocument($doc));
-// pre($db->createDocument(['test' => 'test 3']));
+// pre($db->createDocument(['test' => 'test 30']));
 // pre($db->createDocumentAll([
 //     ['test' => 'test 4'],
 //     new Couch\Document(null, ['test' => 'the test 5']),
@@ -99,7 +98,7 @@ $db = new Couch\Database($client, 'foo2');
 // $db->getMissingRevisionsDiff('a0ecb3e2bc442e7bd768ea78070349da', ['4-265c7f224875a6da3aa4ba79d01ee0b0']);
 
 // pre($db->getRevisionLimit());
-// pre($db->setRevisionLimit(1001));
+// pre($db->setRevisionLimit(1000));
 
 // $doc = new Couch\Document($db);
 // $doc->_id = 'e90636c398458a9d5969d2e71b04b2e4';
@@ -115,16 +114,17 @@ $db = new Couch\Database($client, 'foo2');
 // $doc->a1 = 'The Title (update)!';
 // $doc->a2 = 1.9;
 // pre($doc->save());
-// pre($doc->copy('test_copy1'));
-
-// $doc->_id = 'test_copy1';
-// $doc->_rev = '1-c3a3fd49deadd7470e8db28b79116003';
-// pre($doc->copyFrom('test_copy2'));
-// pre($doc->copyTo('test_copy2', '2-d8b6ac4a5fc5b5506b6817c9d0e509a5'));
+// pre($doc->copy('test_copy3'));
 
 // $doc = new Couch\Document($db);
-// $doc->_id = 'test_copy1';
-// $doc->_rev = '3-e9f9a64f96bc4932a8c21d091ffa04e8';
+// $doc->_id = 'test_copy3';
+// $doc->_rev = '1-88a2e6eeb67da643871995ddd8d9d57d';
+// pre($doc->copyFrom('test_copy3_1'));
+// pre($doc->copyTo('test_copy3_1', '1-88a2e6eeb67da643871995ddd8d9d57d'));
+
+// $doc = new Couch\Document($db);
+// $doc->_id = 'test_copy3';
+// $doc->_rev = '1-88a2e6eeb67da643871995ddd8d9d57d';
 // pre($doc->remove());
 
 // pre($doc->findRevisions());
@@ -135,12 +135,13 @@ $db = new Couch\Database($client, 'foo2');
 // pre(json_encode($doc));
 
 // $doc = new Couch\Document($db);
-// $doc->_id = 'attc_test';
+// $doc->_id = 'attc_test2';
 // $doc->_attachments = [['file' => './attc1.txt']];
 // $doc->setAttachment(['file' => './attc1.txt']);
 // $doc->setAttachment(['file' => './attc1.txt', 'file_name' => 'attc1']);
+// pre($doc->save());
 
-// $doc->_id = 'attc_test1';
+// $doc->_id = 'attc_test3';
 // $doc->_attachments = [['file' => './attc1.txt'], ['file' => './attc2.txt']];
 // pre($doc->save());
 
@@ -160,13 +161,13 @@ $db = new Couch\Database($client, 'foo2');
 // pre($attc->find());
 // $attc = new Couch\DocumentAttachment($doc);
 // $attc->file = './attc1.txt';
-// $attc->fileName = 'attc3.txt';
+// $attc->fileName = 'attc4.txt';
 // pre($attc->save());
 // $attc = new Couch\DocumentAttachment($doc);
 // $attc->fileName = 'attc3.txt';
 // pre($attc->remove());
 
-// $query = new Couch\Query();
+// $query = new Couch\Query($db);
 // $query->setDatabase($db);
 // $query->set('conflicts', true)
 //     ->set('stale', 'ok')
