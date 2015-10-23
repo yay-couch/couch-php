@@ -3,7 +3,7 @@ namespace Couch\Http;
 
 use \Couch\Couch;
 use \Couch\Client;
-use \Couch\Util\PropertyTrait as Property;
+use \Couch\Util\Property;
 
 class Request
     extends Stream

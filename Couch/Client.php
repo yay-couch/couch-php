@@ -4,7 +4,7 @@ namespace Couch;
 use \Couch\Couch;
 use \Couch\Http\Request,
     \Couch\Http\Response;
-use \Couch\Util\PropertyTrait as Property;
+use \Couch\Util\Property;
 
 class Client
 {

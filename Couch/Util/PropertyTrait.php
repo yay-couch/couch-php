@@ -1,7 +1,7 @@
 <?php
 namespace Couch\Util;
 
-trait PropertyTrait
+trait Property
 {
     /**
      * Setter method (forbids mutate actions).

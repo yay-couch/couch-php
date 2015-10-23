@@ -4,7 +4,7 @@ namespace Couch;
 use \Couch\Client;
 use \Couch\Query;
 use \Couch\Util\Util;
-use \Couch\Util\PropertyTrait as Property;
+use \Couch\Util\Property;
 
 class Database
 {

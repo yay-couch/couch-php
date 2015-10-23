@@ -1,7 +1,7 @@
 <?php
 namespace Couch\Http;
 
-use \Couch\Util\PropertyTrait as Property;
+use \Couch\Util\Property;
 
 class Response
     extends Stream
