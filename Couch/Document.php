@@ -1,22 +1,16 @@
 <?php
-namespace Couch\Object;
-
-use Couch\Uuid;
-use Couch\Util\Util;
+namespace Couch;
 
 class Document
-    extends \Couch\Object
-         implements \JsonSerializable
+    implements \JsonSerializable
 {
     private $id, $rev, $deleted = false, $attachments = array();
-    private $db, $database;
+    private $database;
     private $data = array();
 
     public function __construct(Database $database = null, array $data = array()) {
         if ($database) {
-            $this->db = $this->database = $database;
-
-            parent::__construct($database->getClient());
+            $this->database = $database;
         }
 
         if (!empty($data)) {
@@ -117,7 +111,7 @@ class Document
 
     public function getData($key = null) {
         if ($key) {
-            return Util::getArrayValue($key, $this->data);
+            return Util\Util::getArrayValue($key, $this->data);
         }
         return $this->data;
     }
@@ -131,7 +125,7 @@ class Document
         if ($this->rev) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->rev);
         }
-        $response = $this->client->head('/'. $this->db->getName(). '/'. $this->id, null, $headers);
+        $response = $this->database->client->head('/'. $this->database->name .'/'. $this->id, null, $headers);
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
     public function isExists() {
@@ -149,7 +143,7 @@ class Document
         if (empty($this->id)) {
             throw new Exception('_id field could not be empty!');
         }
-        return $this->client->get($this->db->getName() .'/'. $this->id, $query)->getData();
+        return $this->database->client->get($this->database->name .'/'. $this->id, $query)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#getting-a-list-of-revisions
     public function findRevisions() {
@@ -173,7 +167,7 @@ class Document
         if ($attsSince)  {
             $attsSinceArray = array();
             foreach ($attsSince as $attsSinceValue) {
-                $attsSinceArray[] = sprintf('"%s"', Util::quote($attsSinceValue));
+                $attsSinceArray[] = sprintf('"%s"', Util\Util::quote($attsSinceValue));
             }
             $query['atts_since'] = sprintf('[%s]', join(',', $attsSinceArray));
         }
@@ -198,7 +192,7 @@ class Document
                 $data['_attachments'][$name] = $attachment->toArray();
             }
         }
-        return $this->client->post($this->db->getName() . $batch, null, $data, $headers)->getData();
+        return $this->database->client->post($this->database->name . $batch, null, $data, $headers)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#delete--{db}-{docid}
     public function remove($batch = false, $fullCommit = false) {
@@ -211,7 +205,7 @@ class Document
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->client->delete($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
+        return $this->database->client->delete($this->database->name .'/'. $this->id . $batch, null, $headers)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copy--{db}-{docid}
     public function copy($destination, $batch = false, $fullCommit = false) {
@@ -227,7 +221,7 @@ class Document
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
+        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch, null, $headers)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-from-a-specific-revision
     public function copyFrom($destination, $batch = false, $fullCommit = false) {
@@ -244,7 +238,7 @@ class Document
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
+        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch, null, $headers)->getData();
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-to-an-existing-document
     public function copyTo($destination, $destinationRevision, $batch = false, $fullCommit = false) {
@@ -261,6 +255,6 @@ class Document
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->client->copy($this->db->getName() .'/'. $this->id . $batch, null, $headers)->getData();
+        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch, null, $headers)->getData();
     }
 }

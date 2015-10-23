@@ -1,5 +1,5 @@
 <?php
-namespace Couch\Object;
+namespace Couch;
 
 class DocumentAttachment
 {
@@ -71,8 +71,10 @@ class DocumentAttachment
         if (!empty($this->digest)) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->digest);
         }
-        $response = $this->document->getClient()->head(sprintf('%s/%s/%s',
-            $this->document->getDatabase()->getName(), $docId, $this->fileName), $query, $headers);
+
+        $database = $this->document->getDatabase();
+        $response = $database->client->head(sprintf('%s/%s/%s',
+            $database->name, $docId, $this->fileName), $query, $headers);
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
     // http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#get--{db}-{docid}-{attname}
@@ -97,8 +99,9 @@ class DocumentAttachment
         if (!empty($this->digest)) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->digest);
         }
-        $response = $this->document->getClient()->get(sprintf('%s/%s/%s',
-            $this->document->getDatabase()->getName(), $docId, urlencode($this->fileName)), $query, $headers);
+        $database = $this->document->getDatabase();
+        $response = $database->client->get(sprintf('%s/%s/%s',
+            $database->name, $docId, urlencode($this->fileName)), $query, $headers);
         if (in_array($response->getStatusCode(), [200, 304])) {
             $return = array();
             $return['content'] = $response->getData();
@@ -132,8 +135,10 @@ class DocumentAttachment
         $headers = array();
         $headers['If-Match'] = $docRev;
         $headers['Content-Type'] = $this->contentType;
-        return $this->document->getClient()->put(sprintf('%s/%s/%s',
-            $this->document->getDatabase()->getName(), $docId, urlencode($this->fileName)
+
+        $database = $this->document->getDatabase();
+        return $database->client->put(sprintf('%s/%s/%s',
+            $database->name, $docId, urlencode($this->fileName)
         ), null, $this->data, $headers)->getData();
     }
     // http://docs.couchdb.org/en/latest/api/document/attachments.html#delete--db-docid-attname
@@ -158,8 +163,10 @@ class DocumentAttachment
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->document->getClient()->delete(sprintf('%s/%s/%s%s',
-            $this->document->getDatabase()->getName(), $docId, urlencode($this->fileName), $batch
+
+        $database = $this->document->getDatabase();
+        return $database->client->delete(sprintf('%s/%s/%s%s',
+            $database->name->getName(), $docId, urlencode($this->fileName), $batch
         ), null, $headers)->getData();
     }
 

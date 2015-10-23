@@ -16,7 +16,7 @@ class Uuid
     public function __construct($value) {
         if ($value === true) {
             $value = self::generate();
-        } elseif ($value instanceof \Couch\Object\Server) {
+        } elseif ($value instanceof Server) {
             $value = $value->getUuid();
         }
         $this->setValue($value);

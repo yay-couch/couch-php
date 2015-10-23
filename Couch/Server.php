@@ -1,14 +1,12 @@
 <?php
-namespace Couch\Object;
-
-use Couch\Client;
-use Couch\Util\Util;
+namespace Couch;
 
 class Server
-    extends \Couch\Object
 {
+    private $client;
+
     public function __construct(Client $client) {
-        parent::__construct($client);
+        $this->client = $client;
     }
 
     public function ping() {
@@ -23,7 +21,7 @@ class Server
     public function info($key = null) {
         $info = $this->client->get('/')->getData();
         if ($key) {
-            return Util::getArrayValue($key, $info);
+            return Util\Util::getArrayValue($key, $info);
         }
         return $info;
     }

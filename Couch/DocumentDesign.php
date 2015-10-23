@@ -1,5 +1,5 @@
 <?php
-namespace Couch\Object;
+namespace Couch;
 
 // @todo
 class DocumentDesign {}

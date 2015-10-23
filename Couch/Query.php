@@ -1,8 +1,6 @@
 <?php
 namespace Couch;
 
-use Couch\Object\Database;
-
 class Query
 {
     private $data = array(),

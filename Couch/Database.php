@@ -1,17 +1,20 @@
 <?php
-namespace Couch\Object;
+namespace Couch;
 
-use Couch\Client;
-use Couch\Query;
-use Couch\Util\Util;
+use \Couch\Client;
+use \Couch\Query;
+use \Couch\Util\Util;
+use \Couch\Util\PropertyTrait as Property;
 
 class Database
-    extends \Couch\Object
 {
+    use Property;
+
+    private $client;
     private $name;
 
     public function __construct(Client $client, $name) {
-        parent::__construct($client);
+        $this->client = $client;
 
         $this->setName($name);
     }
