@@ -14,7 +14,7 @@ class Couch
     private $httpAgent;
     private $httpAgentDefault = self::HTTP_AGENT_SOCK;
 
-    public function __construct($httpAgent = null, array $config = []) {
+    public function __construct($httpAgent = null, array $config = array()) {
         if ($httpAgent == null) {
             // default agent
             $httpAgent = '\\Couch\\Http\\Agent\\'. $this->httpAgentDefault;
