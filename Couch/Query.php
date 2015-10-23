@@ -5,11 +5,11 @@ use Couch\Object\Database;
 
 class Query
 {
-    private $data = [],
+    private $data = array(),
             $dataString = '';
     private $database;
 
-    public function __construct(array $data = []) {
+    public function __construct(array $data = array()) {
         if (!empty($data)) {
             $this->data = $data;
         }
@@ -52,7 +52,7 @@ class Query
         if (!empty($this->dataString)) {
             return $this->dataString;
         }
-        $data = [];
+        $data = array();
         foreach ($this->data as $key => $value) {
             if (is_bool($value)) {
                 $value = $value ? 'true' : 'false';
