@@ -8,7 +8,7 @@ abstract class Stream
 
     protected $type;
     protected $body;
-    protected $headers = [];
+    protected $headers = array();
 
     public function getData($key = null) {
         if ($key === null) {
@@ -45,7 +45,7 @@ abstract class Stream
                 $url['query'] = '';
             }
 
-            $headers = [];
+            $headers = array();
             $headers['Host'] = $url['host'] .':'. $url['port'];
             $headers['Connection'] = 'close';
             $headers = $headers + $this->headers;
