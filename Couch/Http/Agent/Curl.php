@@ -18,6 +18,10 @@ class Curl
             // proper response headers/body pairs
             $headers[] = 'Expect: ';
             foreach ($request->headers as $key => $value) {
+                // actually remove header command
+                if ($value === null) {
+                    continue;
+                }
                 $headers[] = sprintf('%s: %s', $key, $value);
             }
 
