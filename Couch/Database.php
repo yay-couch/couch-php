@@ -219,13 +219,30 @@ class Database
         return $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#updating-documents-in-bulk
+    /**
+     * Update a document.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#updating-documents-in-bulk
+     * @note   Both document _id & _rev are required.
+     * @param  mixed $document
+     * @return mixed
+     */
     public function updateDocument($document) {
         $data = $this->updateDocumentAll([$document]);
         if (isset($data[0])) {
             return $data[0];
         }
     }
+
+    /**
+     * Update multiple documents.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#updating-documents-in-bulk
+     * @note   Each array element could be "array", "stdClass" or "Couch\Document".
+     * @note   Both document _id & _rev are required.
+     * @param  mixed $document
+     * @return mixed
+     */
     public function updateDocumentAll(array $documents) {
         $docs = array();
         foreach ($documents as $document) {
