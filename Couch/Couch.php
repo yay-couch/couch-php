@@ -61,8 +61,8 @@ class Couch
     /**
      * Object constructor.
      *
-     * @param  string|Couch\Http\Agent $httpAgent
-     * @param  array $config
+     * @param string|Couch\Http\Agent $httpAgent
+     * @param array $config
      * @throws Couch\Exception
      */
     public function __construct($httpAgent = null, array $config = array()) {
