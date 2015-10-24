@@ -248,11 +248,15 @@ class Database
         foreach ($documents as $document) {
             if ($document instanceof Document) {
                 $document = $document->getData();
+            } elseif ($document instanceof \stdClass) {
+                $document = (array) $document;
             }
+
             // these are required params
             if (!isset($document['_id'], $document['_rev'])) {
                 throw new Exception('Both _id & _rev fields are required!');
             }
+
             $docs[] = $document;
         }
 
@@ -270,7 +274,11 @@ class Database
         foreach ($documents as $document) {
             if ($document instanceof Document) {
                 $document = $document->getData();
+            } elseif ($document instanceof \stdClass) {
+                $document = (array) $document;
             }
+
+            // just add _deleted param into document
             $docs[] = $document + ['_deleted' => true];
         }
 
