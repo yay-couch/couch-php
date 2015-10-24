@@ -72,6 +72,8 @@ class Couch
             $this->httpAgent = new $httpAgent($config);
         } elseif ($httpAgent instanceof Sock || $httpAgent instanceof Curl) {
             $this->httpAgent = $httpAgent;
+        } else {
+            throw new Exception('Unknown HTTP agent given!');
         }
     }
 
