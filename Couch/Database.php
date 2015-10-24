@@ -120,13 +120,15 @@ class Database
      *
      * @link   http://docs.couchdb.org/en/1.4.x/api/misc.html?highlight=_replicate#post-replicate
      * @param  string $target
+     * @param  bool   $targetCreate
      * @return mixed
      */
-    public function replicate($target) {
+    public function replicate($target, $targetCreate = true) {
         return $this->client->post('/_replicate', null, [
-            'source' => $this->name, 'target' => $target, 'create_target' => true
+            'source' => $this->name, 'target' => $target, 'create_target' => $targetCreate
         ])->getData();
     }
+
 
     /**
      * Get a document by given key (docid).
