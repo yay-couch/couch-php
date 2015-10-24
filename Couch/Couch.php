@@ -27,6 +27,8 @@ use \Couch\Http\Agent\Sock,
 /**
  * @package Couch
  * @object  Couch\Couch
+ * @uses    Couch\Http\Agent\Sock,
+ *          Couch\Http\Agent\Curl
  * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 class Couch
