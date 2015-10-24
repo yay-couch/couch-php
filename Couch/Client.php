@@ -152,7 +152,7 @@ class Client
         // add request body
         $this->request->setBody($body);
 
-        // make request using http agent (sock & curl)
+        // make request using http agent (sock or curl)
         $agent = $this->request->send();
 
         // assing self.request and return it
