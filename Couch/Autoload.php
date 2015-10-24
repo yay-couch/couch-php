@@ -57,7 +57,7 @@ class Autoload
      * Registerer.
      * @return void
      */
-    public static function register() {
+    public function register() {
         spl_autoload_register(function($name) {
             // fix root
             if ($name[0] != '\\') {
