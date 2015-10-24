@@ -3,8 +3,8 @@ namespace Couch;
 
 use \Couch\Client;
 use \Couch\Query;
-use \Couch\Util\Util;
-use \Couch\Util\Property;
+use \Couch\Util\Util,
+    \Couch\Util\Property;
 
 class Database
 {
