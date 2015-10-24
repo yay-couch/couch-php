@@ -26,43 +26,109 @@ use \Couch\Query;
 use \Couch\Util\Util,
     \Couch\Util\Property;
 
+/**
+ * @package Couch
+ * @object  Couch\Couch
+ * @uses    Couch\Client
+ * @uses    Couch\Query
+ * @uses    Couch\Util\Util,
+ *          Couch\Util\Property
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Database
 {
+    /**
+     * Property object (trait).
+     * @var Couch\Util\Property
+     */
     use Property;
 
+    /**
+     * Client object.
+     * @var Couch\Client
+     */
     private $client;
+
+    /**
+     * Database name.
+     * @var string
+     */
     private $name;
 
+    /**
+     * Object constructor.
+     *
+     * @param Couch\Client $client
+     * @param string       $name
+     */
     public function __construct(Client $client, $name) {
         $this->client = $client;
         $this->name = $name;
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/common.html#head--{db}
+    /**
+     * Ping database, expect 200 response code.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/common.html#head--{db}
+     * @return bool
+     */
     public function ping() {
         return (200 === $this->client->head('/')->getStatusCode());
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/common.html#get--{db}
+
+    /**
+     * Get database info.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/common.html#get--{db}
+     * @param  string|null $key
+     * @return mixed
+     */
     public function info($key = null) {
         $info = $this->client->get('/'. $this->name)->getData();
         return ($key && isset($info[$key]))
             ? $info[$key] : $info;
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/common.html#put--{db}
+
+    /**
+     * Create a new database.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/common.html#put--{db}
+     * @return bool
+     */
     public function create() {
         return (true === $this->client->put('/'. $this->name)->getData('ok'));
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/common.html#delete--{db}
+
+    /**
+     * Remove database.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/common.html#delete--{db}
+     * @return bool
+     */
     public function remove() {
         return (true === $this->client->delete('/'. $this->name)->getData('ok'));
     }
+
+    /**
+     * Replicate database.
+     *
+     * @link   http://docs.couchdb.org/en/1.4.x/api/misc.html?highlight=_replicate#post-replicate
+     * @param  string $target
+     * @return mixed
+     */
     public function replicate($target) {
         return $this->client->post('/_replicate', null, [
             'source' => $this->name, 'target' => $target, 'create_target' => true
         ])->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#get--{db}-_all_docs
+    /**
+     * Get a document by given key (docid).
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#get--{db}-_all_docs
+     * @param  string $key
+     * @return mixed
+     */
     public function getDocument($key) {
         $data = $this->client->get('/'. $this->name .'/_all_docs', [
             'include_docs' => true,
@@ -73,6 +139,17 @@ class Database
             return $data['rows'][0];
         }
     }
+
+    /**
+     * Get all documents by given query options. If keys params provided, request for
+     * documents by given keys.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#get--{db}-_all_docs
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#post--{db}-_all_docs
+     * @param  mixed  $query
+     * @param  array  $keys
+     * @return mixed
+     */
     public function getDocumentAll($query = null, array $keys = array()) {
         if ($query instanceof Query) {
             $query = $query->toArray();
@@ -91,13 +168,29 @@ class Database
         }
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#inserting-documents-in-bulk
+    /**
+     * Create a document.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#inserting-documents-in-bulk
+     * @param  mixed $document
+     * @return mixed
+     */
     public function createDocument($document) {
         $data = $this->createDocumentAll([$document]);
         if (isset($data[0])) {
             return $data[0];
         }
     }
+
+    /**
+     * Create multiple documents.
+     *
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#inserting-documents-in-bulk
+     * @note   Each array element could be "array", "stdClass" or "Couch\Document".
+     * @param  array $documents
+     * @return mixed
+     */
     public function createDocumentAll(array $documents) {
         $docs = array();
         foreach ($documents as $document) {
@@ -106,6 +199,7 @@ class Database
             } elseif ($document instanceof \stdClass) {
                 $document = (array) $document;
             }
+
             // this is create method, no update allowed
             if (isset($document['_id']))      unset($document['_id']);
             if (isset($document['_rev']))     unset($document['_rev']);
