@@ -36,6 +36,7 @@ class Autoload
 
     /**
      * Forbid initialization & clone.
+     *
      * @return void, void
      */
     private function __clone() {}
@@ -43,6 +44,7 @@ class Autoload
 
     /**
      * Static initializer.
+     *
      * @return Couch\Autoload
      */
     public static function init() {
@@ -55,6 +57,7 @@ class Autoload
 
     /**
      * Registerer.
+     *
      * @return void
      */
     public function register() {
