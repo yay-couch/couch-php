@@ -85,8 +85,14 @@ class Database
      */
     public function info($key = null) {
         $info = $this->client->get('/'. $this->name)->getData();
-        return ($key && isset($info[$key]))
-            ? $info[$key] : $info;
+
+        // return all info
+        if ($key === null) {
+            return $info;
+        }
+
+        // return specific info value
+        return Util::dig($key, $info);
     }
 
     /**
