@@ -21,20 +21,42 @@
  */
 namespace Couch;
 
+/**
+ * @package Couch
+ * @object  Couch\Autoload
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Autoload
 {
+    /**
+     * Singleton stuff.
+     * @var Couch\Autoload
+     */
     private static $instance;
 
+    /**
+     * Forbid initialization & clone.
+     * @return void, void
+     */
     private function __clone() {}
     private function __construct() {}
 
+    /**
+     * Static initializer.
+     * @return Couch\Autoload
+     */
     public static function init() {
         if (!self::$instance) {
             self::$instance = new self();
         }
+
         return self::$instance;
     }
 
+    /**
+     * Registerer.
+     * @return void
+     */
     public static function register() {
         spl_autoload_register(function($name) {
             // fix root
@@ -57,5 +79,5 @@ class Autoload
     }
 }
 
-// auto init for including
+// auto-init for including
 return Autoload::init();
