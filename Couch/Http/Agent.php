@@ -9,10 +9,10 @@ abstract class Agent
     protected $failCode = 0,
               $failText = '';
 
-    protected $config = [
+    protected $config = array(
         'timeout' => 5,
         'blocking' => 1
-    ];
+    );
 
     public function __construct(array $config = array()) {
         $this->config = array_merge($this->config, $config);

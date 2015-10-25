@@ -26,14 +26,14 @@ class Curl
             }
 
             // cURL options
-            $options = [
+            $options = array(
                 CURLOPT_CUSTOMREQUEST  => $request->method,
                 CURLOPT_HEADER         => true,
                 CURLOPT_HTTPHEADER     => $headers,
                 CURLOPT_CONNECTTIMEOUT => $this->config['timeout'],
                 CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
                 CURLINFO_HEADER_OUT    => true
-            ];
+            );
 
             if ($request->method == Request::METHOD_HEAD) {
                 $options[CURLOPT_NOBODY] = true;
