@@ -561,8 +561,8 @@ class Document
         }
 
         // check destination
-        if (empty($destination)) {
-            throw new Exception('Destination and destination revision could not be empty!');
+        if (empty($destination) || empty($destinationRev)) {
+            throw new Exception('Destination & destination revision could not be empty!');
         }
 
         // prepare batch query
