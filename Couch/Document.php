@@ -95,36 +95,90 @@ class Document
         return $this->getData($key);
     }
 
+    /**
+     * JSON encoding method of JsonSerializable object.
+     *
+     * @return array
+     */
     public function jsonSerialize() {
         return $this->data;
     }
 
+    /**
+     * Set document database.
+     *
+     * @param  Couch\Database $database
+     * @return void
+     */
     public function setDatabase(Database $database) {
         $this->database = $database;
     }
+
+    /**
+     * Get document database.
+     *
+     * @return Couch\Database
+     */
     public function getDatabase() {
         return $this->database;
     }
 
+    /**
+     * Set document ID.
+     *
+     * @param  Couch\Uuid|string $id
+     * @return void
+     */
     public function setId($id) {
         if (!$this->id instanceof Uuid) {
             $id = new Uuid($id);
         }
         $this->id = $id;
     }
+
+    /**
+     * Set document revision ID.
+     *
+     * @param  string $id
+     * @return void
+     */
     public function setRev($rev) {
         $this->rev = $rev;
     }
+
+    /**
+     * Set deleted flag.
+     *
+     * @param  bool $deleted
+     * @return void
+     */
     public function setDeleted($deleted) {
         $this->deleted = (bool) $deleted;
     }
 
+    /**
+     * Get document ID.
+     *
+     * @return Couch\Uuid|string|null
+     */
     public function getId() {
         return $this->id;
     }
+
+    /**
+     * Get document revision ID.
+     *
+     * @return string|null
+     */
     public function getRev() {
         return $this->rev;
     }
+
+    /**
+     * Get deleted flag.
+     *
+     * @return bool
+     */
     public function getDeleted() {
         return $this->deleted;
     }
