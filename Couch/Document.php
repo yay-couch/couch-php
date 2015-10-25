@@ -20,13 +20,51 @@
  */
 namespace Couch;
 
+/**
+ * @package    Couch
+ * @object     Couch\Document
+ * @implements JsonSerializable
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Document
     implements \JsonSerializable
 {
-    private $id, $rev, $deleted = false, $attachments = array();
+    /**
+     * Document ID and document revision ID.
+     * @var string, string
+     */
+    private $id, $rev;
+
+    /**
+     * Delete(d) flag.
+     * @var bool
+     */
+    private $deleted = false;
+
+    /**
+     * Document attachments.
+     * @var array
+     */
+    private $attachments = array();
+
+    /**
+     * Database object.
+     * @var Couch\Database
+     */
     private $database;
+
+    /**
+     * Document data.
+     * @var array
+     */
     private $data = array();
 
+    /**
+     * Object constructor.
+     *
+     * @param Couch\Database|null $database
+     * @param array               $data
+     */
     public function __construct(Database $database = null, array $data = array()) {
         if ($database) {
             $this->database = $database;
@@ -37,9 +75,22 @@ class Document
         }
     }
 
+    /**
+     * Setter method for magic actions.
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
     public function __set($key, $value) {
         $this->setData([$key => $value]);
     }
+
+    /**
+     * Getter method for magic actions.
+     *
+     * @param string $key
+     * @param mixed  $value
+     */
     public function __get($key) {
         return $this->getData($key);
     }
