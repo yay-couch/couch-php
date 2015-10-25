@@ -263,12 +263,27 @@ class Database
         return $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
     }
 
+    /**
+     * Delete a document.
+     *
+     * @note   Uses self::updateDocumentAll() method.
+     * @param  mixed $document
+     * @return mixed
+     */
     public function deleteDocument($document) {
         $data = $this->deleteDocumentAll([$document]);
         if (isset($data[0])) {
             return $data[0];
         }
     }
+
+    /**
+     * Delete multiple documents.
+     *
+     * @note   Uses self::updateDocumentAll() method.
+     * @param  mixed $document
+     * @return mixed
+     */
     public function deleteDocumentAll(array $documents) {
         $docs = array();
         foreach ($documents as $document) {
@@ -278,7 +293,7 @@ class Database
                 $document = (array) $document;
             }
 
-            // just add _deleted param into document
+            // just add "_deleted" param into document
             $docs[] = $document + ['_deleted' => true];
         }
 
