@@ -427,6 +427,7 @@ class Document
     public function save($batch = false, $fullCommit = false) {
         // prepare back query
         $batch = $batch ? '?batch=ok' : '';
+
         // prepare headers
         $headers = array();
         $headers['Content-Type'] = 'application/json';
