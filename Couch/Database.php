@@ -416,7 +416,7 @@ class Database
      * Permanently remove the references to deleted documents from the database.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-purge
-     * @param  strign $docId
+     * @param  string $docId
      * @param  array  $docRevs
      * @return mixed
      */
@@ -426,25 +426,53 @@ class Database
             ['Content-Type' => 'application/json']
         )->getData();
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-missing-revs
+
+    /**
+     * Get the document revisions that do not exist in the database.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-missing-revs
+     * @param  string $docId
+     * @param  array  $docRevs
+     * @return mixed
+     */
     public function getMissingRevisions($docId, array $docRevs) {
         return $this->client->post('/'. $this->name .'/_missing_revs', null,
             [$docId => $docRevs],
             ['Content-Type' => 'application/json']
         )->getData();
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-revs-diff
+
+    /**
+     * Get the subset of those that do not correspond to revisions stored in the database.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-revs-diff
+     * @param  string $docId
+     * @param  array  $docRevs
+     * @return mixed
+     */
     public function getMissingRevisionsDiff($docId, array $docRevs) {
         return $this->client->post('/'. $this->name .'/_revs_diff', null,
             [$docId => $docRevs],
             ['Content-Type' => 'application/json']
         )->getData();
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#get--{db}-_revs_limit
+
+    /**
+     * Get the current revs_limit (revision limit) setting.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#get--{db}-_revs_limit
+     * @return int
+     */
     public function getRevisionLimit() {
         return $this->client->get('/'. $this->name .'/_revs_limit')->getData();
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#put--{db}-_revs_limit
+
+    /**
+     * Set the current revs_limit (revision limit) setting.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#put--{db}-_revs_limit
+     * @return mixed
+     */
     public function setRevisionLimit($limit) {
         return $this->client->put('/'. $this->name .'/_revs_limit', null, $limit)->getData();
     }
