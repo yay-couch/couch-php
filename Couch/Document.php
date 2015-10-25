@@ -297,6 +297,7 @@ class Document
      * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#head--{db}-{docid}
      * @param  int $statusCode Expected status code.
      * @return bool
+     * @throws Couch\Exception
      */
     public function ping($statusCode = 200) {
         // check id
@@ -310,46 +311,91 @@ class Document
             $headers['If-None-Match'] = sprintf('"%s"', $this->rev);
         }
 
-        $response = $this->database->client->head('/'. $this->database->name .'/'. $this->id, null, $headers);
+        $response = $this->database->client->head($this->database->name .'/'. $this->id, null, $headers);
 
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
+
+    /**
+     * Check document if exists that server may return 200|304 status codes.
+     *
+     * @return bool
+     */
     public function isExists() {
         return $this->ping([200, 304]);
     }
+
+    /**
+     * Check document if not modified.
+     *
+     * @return bool
+     * @throws Couch\Exception
+     */
     public function isNotModified() {
         if (empty($this->rev)) {
             throw new Exception('_rev field could not be empty!');
         }
+
         return $this->ping(304);
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#get--{db}-{docid}
+    /**
+     * Find a document.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#get--{db}-{docid}
+     * @param  array|null $query
+     * @return mixed
+     * @throws Couch\Exception
+     */
     public function find(array $query = null) {
+        // check id
         if (empty($this->id)) {
             throw new Exception('_id field could not be empty!');
         }
+        // check rev and add if not already adden into query
         if (!empty($this->rev) && !isset($query['rev'])) {
             $query['rev'] = $this->rev;
         }
 
         return $this->database->client->get($this->database->name .'/'. $this->id, $query)->getData();
     }
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#getting-a-list-of-revisions
+
+    /**
+     * Find a document's revisions.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#getting-a-list-of-revisions
+     * @note   If result is NULL then the check client's response code (maybe document should be deleted).
+     * @return array|null
+     */
     public function findRevisions() {
         $data = $this->find(['revs' => true]);
         if (isset($data['_revisions'])) {
             return $data['_revisions'];
         }
     }
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#obtaining-an-extended-revision-history
+
+    /**
+     * Find a document's revisions as extended result.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#obtaining-an-extended-revision-history
+     * @note   If result is NULL then the check client's response code (maybe document should be deleted).
+     * @return array|null
+     */
     public function findRevisionsExtended() {
         $data = $this->find(['revs_info' => true]);
         if (isset($data['_revs_info'])) {
             return $data['_revs_info'];
         }
     }
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#attachments
+
+    /**
+     * Find a document's attachments.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#attachments
+     * @param  bool       $attEncInfo
+     * @param  array|null $attsSince
+     * @return array|null
+     */
     public function findAttachments($attEncInfo = false, array $attsSince = null) {
         $query = array();
         $query['attachments'] = true;
@@ -361,29 +407,44 @@ class Document
             }
             $query['atts_since'] = sprintf('[%s]', join(',', $attsSinceArray));
         }
+
         $data = $this->find($query);
         if (isset($data['_attachments'])) {
             return $data['_attachments'];
         }
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
+    /**
+     * Create or update a document.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
+     * @note   If document has no ID then will be created, otherwise updated
+     * @param  bool   $batch
+     * @param  bool   $fullCommit
+     * @return mixed
+     */
     public function save($batch = false, $fullCommit = false) {
+        // prepare back query
         $batch = $batch ? '?batch=ok' : '';
+        // prepare headers
         $headers = array();
         $headers['Content-Type'] = 'application/json';
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
+
         $data = $this->getData();
         if (!empty($this->attachments)) {
             foreach ($this->attachments as $name => $attachment) {
+                // add attachment(s) data as array
                 $data['_attachments'][$name] = $attachment->toArray();
             }
         }
+
         return $this->database->client->post($this->database->name . $batch, null, $data, $headers)->getData();
     }
+
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#delete--{db}-{docid}
     public function remove($batch = false, $fullCommit = false) {
         if (empty($this->id) || empty($this->rev)) {
