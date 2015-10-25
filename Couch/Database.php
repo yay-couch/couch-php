@@ -242,6 +242,7 @@ class Database
      * @note   Both document _id & _rev are required.
      * @param  mixed $document
      * @return mixed
+     * @throws Couch\Exception
      */
     public function updateDocumentAll(array $documents) {
         $docs = array();
@@ -321,11 +322,11 @@ class Database
     }
 
     /**
-     * Compact.
+     * Compact database.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact-design-doc
-     * @param  string $ddoc
+     * @param  string $ddoc|null
      * @return mixed
      */
     public function compact($ddoc = null) {
@@ -340,20 +341,38 @@ class Database
         }
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-ensure-full-commit
+    /**
+     * Ensure full-commit.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-ensure-full-commit
+     * @return mixed
+     */
     public function ensureFullCommit() {
         return $this->client->post('/'. $this->name .'/_ensure_full_commit', null, null, [
             'Content-Type' => 'application/json'
         ])->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-view-cleanup
+    /**
+     * View cleanup (remove unneded view index files).
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-view-cleanup
+     * @return mixed
+     */
     public function viewCleanup() {
         return $this->client->post('/'. $this->name .'/_view_cleanup', null, null, [
             'Content-Type' => 'application/json'
         ])->getData();
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/temp-views.html#db-temp-view
+
+    /**
+     * Creates (and executes) a temporary view.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/temp-views.html#db-temp-view
+     * @param  string      $map
+     * @param  string|null $reduce
+     * @return mixed
+     */
     public function viewTemp($map, $reduce = null) {
         return $this->client->post('/'. $this->name .'/_temp_view', null, [
             'map' => $map,
@@ -361,11 +380,26 @@ class Database
         ])->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/security.html#get--{db}-_security
+    /**
+     * Get the current security object of the database.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/security.html#get--{db}-_security
+     * @return mixed
+     */
     public function getSecurity() {
         return $this->client->get('/'. $this->name .'/_security')->getData();
     }
-    // http://docs.couchdb.org/en/1.5.1/api/database/security.html#put--{db}-_security
+
+    /**
+     * Set the security object for the database.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/security.html#put--{db}-_security
+     * @note   See the document @link above before using this method.
+     * @param  array $admins
+     * @param  array $members
+     * @return mixed
+     * @throws Couch\Exception
+     */
     public function setSecurity(array $admins, array $members) {
         if (!isset($admins['names'], $admins['roles']) ||
             !isset($members['names'], $members['roles'])) {
@@ -378,7 +412,14 @@ class Database
         ])->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-purge
+    /**
+     * Permanently remove the references to deleted documents from the database.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#db-purge
+     * @param  strign $docId
+     * @param  array  $docRevs
+     * @return mixed
+     */
     public function purge($docId, array $docRevs) {
         return $this->client->post('/'. $this->name .'/_purge', null,
             [$docId => $docRevs],
