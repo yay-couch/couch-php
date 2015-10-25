@@ -291,16 +291,27 @@ class Document
         return $this->data;
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#head--{db}-{docid}
+    /**
+     * Ping document.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#head--{db}-{docid}
+     * @param  int $statusCode Expected status code.
+     * @return bool
+     */
     public function ping($statusCode = 200) {
+        // check id
         if (empty($this->id)) {
             throw new Exception('_id field is could not be empty!');
         }
+
         $headers = array();
-        if ($this->rev) {
+        // check and add if rev provided
+        if (!empty($this->rev)) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->rev);
         }
+
         $response = $this->database->client->head('/'. $this->database->name .'/'. $this->id, null, $headers);
+
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
     public function isExists() {
