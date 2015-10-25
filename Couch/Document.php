@@ -478,19 +478,19 @@ class Document
      * Copy a document to a destination.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#copy--{db}-{docid}
-     * @param  string $destination
+     * @param  string $dest
      * @param  bool   $batch
      * @param  bool   $fullCommit
      * @return mixed
      */
-    public function copy($destination, $batch = false, $fullCommit = false) {
+    public function copy($dest, $batch = false, $fullCommit = false) {
         // check id
         if (empty($this->id)) {
             throw new Exception('_id field could not be empty!');
         }
 
         // check destination
-        if (empty($destination)) {
+        if (empty($dest)) {
             throw new Exception('Destination could not be empty!');
         }
 
@@ -499,7 +499,7 @@ class Document
 
         // prepare headers
         $headers = array();
-        $headers['Destination'] = $destination;
+        $headers['Destination'] = $dest;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
@@ -512,19 +512,19 @@ class Document
      * Copy a (this) document to a destination with a specific revision.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-from-a-specific-revision
-     * @param  sring $destination
+     * @param  sring $dest
      * @param  bool  $batch
      * @param  bool  $fullCommit
      * @return mixed
      */
-    public function copyFrom($destination, $batch = false, $fullCommit = false) {
+    public function copyFrom($dest, $batch = false, $fullCommit = false) {
         // check required fields
         if (empty($this->id) || empty($this->rev)) {
             throw new Exception('Both _id & _rev fields could not be empty!');
         }
 
         // check destination
-        if (empty($destination)) {
+        if (empty($dest)) {
             throw new Exception('Destination could not be empty!');
         }
 
@@ -534,7 +534,7 @@ class Document
         // prepare headers
         $headers = array();
         $headers['If-Match'] = $this->rev;
-        $headers['Destination'] = $destination;
+        $headers['Destination'] = $dest;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
@@ -548,20 +548,20 @@ class Document
      * Copy a (this) document to an existing document.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-to-an-existing-document
-     * @param  string $destination
-     * @param  string $destinationRev
+     * @param  string $dest
+     * @param  string $destRev
      * @param  bool   $batch
      * @param  bool   $fullCommit
      * @return mixed
      */
-    public function copyTo($destination, $destinationRev, $batch = false, $fullCommit = false) {
+    public function copyTo($dest, $destRev, $batch = false, $fullCommit = false) {
         // check required fields
         if (empty($this->id) || empty($this->rev)) {
             throw new Exception('Both _id & _rev fields could not be empty!');
         }
 
         // check destination
-        if (empty($destination) || empty($destinationRev)) {
+        if (empty($dest) || empty($destRev)) {
             throw new Exception('Destination & destination revision could not be empty!');
         }
 
@@ -571,7 +571,7 @@ class Document
         // prepare headers
         $headers = array();
         $headers['If-Match'] = $this->rev;
-        $headers['Destination'] = sprintf('%s?rev=%s', $destination, $destinationRev);
+        $headers['Destination'] = sprintf('%s?rev=%s', $dest, $destRev);
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
