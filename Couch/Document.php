@@ -425,7 +425,7 @@ class Document
      * @return mixed
      */
     public function save($batch = false, $fullCommit = false) {
-        // prepare back query
+        // prepare batch query
         $batch = $batch ? '?batch=ok' : '';
 
         // prepare headers
@@ -455,34 +455,59 @@ class Document
      * @return mixed
      */
     public function remove($batch = false, $fullCommit = false) {
+        // check required fields
         if (empty($this->id) || empty($this->rev)) {
             throw new Exception('Both _id & _rev fields could not be empty!');
         }
+
+        // prepare batch query
         $batch = $batch ? '?batch=ok' : '';
+
+        // prepare headers
         $headers = array();
         $headers['If-Match'] = $this->rev;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->database->client->delete($this->database->name .'/'. $this->id . $batch, null, $headers)->getData();
+
+        return $this->database->client->delete($this->database->name .'/'. $this->id . $batch,
+            null, $headers)->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copy--{db}-{docid}
+    /**
+     * Copy a document to a destination.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#copy--{db}-{docid}
+     * @param  string $destination
+     * @param  bool   $batch
+     * @param  bool   $fullCommit
+     * @return mixed
+     */
     public function copy($destination, $batch = false, $fullCommit = false) {
+        // check id
         if (empty($this->id)) {
             throw new Exception('_id field could not be empty!');
         }
+
+        // check destination
         if (empty($destination)) {
             throw new Exception('Destination could not be empty!');
         }
+
+        // prepare batch query
         $batch = $batch ? '?batch=ok' : '';
+
+        // prepare headers
         $headers = array();
         $headers['Destination'] = $destination;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch, null, $headers)->getData();
+
+        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch,
+            null, $headers)->getData();
     }
+
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-from-a-specific-revision
     public function copyFrom($destination, $batch = false, $fullCommit = false) {
         if (empty($this->id) || empty($this->rev)) {
