@@ -84,7 +84,7 @@ class Database
      * @return mixed
      */
     public function info($key = null) {
-        $info = $this->client->get('/'. $this->name)->getData();
+        $info = $this->client->get($this->name)->getData();
 
         // return all info
         if ($key === null) {
@@ -102,7 +102,7 @@ class Database
      * @return bool
      */
     public function create() {
-        return (true === $this->client->put('/'. $this->name)->getData('ok'));
+        return (true === $this->client->put($this->name)->getData('ok'));
     }
 
     /**
@@ -112,7 +112,7 @@ class Database
      * @return bool
      */
     public function remove() {
-        return (true === $this->client->delete('/'. $this->name)->getData('ok'));
+        return (true === $this->client->delete($this->name)->getData('ok'));
     }
 
     /**
@@ -138,7 +138,7 @@ class Database
      * @return mixed
      */
     public function getDocument($key) {
-        $data = $this->client->get('/'. $this->name .'/_all_docs', [
+        $data = $this->client->get($this->name .'/_all_docs', [
             'include_docs' => true,
             'key' => sprintf('"%s"', Util::quote($key))
         ])->getData();
@@ -170,9 +170,9 @@ class Database
         }
 
         if (empty($keys)) {
-            return $this->client->get('/'. $this->name .'/_all_docs', $query)->getData();
+            return $this->client->get($this->name .'/_all_docs', $query)->getData();
         } else {
-            return $this->client->post('/'. $this->name .'/_all_docs', null, ['keys' => $keys])->getData();
+            return $this->client->post($this->name .'/_all_docs', null, ['keys' => $keys])->getData();
         }
     }
 
@@ -216,7 +216,7 @@ class Database
             $docs[] = $document;
         }
 
-        return $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
+        return $this->client->post($this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
     }
 
     /**
@@ -261,7 +261,7 @@ class Database
             $docs[] = $document;
         }
 
-        return $this->client->post('/'. $this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
+        return $this->client->post($this->name .'/_bulk_docs', null, ['docs' => $docs])->getData();
     }
 
     /**
@@ -311,12 +311,12 @@ class Database
      */
     public function getChanges(array $query = null, array $docIds = array()) {
         if (empty($docIds)) {
-            return $this->client->get('/'. $this->name .'/_changes', $query)->getData();
+            return $this->client->get($this->name .'/_changes', $query)->getData();
         } else {
             if (!isset($query['filter'])) {
                 $query['filter'] = '_doc_ids';
             }
-            return $this->client->post('/'. $this->name .'/_changes', $query,
+            return $this->client->post($this->name .'/_changes', $query,
                 ['doc_ids' => $docIds])->getData();
         }
     }
@@ -331,11 +331,11 @@ class Database
      */
     public function compact($ddoc = null) {
         if (empty($ddoc)) {
-            return $this->client->post('/'. $this->name .'/_compact', null, null, [
+            return $this->client->post($this->name .'/_compact', null, null, [
                 'Content-Type' => 'application/json'
             ])->getData();
         } else {
-            return $this->client->post('/'. $this->name .'/_compact/'. $ddoc, null, null, [
+            return $this->client->post($this->name .'/_compact/'. $ddoc, null, null, [
                 'Content-Type' => 'application/json'
             ])->getData();
         }
@@ -348,7 +348,7 @@ class Database
      * @return mixed
      */
     public function ensureFullCommit() {
-        return $this->client->post('/'. $this->name .'/_ensure_full_commit', null, null, [
+        return $this->client->post($this->name .'/_ensure_full_commit', null, null, [
             'Content-Type' => 'application/json'
         ])->getData();
     }
@@ -360,7 +360,7 @@ class Database
      * @return mixed
      */
     public function viewCleanup() {
-        return $this->client->post('/'. $this->name .'/_view_cleanup', null, null, [
+        return $this->client->post($this->name .'/_view_cleanup', null, null, [
             'Content-Type' => 'application/json'
         ])->getData();
     }
@@ -374,7 +374,7 @@ class Database
      * @return mixed
      */
     public function viewTemp($map, $reduce = null) {
-        return $this->client->post('/'. $this->name .'/_temp_view', null, [
+        return $this->client->post($this->name .'/_temp_view', null, [
             'map' => $map,
             'reduce' => $reduce
         ])->getData();
@@ -387,7 +387,7 @@ class Database
      * @return mixed
      */
     public function getSecurity() {
-        return $this->client->get('/'. $this->name .'/_security')->getData();
+        return $this->client->get($this->name .'/_security')->getData();
     }
 
     /**
@@ -406,7 +406,7 @@ class Database
             throw new Exception('Specify admins and/or members with names=>roles fields!');
         }
 
-        return $this->client->put('/'. $this->name .'/_security', null, [
+        return $this->client->put($this->name .'/_security', null, [
             'admins' => $admins,
             'members' => $members
         ])->getData();
@@ -421,7 +421,7 @@ class Database
      * @return mixed
      */
     public function purge($docId, array $docRevs) {
-        return $this->client->post('/'. $this->name .'/_purge', null,
+        return $this->client->post($this->name .'/_purge', null,
             [$docId => $docRevs],
             ['Content-Type' => 'application/json']
         )->getData();
@@ -436,7 +436,7 @@ class Database
      * @return mixed
      */
     public function getMissingRevisions($docId, array $docRevs) {
-        return $this->client->post('/'. $this->name .'/_missing_revs', null,
+        return $this->client->post($this->name .'/_missing_revs', null,
             [$docId => $docRevs],
             ['Content-Type' => 'application/json']
         )->getData();
@@ -451,30 +451,30 @@ class Database
      * @return mixed
      */
     public function getMissingRevisionsDiff($docId, array $docRevs) {
-        return $this->client->post('/'. $this->name .'/_revs_diff', null,
+        return $this->client->post($this->name .'/_revs_diff', null,
             [$docId => $docRevs],
             ['Content-Type' => 'application/json']
         )->getData();
     }
 
     /**
-     * Get the current revs_limit (revision limit) setting.
+     * Get the current "revs_limit" (revision limit) setting.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#get--{db}-_revs_limit
      * @return int
      */
     public function getRevisionLimit() {
-        return $this->client->get('/'. $this->name .'/_revs_limit')->getData();
+        return $this->client->get($this->name .'/_revs_limit')->getData();
     }
 
     /**
-     * Set the current revs_limit (revision limit) setting.
+     * Set the current "revs_limit" (revision limit) setting.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/misc.html#put--{db}-_revs_limit
      * @return mixed
      */
     public function setRevisionLimit($limit) {
-        return $this->client->put('/'. $this->name .'/_revs_limit', null, $limit)->getData();
+        return $this->client->put($this->name .'/_revs_limit', null, $limit)->getData();
     }
 }
 
