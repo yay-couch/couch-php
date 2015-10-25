@@ -183,45 +183,89 @@ class Document
         return $this->deleted;
     }
 
+    /**
+     * Add an attachment to document object.
+     *
+     * @param  Couch\DocumentAttachment|array $attachment
+     * @return void
+     * @throws Couch\Exception
+     */
     public function setAttachment($attachment) {
         if (!$attachment instanceof DocumentAttachment) {
+            // check file if array given
             if (!isset($attachment['file'])) {
                 throw new Exception('Attachment file is required!');
             }
+
             $file =& $attachment['file'];
             $fileName =& $attachment['file_name'];
             $attachment = new DocumentAttachment($this, $file, $fileName);
         }
 
+        // check if attachment is duplicate
         if (isset($this->data['_attachments'][$attachment->fileName])) {
             throw new Exception('Attachment is alredy exists on this document!');
         }
 
+        // add attachment object using file name as key
         $this->attachments[$attachment->fileName] =
             $this->data['_attachments'][$attachment->fileName] = $attachment;
     }
+
+    /**
+     * Get a document attachment by name.
+     *
+     * @param  string $name
+     * @return Couch\DocumentAttachment|null
+     */
     public function getAttachment($name) {
         if (isset($this->attachments[$name])) {
             return $this->attachments[$name];
         }
     }
+
+    /**
+     * Get all attachments.
+     *
+     * @return array
+     */
     public function getAttachmentAll() {
         return $this->attachments;
     }
+
+    /**
+     * Remove a document attachment.
+     *
+     * @param  string $name
+     * @return void
+     */
     public function unsetAttachment($name) {
         if (isset($this->attachments[$name])) {
             unset($this->attachments[$name]);
         }
     }
+
+    /**
+     * Dump all document attachments.
+     *
+     * @return void
+     */
     public function unsetAttachmentAll() {
         $this->attachments = array();
     }
 
+    /**
+     * Set document data.
+     *
+     * @param array $data
+     */
     public function setData(array $data) {
+        // set special properties
         if (isset($data['_id']))      $this->setId($data['_id']);
         if (isset($data['_rev']))     $this->setRev($data['_rev']);
         if (isset($data['_deleted'])) $this->setDeleted($data['_deleted']);
         if (isset($data['_attachments'])) {
+            // add attachments and remove it so prevent to add into data array
             foreach ($data['_attachments'] as $attachment) {
                 $this->setAttachment($attachment);
             }
@@ -233,10 +277,17 @@ class Document
         }
     }
 
+    /**
+     * Get document data value.
+     *
+     * @param  string $key
+     * @return mixed
+     */
     public function getData($key = null) {
         if ($key) {
             return Util\Util::dig($key, $this->data);
         }
+
         return $this->data;
     }
 
