@@ -508,23 +508,42 @@ class Document
             null, $headers)->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-from-a-specific-revision
+    /**
+     * Copy a (this) document to a destination.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-from-a-specific-revision
+     * @param  sring $destination
+     * @param  bool  $batch
+     * @param  bool  $fullCommit
+     * @return mixed
+     */
     public function copyFrom($destination, $batch = false, $fullCommit = false) {
+        // check required fields
         if (empty($this->id) || empty($this->rev)) {
             throw new Exception('Both _id & _rev fields could not be empty!');
         }
+
+        // check destination
         if (empty($destination)) {
             throw new Exception('Destination could not be empty!');
         }
+
+        // prepare batch query
         $batch = $batch ? '?batch=ok' : '';
+
+        // prepare headers
         $headers = array();
         $headers['If-Match'] = $this->rev;
         $headers['Destination'] = $destination;
         if ($fullCommit) {
             $headers['X-Couch-Full-Commit'] = 'true';
         }
-        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch, null, $headers)->getData();
+
+        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch,
+            null, $headers)->getData();
     }
+
+
     // http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-to-an-existing-document
     public function copyTo($destination, $destinationRevision, $batch = false, $fullCommit = false) {
         if (empty($this->id) || empty($this->rev)) {
