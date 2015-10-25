@@ -300,7 +300,14 @@ class Database
         return $this->updateDocumentAll($docs);
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/changes.html#get--{db}-_changes
+    /**
+     * Get database changes.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/changes.html#get--{db}-_changes
+     * @param  array|null $query
+     * @param  array      $docIds
+     * @return mixed
+     */
     public function getChanges(array $query = null, array $docIds = array()) {
         if (empty($docIds)) {
             return $this->client->get('/'. $this->name .'/_changes', $query)->getData();
@@ -308,18 +315,26 @@ class Database
             if (!isset($query['filter'])) {
                 $query['filter'] = '_doc_ids';
             }
-            return $this->client->post('/'. $this->name .'/_changes', $query, ['doc_ids' => $docIds])->getData();
+            return $this->client->post('/'. $this->name .'/_changes', $query,
+                ['doc_ids' => $docIds])->getData();
         }
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact
-    public function compact($designDocument = null) {
-        if (empty($designDocument)) {
+    /**
+     * Compact.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact
+     * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact-design-doc
+     * @param  string $ddoc
+     * @return mixed
+     */
+    public function compact($ddoc = null) {
+        if (empty($ddoc)) {
             return $this->client->post('/'. $this->name .'/_compact', null, null, [
                 'Content-Type' => 'application/json'
             ])->getData();
         } else {
-            return $this->client->post('/'. $this->name .'/_compact/'. $designDocument, null, null, [
+            return $this->client->post('/'. $this->name .'/_compact/'. $ddoc, null, null, [
                 'Content-Type' => 'application/json'
             ])->getData();
         }
