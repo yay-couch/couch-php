@@ -163,14 +163,17 @@ class Database
         } elseif (is_string($query)) {
             parse_str($query, $query);
         }
+
         // always get docs
         if (!isset($query['include_docs'])) {
             $query['include_docs'] = true;
         }
 
         if (empty($keys)) {
+            // make a regular get request
             return $this->client->get($this->name .'/_all_docs', $query)->getData();
         } else {
+            // make a post request wth given keys
             return $this->client->post($this->name .'/_all_docs', null, ['keys' => $keys])->getData();
         }
     }
