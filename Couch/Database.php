@@ -356,7 +356,7 @@ class Database
     }
 
     /**
-     * View cleanup (remove unneded view index files).
+     * View cleanup, so remove unneded view index files.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-view-cleanup
      * @return mixed
@@ -368,7 +368,7 @@ class Database
     }
 
     /**
-     * Creates (and executes) a temporary view.
+     * Create (and execute) a temporary view.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/temp-views.html#db-temp-view
      * @param  string      $map
