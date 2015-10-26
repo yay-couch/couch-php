@@ -195,7 +195,6 @@ class Database
     /**
      * Create multiple documents.
      *
-     *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#inserting-documents-in-bulk
      * @note   Each array element could be "array", "stdClass" or "Couch\Document".
      * @param  array $documents
@@ -227,7 +226,7 @@ class Database
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#updating-documents-in-bulk
      * @note   Both document _id & _rev are required.
      * @param  mixed $document
-     * @return mixed
+     * @return mixed|null
      */
     public function updateDocument($document) {
         $data = $this->updateDocumentAll([$document]);
@@ -271,7 +270,7 @@ class Database
      *
      * @note   Uses self::updateDocumentAll() method.
      * @param  mixed $document
-     * @return mixed
+     * @return mixed|null
      */
     public function deleteDocument($document) {
         $data = $this->deleteDocumentAll([$document]);
@@ -315,6 +314,7 @@ class Database
         if (empty($docIds)) {
             return $this->client->get($this->name .'/_changes', $query)->getData();
         } else {
+            // ensure filter
             if (!isset($query['filter'])) {
                 $query['filter'] = '_doc_ids';
             }
