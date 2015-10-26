@@ -476,7 +476,7 @@ class Database
      * @return mixed
      */
     public function setRevisionLimit($limit) {
-        return $this->client->put($this->name .'/_revs_limit', null, $limit)->getData();
+        return $this->client->put("/{$this->name}/_revs_limit", null, $limit)->getData();
     }
 }
 
