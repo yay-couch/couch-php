@@ -313,14 +313,14 @@ class Database
     public function getChanges(array $query = null, array $docIds = array()) {
         if (empty($docIds)) {
             return $this->client->get($this->name .'/_changes', $query)->getData();
-        } else {
-            // ensure filter
-            if (!isset($query['filter'])) {
-                $query['filter'] = '_doc_ids';
-            }
-            return $this->client->post($this->name .'/_changes', $query,
-                ['doc_ids' => $docIds])->getData();
         }
+
+        // ensure filter
+        if (!isset($query['filter'])) {
+            $query['filter'] = '_doc_ids';
+        }
+
+        return $this->client->post($this->name .'/_changes', $query, ['doc_ids' => $docIds])->getData();
     }
 
     /**
