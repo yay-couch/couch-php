@@ -183,7 +183,7 @@ class Database
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#inserting-documents-in-bulk
      * @param  mixed $document
-     * @return mixed
+     * @return mixed|null
      */
     public function createDocument($document) {
         $data = $this->createDocumentAll([$document]);
