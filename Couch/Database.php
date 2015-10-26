@@ -315,7 +315,7 @@ class Database
             return $this->client->get($this->name .'/_changes', $query)->getData();
         }
 
-        // ensure filter
+        // ensure query filter
         if (!isset($query['filter'])) {
             $query['filter'] = '_doc_ids';
         }
