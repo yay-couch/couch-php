@@ -134,7 +134,7 @@ class Database
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/bulk-api.html#get--{db}-_all_docs
      * @param  string $key
-     * @return mixed
+     * @return mixed|null
      */
     public function getDocument($key) {
         $data = $this->client->get($this->name .'/_all_docs', [
