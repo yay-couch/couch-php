@@ -27,7 +27,7 @@ use \Couch\Util\Property;
 
 /**
  * @package Couch
- * @object  Couch\Couch
+ * @object  Couch\Client
  * @uses    Couch\Couch
  * @uses    Couch\Http\Request,
  *          Couch\Http\Response
