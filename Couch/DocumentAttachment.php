@@ -91,7 +91,7 @@ class DocumentAttachment
      */
     public function __set($name, $value) {
         if (!property_exists($this, $name)) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 '`%s` property does not exists on this object!', $name));
         }
 
@@ -113,7 +113,7 @@ class DocumentAttachment
      */
     public function __get($name) {
         if (!property_exists($this, $name)) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 '`%s` property does not exists on this object!', $name));
         }
 
