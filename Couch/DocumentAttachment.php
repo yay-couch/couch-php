@@ -57,19 +57,30 @@ class DocumentAttachment
      */
     private $digest;
 
+    /**
+     * Object constructor.
+     *
+     * @param Couch\Document|null $document
+     * @param string|null         $file
+     * @param string|null         $fileName
+     */
     public function __construct(Document $document = null, $file = null, $fileName = null) {
         if ($document) {
             $this->document = $document;
         }
+
         if (!empty($file)) {
             $this->file = $file;
             if (!empty($fileName)) {
+                // set filename if provided
                 $this->fileName = $fileName;
             } else {
+                // extract filename
                 $this->fileName = basename($file);
             }
         }
     }
+
     public function __set($name, $value) {
         if (!property_exists($this, $name)) {
             throw new \Exception(sprintf(
