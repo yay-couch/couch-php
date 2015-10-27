@@ -86,13 +86,16 @@ class DocumentAttachment
             throw new \Exception(sprintf(
                 '`%s` property does not exists on this object!', $name));
         }
+
         if ($name == 'file') {
             $this->file = $value;
             $this->fileName = basename($value);
-            return;
+        } else {
+            $this->{$name} = $value;
         }
-        $this->{$name} = $value;
     }
+
+
     public function __get($name) {
         if (!property_exists($this, $name)) {
             throw new \Exception(sprintf(
