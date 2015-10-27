@@ -27,7 +27,7 @@ use \Couch\Util\Util,
 
 /**
  * @package Couch
- * @object  Couch\Couch
+ * @object  Couch\Database
  * @uses    Couch\Client
  * @uses    Couch\Query
  * @uses    Couch\Util\Util,
