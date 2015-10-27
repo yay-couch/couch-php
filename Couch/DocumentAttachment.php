@@ -20,12 +20,41 @@
  */
 namespace Couch;
 
+/**
+ * @package Couch
+ * @object  Couch\DocumentAttachment
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class DocumentAttachment
 {
+    /**
+     * Owner document.
+     * @var Couch\Document
+     */
     private $document;
+
+    /**
+     * Abstract file path & file name.
+     * @var string, string
+     */
     private $file, $fileName;
+
+    /**
+     * Attachment file contents, contents length.
+     * @var string, int
+     */
     private $data, $dataLength;
+
+    /**
+     * Attachment mime.
+     * @var string
+     */
     private $contentType;
+
+    /**
+     * CouchDB file digest.
+     * @var string
+     */
     private $digest;
 
     public function __construct(Document $document = null, $file = null, $fileName = null) {
