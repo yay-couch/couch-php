@@ -81,12 +81,21 @@ class DocumentAttachment
         }
     }
 
+    /**
+     * Setter for magic actions.
+     *
+     * @param  string $name
+     * @param  int    $value
+     * @return void
+     * @throws Couch\Exception
+     */
     public function __set($name, $value) {
         if (!property_exists($this, $name)) {
             throw new \Exception(sprintf(
                 '`%s` property does not exists on this object!', $name));
         }
 
+        // file is exception
         if ($name == 'file') {
             $this->file = $value;
             $this->fileName = basename($value);
@@ -95,12 +104,19 @@ class DocumentAttachment
         }
     }
 
-
+    /**
+     * Getter for magic actions.
+     *
+     * @param  string $name
+     * @return mixed
+     * @throws Couch\Exception
+     */
     public function __get($name) {
         if (!property_exists($this, $name)) {
             throw new \Exception(sprintf(
                 '`%s` property does not exists on this object!', $name));
         }
+
         return $this->{$name};
     }
 
