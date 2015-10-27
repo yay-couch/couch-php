@@ -37,7 +37,7 @@ use \Couch\Util\Util,
 class Database
 {
     /**
-     * Property object (trait).
+     * Property object.
      * @var Couch\Util\Property
      */
     use Property;
@@ -173,7 +173,7 @@ class Database
             // make a regular get request
             return $this->client->get($this->name .'/_all_docs', $query)->getData();
         } else {
-            // make a post request wth given keys
+            // make a post request with given keys
             return $this->client->post($this->name .'/_all_docs', null, ['keys' => $keys])->getData();
         }
     }
