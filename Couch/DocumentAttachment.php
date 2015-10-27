@@ -120,9 +120,21 @@ class DocumentAttachment
         return $this->{$name};
     }
 
+    /**
+     * Set owner document.
+     *
+     * @param  Couch\Document $document
+     * @return void
+     */
     public function setDocument(Document $document) {
         $this->document = $document;
     }
+
+    /**
+     * Get owner document.
+     *
+     * @return Couch\Document
+     */
     public function getDocument() {
         return $this->document;
     }
