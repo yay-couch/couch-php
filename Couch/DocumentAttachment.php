@@ -160,7 +160,6 @@ class DocumentAttachment
         if (empty($docId)) {
             throw new Exception('Attachment document _id is required!');
         }
-
         // check filename
         if (empty($this->fileName)) {
             throw new Exception('Attachment file name is required!');
@@ -185,19 +184,30 @@ class DocumentAttachment
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#get--{db}-{docid}-{attname}
+    /**
+     * find the file attachment associated with the document.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#get--{db}-{docid}-{attname}
+     * @return mixed|null
+     */
     public function find() {
+        // check owner document
         if (!isset($this->document)) {
             throw new Exception('Attachment document is not defined!');
         }
+
         $docId = $this->document->getId();
         $docRev = $this->document->getRev();
+
+        // check owner document's id
         if (empty($docId)) {
             throw new Exception('Attachment document _id is required!');
         }
+        // check filename
         if (empty($this->fileName)) {
             throw new Exception('Attachment file name is required!');
         }
+
         $query = $headers = array();
         if (!empty($docRev)) {
             // cancel using rev in headers @see https://issues.apache.org/jira/browse/COUCHDB-2860
@@ -206,17 +216,23 @@ class DocumentAttachment
         }
         $headers['Accept'] = '*/*';
         $headers['Content-Type'] = null;
+
+        // add digest if provided
         if (!empty($this->digest)) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->digest);
         }
+
         $database = $this->document->getDatabase();
         $response = $database->client->get(sprintf('%s/%s/%s',
             $database->name, $docId, urlencode($this->fileName)), $query, $headers);
+
+        // check response status code
         if (in_array($response->getStatusCode(), [200, 304])) {
             $return = array();
             $return['content'] = $response->getData();
             $return['content_type'] = $response->getHeader('Content-Type');
             $return['content_length'] = $response->getHeader('Content-Length');
+            // add digest info to return
             if ($md5 = $response->getHeader('Content-MD5')) {
                 $return['digest'] = 'md5-'. $md5;
             } else {
@@ -225,6 +241,7 @@ class DocumentAttachment
             return $return;
         }
     }
+
      // http://docs.couchdb.org/en/latest/api/document/attachments.html#put--db-docid-attname
     public function save() {
         if (!isset($this->document)) {
