@@ -139,25 +139,41 @@ class DocumentAttachment
         return $this->document;
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#head--{db}-{docid}-{attname}
+    /**
+     * Ping a document attachment.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#head--{db}-{docid}-{attname}
+     * @param  int    $statusCode Expected status code
+     * @return bool
+     * @throws Couch\Exception
+     */
     public function ping($statusCode = 200) {
+        // check owner document
         if (!isset($this->document)) {
             throw new Exception('Attachment document is not defined!');
         }
+
         $docId = $this->document->getId();
         $docRev = $this->document->getRev();
+
+        // check owner document's id
         if (empty($docId)) {
             throw new Exception('Attachment document _id is required!');
         }
+
+        // check filename
         if (empty($this->fileName)) {
             throw new Exception('Attachment file name is required!');
         }
+
         $query = $headers = array();
         if (!empty($docRev)) {
             $query['rev'] = $docRev;
             // cancel using rev in headers @see https://issues.apache.org/jira/browse/COUCHDB-2860
             // $headers['If-Match'] = $docRev;
         }
+
+        // add digest if provided
         if (!empty($this->digest)) {
             $headers['If-None-Match'] = sprintf('"%s"', $this->digest);
         }
@@ -165,8 +181,10 @@ class DocumentAttachment
         $database = $this->document->getDatabase();
         $response = $database->client->head(sprintf('%s/%s/%s',
             $database->name, $docId, $this->fileName), $query, $headers);
+
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
+
     // http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#get--{db}-{docid}-{attname}
     public function find() {
         if (!isset($this->document)) {
