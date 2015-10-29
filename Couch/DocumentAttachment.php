@@ -286,23 +286,39 @@ class DocumentAttachment
         ), null, $this->data, $headers)->getData();
     }
 
-    // http://docs.couchdb.org/en/latest/api/document/attachments.html#delete--db-docid-attname
+    /**
+     * Delete attachment.
+     *
+     * @link   http://docs.couchdb.org/en/latest/api/document/attachments.html#delete--db-docid-attname
+     * @param  bool   $batch
+     * @param  bool   $fullCommit
+     * @return mixed
+     * @throws Couch\Exception
+     */
     public function remove($batch = false, $fullCommit = false) {
+        // check owner document
         if (!isset($this->document)) {
             throw new Exception('Attachment document is not defined!');
         }
+
         $docId = $this->document->getId();
         $docRev = $this->document->getRev();
+
+        // check owner document's id
         if (empty($docId)) {
             throw new Exception('Attachment document _id is required!');
         }
+        // check owner document's rev
         if (empty($docRev)) {
             throw new Exception('Attachment document _rev is required!');
         }
+        // check filename
         if (empty($this->fileName)) {
             throw new Exception('Attachment file name is required!');
         }
+
         $batch = $batch ? '?batch=ok' : '';
+
         $headers = array();
         $headers['If-Match'] = $docRev;
         if ($fullCommit) {
@@ -310,6 +326,7 @@ class DocumentAttachment
         }
 
         $database = $this->document->getDatabase();
+
         return $database->client->delete(sprintf('%s/%s/%s%s',
             $database->name, $docId, urlencode($this->fileName), $batch
         ), null, $headers)->getData();
