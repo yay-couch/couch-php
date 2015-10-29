@@ -189,6 +189,7 @@ class DocumentAttachment
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#get--{db}-{docid}-{attname}
      * @return mixed|null
+     * @throws Couch\Exception
      */
     public function find() {
         // check owner document
@@ -242,32 +243,49 @@ class DocumentAttachment
         }
     }
 
-     // http://docs.couchdb.org/en/latest/api/document/attachments.html#put--db-docid-attname
+    /**
+     * Put the supplied content as an attachment to the owner document.
+     *
+     * @link   http://docs.couchdb.org/en/latest/api/document/attachments.html#put--db-docid-attname
+     * @return mixed
+     * @throws Couch\Exception
+     */
     public function save() {
+        // check owner document
         if (!isset($this->document)) {
             throw new Exception('Attachment document is not defined!');
         }
+
         $docId = $this->document->getId();
         $docRev = $this->document->getRev();
+
+        // check owner document's id
         if (empty($docId)) {
             throw new Exception('Attachment document _id is required!');
         }
+        // check owner document's rev
         if (empty($docRev)) {
             throw new Exception('Attachment document _rev is required!');
         }
+        // check filename
         if (empty($this->fileName)) {
             throw new Exception('Attachment file name is required!');
         }
+
+        // read file data
         $this->readFile(false);
+
         $headers = array();
         $headers['If-Match'] = $docRev;
         $headers['Content-Type'] = $this->contentType;
 
         $database = $this->document->getDatabase();
+
         return $database->client->put(sprintf('%s/%s/%s',
             $database->name, $docId, urlencode($this->fileName)
         ), null, $this->data, $headers)->getData();
     }
+
     // http://docs.couchdb.org/en/latest/api/document/attachments.html#delete--db-docid-attname
     public function remove($batch = false, $fullCommit = false) {
         if (!isset($this->document)) {
