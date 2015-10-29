@@ -332,6 +332,12 @@ class DocumentAttachment
         ), null, $headers)->getData();
     }
 
+    /**
+     * Get attachment data as array that CouchDB expects.
+     *
+     * @param  bool $encode Whether 64 encode file contents.
+     * @return array
+     */
     public function toArray($encode = true) {
         $this->readFile($encode);
         $array = array();
@@ -340,11 +346,24 @@ class DocumentAttachment
         return $array;
     }
 
+    /**
+     * Get attachment data as json string that CouchDB expects.
+     *
+     * @return string
+     */
     public function toJson() {
         return json_encode($this->toArray());
     }
 
+    /**
+     * Read file contents, set attachment data, data length and content type.
+     *
+     * @param  bool $encode
+     * @return void
+     * @throws Couch\Exception
+     */
     public function readFile($encode = true) {
+        // detect content type
         $type = finfo_file(($info = finfo_open(FILEINFO_MIME_TYPE)), $this->file);
         finfo_close($info);
         if (!$type) {
@@ -353,11 +372,14 @@ class DocumentAttachment
         $this->contentType = $type;
 
         $data = file_get_contents($this->file);
+        // whether base64 encoding or not?
         if ($encode) {
             $this->data = base64_encode($data);
         } else {
             $this->data = $data;
         }
+
+        // set data length
         $this->dataLength = strlen($data);
     }
 }
