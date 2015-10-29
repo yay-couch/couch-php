@@ -349,10 +349,11 @@ class DocumentAttachment
     /**
      * Get attachment data as json string that CouchDB expects.
      *
+     * @param  bool $encode Whether 64 encode file contents.
      * @return string
      */
-    public function toJson() {
-        return json_encode($this->toArray());
+    public function toJson($encode = true) {
+        return json_encode($this->toArray($encode));
     }
 
     /**
