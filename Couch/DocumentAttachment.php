@@ -363,6 +363,11 @@ class DocumentAttachment
      * @throws Couch\Exception
      */
     public function readFile($encode = true) {
+        // check file
+        if (empty($this->file)) {
+            throw new Exception('Attachment file is empty!');
+        }
+
         // detect content type
         $type = finfo_file(($info = finfo_open(FILEINFO_MIME_TYPE)), $this->file);
         finfo_close($info);
