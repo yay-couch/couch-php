@@ -9,7 +9,7 @@ trait Property
      * Setter method (forbids mutate actions).
      *
      * @param  string $name
-     * @param  any    $value
+     * @param  mixed  $value
      * @return void
      * @throws Couch\Exception
      */
@@ -22,7 +22,7 @@ trait Property
      * Getter method.
      *
      * @param  string $name
-     * @return any
+     * @return mixed
      * @throws Couch\Exception
      */
     public function __get($name) {
