@@ -20,20 +20,44 @@
  */
 namespace Couch;
 
+
 class Query
 {
+    /**
+     * Database object.
+     * @var Couch\Database
+     */
     private $database;
+
+    /**
+     * Query data & string.
+     * @var array, string
+     */
     private $data = array(),
             $dataString = '';
 
+    /**
+     * Object constructor.
+     *
+     * @param Database|null $database
+     * @param array         $data
+     */
     public function __construct(Database $database = null, array $data = array()) {
+        // set database if provided
         if ($database) {
             $this->database = $database;
         }
+        // set data if provided
         if (!empty($data)) {
             $this->data = $data;
         }
     }
+
+    /**
+     * Magic method for stringify action.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->toString();
     }
