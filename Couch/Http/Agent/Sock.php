@@ -34,6 +34,13 @@ use \Couch\Http\Exception;
 class Sock
     extends \Couch\Http\Agent
 {
+    /**
+     * Run a request using agent socket method.
+     *
+     * @param  Couch\Http\Request $request
+     * @return bool
+     * @throws Couch\Http\Exception
+     */
     public function run(Request $request) {
         // @tmp
         // pre($request->toString());
@@ -75,12 +82,14 @@ class Sock
             fwrite($this->link, "\r\n");
             fwrite($this->link, $request->body);
 
+            // set stream option
             stream_set_timeout($this->link, $this->config['timeout']);
             stream_set_blocking($this->link, $this->config['blocking']);
             $meta = stream_get_meta_data($this->link);
 
             $this->result = '';
             while (!feof($this->link)) {
+                // check timeout
                 if ($meta['timed_out']) {
                     $this->clean();
                     throw new Exception('Time out!');
@@ -90,6 +99,7 @@ class Sock
                 $meta = stream_get_meta_data($this->link);
             }
 
+            // cleanize
             $this->clean();
 
             return true;
@@ -98,6 +108,11 @@ class Sock
         return false;
     }
 
+    /**
+     * Clean resource.
+     *
+     * @return void
+     */
     public function clean() {
         if (is_resource($this->link)) {
             fclose($this->link);
