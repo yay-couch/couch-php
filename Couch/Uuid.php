@@ -117,7 +117,6 @@ class Uuid
 
             // random also as default
             case self::METHOD_RANDOM:
-            default:
                 // check availability of given algo
                 if (!in_array($algo, hash_algos())) {
                     $algo = self::HASH_ALGO_MD5;
@@ -135,6 +134,10 @@ class Uuid
                 $size = mcrypt_get_iv_size(MCRYPT_CAST_256, MCRYPT_MODE_CFB);
                 $uuid = hash($algo, mcrypt_create_iv($size, $rand));
                 break;
+
+            // ops!
+            default:
+                throw new Exception('Unimplemented method given!');
         }
 
         return $uuid;
