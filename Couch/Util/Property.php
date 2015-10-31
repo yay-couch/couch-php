@@ -1,6 +1,8 @@
 <?php
 namespace Couch\Util;
 
+use \Couch\Exception;
+
 trait Property
 {
     /**
@@ -9,10 +11,10 @@ trait Property
      * @param  string $name
      * @param  any    $value
      * @return void
-     * @throws \Exception
+     * @throws Couch\Exception
      */
     public function __set($name, $value) {
-        throw new \Exception(sprintf(
+        throw new Exception(sprintf(
             '`%s` object is read-only!', get_called_class()));
     }
 
@@ -21,11 +23,11 @@ trait Property
      *
      * @param  string $name
      * @return any
-     * @throws \Exception
+     * @throws Couch\Exception
      */
     public function __get($name) {
         if (!property_exists($this, $name)) {
-            throw new \Exception(sprintf(
+            throw new Exception(sprintf(
                 '`%s` property does not exists on `%s` object!', $name, get_called_class()));
         }
 
