@@ -20,16 +20,39 @@
  */
 namespace Couch\Http;
 
+/**
+ * @package    Couch
+ * @subpackage Couch\Http
+ * @object     Couch\Http\Agent
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 abstract class Agent
 {
+    /**
+     * Resource object.
+     * @var resource
+     */
     protected $link;
+
+    /**
+     * Result data.
+     * @var string
+     */
     protected $result;
 
+    /**
+     * Fail stuff.
+     * @var int, string
+     */
     protected $failCode = 0,
               $failText = '';
 
+    /**
+     * Config array.
+     * @var array
+     */
     protected $config = array(
-        'timeout' => 5,
+        'timeout'  => 5,
         'blocking' => 1
     );
 
