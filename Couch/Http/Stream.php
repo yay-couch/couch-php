@@ -53,14 +53,23 @@ abstract class Stream
      */
     protected $headers = array();
 
+    /**
+     * Get data.
+     * @param  mixed|null $key
+     * @return mixed
+     */
     public function getData($key = null) {
+        // return all data
         if ($key === null) {
             return $this->body;
         }
+
+        // handle dot notations foo.bar
         $value =& $this->body;
         foreach (explode('.', $key) as $key) {
             $value =& $value[$key];
         }
+
         return $value;
     }
 
