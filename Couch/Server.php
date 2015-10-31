@@ -165,11 +165,21 @@ class Server
         return ($count === 1) ? $data[0] : $data;
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/configuration.html
+    /**
+     * Get config(s).
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/configuration.html
+     * @param  string $section
+     * @param  string $key
+     * @return mixed
+     */
     public function getConfig($section = null, $key = null) {
         $path = join('/', array_filter([$section, $key]));
+
         return $this->client->get('/_config/'. $path)->getData();
     }
+
+
     public function setConfig($section, $key, $value) {
         $path = join('/', [$section, $key]);
         $response = $this->client->put('/_config/'. $path, null, $value);
