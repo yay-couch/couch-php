@@ -155,6 +155,20 @@ abstract class Stream
         return $string;
     }
 
+    /**
+     * Set body.
+     *
+     * @param  string $body
+     * @return self
+     */
     abstract public function setBody($body);
+
+    /**
+     * Set header.
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return self
+     */
     abstract public function setHeader($key, $value);
 }
