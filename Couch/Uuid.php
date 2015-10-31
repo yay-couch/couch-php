@@ -96,20 +96,34 @@ class Uuid
         return $this->value;
     }
 
+    /**
+     * Generate a UUID using method & algo.
+     *
+     * @param  int    $method
+     * @param  string $algo
+     * @return string|int
+     */
     public static function generate($method = self::METHOD_RANDOM, $algo = self::HASH_ALGO_MD5) {
         switch ($method) {
+            // simply unixtime
             case self::METHOD_TIMESTAMP:
                 $uuid = time();
                 break;
+
+            // simply unixtime (hexed)
             case self::METHOD_TIMESTAMP_HEXED:
                 $uuid = base_convert(time(), 10, 16);
                 break;
+
+            // random also as default
             case self::METHOD_RANDOM:
             default:
+                // check availability of given algo
                 if (!in_array($algo, hash_algos())) {
                     $algo = self::HASH_ALGO_MD5;
                 }
 
+                // care of mcrypt const
                 $rand = MCRYPT_RAND;
                 if (defined('MCRYPT_DEV_URANDOM')) {
                     $rand = MCRYPT_DEV_URANDOM;
@@ -117,6 +131,7 @@ class Uuid
                     $rand = MCRYPT_DEV_RANDOM;
                 }
 
+                // use mcrypt & hash it
                 $size = mcrypt_get_iv_size(MCRYPT_CAST_256, MCRYPT_MODE_CFB);
                 $uuid = hash($algo, mcrypt_create_iv($size, $rand));
                 break;
