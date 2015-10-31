@@ -66,10 +66,12 @@ class Document
      * @param array               $data
      */
     public function __construct(Database $database = null, array $data = array()) {
+        // set database if provided
         if ($database) {
             $this->database = $database;
         }
 
+        // set data if provided
         if (!empty($data)) {
             $this->setData($data);
         }
