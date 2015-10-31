@@ -180,7 +180,14 @@ class Server
         return $this->client->get('/_config/'. $path)->getData();
     }
 
-
+    /**
+     * Set a config value.
+     *
+     * @link  http://docs.couchdb.org/en/1.5.1/api/server/configuration.html#put--_config-{section}-{key}
+     * @param string $section
+     * @param string $key
+     * @param mixed  $value
+     */
     public function setConfig($section, $key, $value) {
         $path = join('/', [$section, $key]);
         $response = $this->client->put('/_config/'. $path, null, $value);
