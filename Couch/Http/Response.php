@@ -79,29 +79,73 @@ class Response
                    $headers['Content-Type'] == 'application/json'));
     }
 
+    /**
+     * Set status code.
+     *
+     * @param  int $statusCode
+     * @return self
+     */
     public function setStatusCode($statusCode) {
         $this->statusCode = $statusCode;
-        return $this;
-    }
-    public function setStatusText($statusText) {
-        $this->statusText = $statusText;
+
         return $this;
     }
 
+    /**
+     * Set status text.
+     *
+     * @param  int $statusText
+     * @return self
+     */
+    public function setStatusText($statusText) {
+        $this->statusText = $statusText;
+
+        return $this;
+    }
+
+    /**
+     * Get status code.
+     *
+     * @return int
+     */
     public function getStatusCode() {
         return $this->statusCode;
     }
+
+    /**
+     * Get status text.
+     *
+     * @return string
+     */
     public function getStatusText() {
         return $this->statusText;
     }
 
+    /**
+     * Set body.
+     *
+     * @param  string $body
+     * @param  bool   $isJson
+     * @return self
+     */
     public function setBody($body, $isJson = true) {
+        // decode if json
         $this->body = $isJson
             ? json_decode($body, true) : $body;
+
         return $this;
     }
+
+    /**
+     * Set header.
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return self
+     */
     public function setHeader($key, $value) {
         $this->headers[$key] = $value;
+
         return $this;
     }
 }
