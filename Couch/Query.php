@@ -166,6 +166,7 @@ class Query
      */
     public function skip($num) {
         $this->data['skip'] = $num;
+
         return $this;
     }
 
@@ -177,6 +178,7 @@ class Query
      */
     public function limit($num) {
         $this->data['limit'] = $num;
+
         return $this;
     }
 }
