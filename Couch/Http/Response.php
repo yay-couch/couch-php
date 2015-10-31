@@ -55,7 +55,7 @@ class Response
         $this->type = parent::TYPE_RESPONSE;
 
         // @tmp
-        pre($agent->getResult());
+        // pre($agent->getResult());
 
         // split raw response
         @list($headers, $body) =
