@@ -20,7 +20,11 @@
  */
 namespace Couch;
 
-
+/**
+ * @package Couch
+ * @object  Couch\Query
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Query
 {
     /**
