@@ -122,21 +122,35 @@ class Query
         }
     }
 
+    /**
+     * Get query params as array.
+     *
+     * @return array
+     */
     public function toArray() {
         return $this->data;
     }
 
+    /**
+     * Get query params as string.
+     *
+     * @return string
+     */
     public function toString() {
+        // check if already generated before
         if (!empty($this->dataString)) {
             return $this->dataString;
         }
+
         $data = array();
         foreach ($this->data as $key => $value) {
+            // proper CouchDB booleans
             if (is_bool($value)) {
                 $value = $value ? 'true' : 'false';
             }
             $data[] = sprintf('%s=%s', $key, urlencode($value));
         }
+
         return ($this->dataString = join('&', $data));
     }
 
