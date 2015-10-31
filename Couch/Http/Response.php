@@ -22,6 +22,14 @@ namespace Couch\Http;
 
 use \Couch\Util\Property;
 
+/**
+ * @package    Couch
+ * @subpackage Couch\Http
+ * @object     Couch\Http\Response
+ * @uses       Couch\Util\Property
+ * @extends    Couch\Http\Stream
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Response
     extends Stream
 {
