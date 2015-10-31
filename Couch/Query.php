@@ -62,26 +62,60 @@ class Query
         return $this->toString();
     }
 
+    /**
+     * Set database.
+     *
+     * @param  Couch\Database $database
+     * @return void
+     */
     public function setDatabase(Database $database) {
         $this->database = $database;
     }
+
+    /**
+     * Get database.
+     *
+     * @return Couch\Database|null
+     */
     public function getDatabase() {
         return $this->database;
     }
 
+    /**
+     * Get documents by query data.
+     *
+     * @return mixed
+     */
     public function run() {
         if (!$this->database) {
             throw new Exception(sprintf(
-                'Set database first on init or calling %s::setDatabase() to run a request!', __class__));
+                'Set database first on init or calling'.
+                ' %s::setDatabase() to run a request!', __class__));
         }
+
         return $this->database->getDocumentAll($this->data);
     }
 
+    /**
+     * Set query param.
+     *
+     * @param string $key
+     * @param mixed  $value
+     * @return self
+     */
     public function set($key, $value) {
         $key = strtolower(trim($key));
         $this->data[$key] = $value;
+
         return $this;
     }
+
+    /**
+     * Get query param.
+     *
+     * @param  string $key
+     * @return mixed|null
+     */
     public function get($key) {
         if (isset($this->data[$key])) {
             return $this->data[$key];
