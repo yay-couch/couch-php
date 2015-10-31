@@ -71,21 +71,35 @@ class Request
      */
     private $uri;
 
+    /**
+     * Object constructor.
+     *
+     * @param Couch\Client $client
+     */
     public function __construct(Client $client) {
         $this->type = parent::TYPE_REQUEST;
 
+        // set client
         $this->client = $client;
 
+        // prepare authorization header
         if ($client->username && $client->password) {
             $this->headers['Authorization'] =
                 'Basic '. base64_encode($client->username .':'. $client->password);
         }
 
+        // add default headers
         $this->headers['Accept'] = 'application/json';
         $this->headers['Content-Type'] = 'application/json';
         $this->headers['User-Agent'] = 'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
     }
 
+    /**
+     * Send request.
+     *
+     * @return Couch\Http\Agent
+     * @throws Couch\Http\Exception
+     */
     public function send() {
         // just only debugging outbound headers in an order
         ksort($this->headers);
@@ -102,6 +116,11 @@ class Request
         return $agent;
     }
 
+    /**
+     * Set request method.
+     *
+     * @param string $method
+     */
     public function setMethod($method) {
         $this->method = strtoupper($method);
         if ($this->method != self::METHOD_HEAD &&
@@ -112,6 +131,14 @@ class Request
 
         return $this;
     }
+
+    /**
+     * Set request URI.
+     *
+     * @param  string     $uri
+     * @param  array|null $uriParams
+     * @return self
+     */
     public function setUri($uri, array $uriParams = null) {
         if (!empty($uriParams)) {
             // convert booleans
@@ -120,6 +147,8 @@ class Request
                     $uriParams[$key] = $value ? 'true' : 'false';
                 }
             }
+
+            // build query & decode brackets
             $uri = str_replace(['%5B', '%5D'], ['[', ']'],
                 sprintf('%s?%s', $uri, http_build_query($uriParams)));
         }
@@ -128,25 +157,52 @@ class Request
         return $this;
     }
 
+    /**
+     * Get request method.
+     *
+     * @return string
+     */
     public function getMethod() {
         return $this->method;
     }
+
+    /**
+     * Get request URI.
+     *
+     * @return string
+     */
     public function getUri() {
         return $this->uri;
     }
 
+    /**
+     * Set request body.
+     *
+     * @param  mixed $body
+     * @return self
+     */
     public function setBody($body) {
         if (!empty($body)) {
+            // content is json?
             if ($this->headers['Content-Type'] == 'application/json') {
                 $this->body = json_encode($body);
             } else {
                 $this->body = $body;
             }
+            // set content length
             $this->headers['Content-Length'] = strlen($this->body);
         }
 
         return $this;
     }
+
+    /**
+     * Set a request header.
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return self
+     */
     public function setHeader($key, $value) {
         $this->headers[$key] = $value;
 
