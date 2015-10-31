@@ -123,7 +123,7 @@ class Server
      * @param  array $query
      * @return array
      */
-    public function replicate($query) {
+    public function replicate(array $query) {
         if (!isset($query['source'], $query['target'])) {
             throw new Exception('Both source & target required!');
         }
