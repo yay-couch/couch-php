@@ -103,8 +103,8 @@ class Query
     /**
      * Set query param.
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param  string $key
+     * @param  mixed  $value
      * @return self
      */
     public function set($key, $value) {
