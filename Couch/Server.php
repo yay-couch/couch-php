@@ -194,6 +194,15 @@ class Server
         return (200 === $response->getStatusCode())
             ? $response->getData() : false;
     }
+
+    /**
+     * Delete a config.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/configuration.html#delete--_config-{section}-{key}
+     * @param  string $section
+     * @param  string $key
+     * @return mixed
+     */
     public function removeConfig($section, $key) {
         $path = join('/', [$section, $key]);
         $response = $this->client->delete('/_config/'. $path);
