@@ -35,7 +35,7 @@ class Curl
     extends \Couch\Http\Agent
 {
     /**
-     * Run a request using agent object.
+     * Run a request using cURL.
      *
      * @param  Couch\Http\Request $request
      * @return bool
