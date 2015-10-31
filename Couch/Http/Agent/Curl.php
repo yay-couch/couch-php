@@ -34,7 +34,15 @@ use \Couch\Http\Exception;
 class Curl
     extends \Couch\Http\Agent
 {
+    /**
+     * Run a request using agent object.
+     *
+     * @param  Couch\Http\Request $request
+     * @return bool
+     * @throws Couch\Http\Exception
+     */
     public function run(Request $request) {
+        // check cURL extension
         if (!extension_loaded('curl')) {
             throw new Exception('cURL extension not found!');
         }
@@ -42,7 +50,7 @@ class Curl
         $this->link =@ curl_init($request->uri);
         if (is_resource($this->link)) {
             $headers = array();
-            // proper response headers/body pairs
+            // for proper response headers/body pairs
             $headers[] = 'Expect: ';
             foreach ($request->headers as $key => $value) {
                 // actually remove header command
@@ -62,6 +70,7 @@ class Curl
                 CURLINFO_HEADER_OUT    => true
             );
 
+            // care of request methods
             if ($request->method == Request::METHOD_HEAD) {
                 $options[CURLOPT_NOBODY] = true;
                 $options[CURLOPT_FOLLOWLOCATION] = true;
@@ -74,7 +83,7 @@ class Curl
 
             curl_setopt_array($this->link, $options);
 
-            // prevent output whole reponse if NOBODY=1
+            // prevent output whole reponse ie if NOBODY=1
             ob_start();
             $result =@ curl_exec($this->link);
             $this->result = ob_get_clean();
@@ -82,15 +91,18 @@ class Curl
                 $this->result = $result;
             }
 
+            // fail!
             if ($this->result === false) {
                 $this->failCode = curl_errno($this->link);
                 $this->failText = curl_error($this->link);
 
+                // cleanize
                 $this->clean();
 
                 return false;
             }
 
+            // cleanize
             $this->clean();
 
             return true;
