@@ -42,15 +42,30 @@ class Server
         $this->client = $client;
     }
 
+    /**
+     * Ping server.
+     * @return bool
+     */
     public function ping() {
         return (200 === $this->client->head('/')->getStatusCode());
     }
 
+    /**
+     * Get server version.
+     *
+     * @return string
+     */
     public function version() {
         return $this->info('version');
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#api-server-root
+    /**
+     * Get server info.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#api-server-root
+     * @param  string $key
+     * @return mixed
+     */
     public function info($key = null) {
         $info = $this->client->get('/')->getData();
         if ($key) {
@@ -59,12 +74,22 @@ class Server
         return $info;
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#active-tasks
+    /**
+     * Get active tasks.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#active-tasks
+     * @return array
+     */
     public function getActiveTasks() {
         return $this->client->get('/_active_tasks')->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#all-dbs
+    /**
+     * Get all databases.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#all-dbs
+     * @return array
+     */
     public function getAllDatabases() {
         return $this->client->get('/_all_dbs')->getData();
     }
