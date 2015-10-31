@@ -69,14 +69,29 @@ class Uuid
         $this->setValue($value);
     }
 
+    /**
+     * Magic method for string acts.
+     *
+     * @return string
+     */
     public function __toString() {
         return $this->getValue();
     }
 
+    /**
+     * Set value.
+     *
+     * @param string|int $value
+     */
     public function setValue($value) {
         $this->value = $value;
     }
 
+    /**
+     * Get value.
+     *
+     * @return string|int
+     */
     public function getValue() {
         return $this->value;
     }
