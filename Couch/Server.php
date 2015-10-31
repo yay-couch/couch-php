@@ -127,15 +127,28 @@ class Server
         if (!isset($query['source'], $query['target'])) {
             throw new Exception('Both source & target required!');
         }
+
         return $this->client->post('/_replicate', null, $query)->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#restart
+    /**
+     * Restarts the CouchDB instance.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#restart
+     * @note   You must be authenticated as a user with administration privileges for this to work.
+     * @return bool
+     */
     public function restart() {
         return (202 === $this->client->post('/_restart')->getStatusCode());
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#stats
+    /**
+     * Get server stats.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#stats
+     * @param  string $path
+     * @return array
+     */
     public function getStats($path = null) {
         return $this->client->get('/_stats/'. $path)->getData();
     }
