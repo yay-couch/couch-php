@@ -52,6 +52,7 @@ class Sock
             $url['query'] = '';
         }
 
+        // open socket
         $this->link =@ fsockopen(
             $url['host'],
             $url['port'],
