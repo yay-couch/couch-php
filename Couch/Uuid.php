@@ -49,12 +49,23 @@ class Uuid
      */
     private $value;
 
+    /**
+     * Object constructor.
+     *
+     * @param mixed $value
+     */
     public function __construct($value) {
+        // called self.generate method
         if ($value === true) {
             $value = self::generate();
-        } elseif ($value instanceof Server) {
+        }
+        // request for uuid from the server
+        elseif ($value instanceof Server) {
             $value = $value->getUuid();
         }
+        // use given value
+        // else {}
+
         $this->setValue($value);
     }
 
