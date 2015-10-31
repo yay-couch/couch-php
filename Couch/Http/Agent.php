@@ -56,37 +56,72 @@ abstract class Agent
         'blocking' => 1
     );
 
+    /**
+     * Object constructor.
+     *
+     * @param array $config
+     */
     public function __construct(array $config = array()) {
         $this->config = array_merge($this->config, $config);
     }
 
+    /**
+     * Get result data.
+     * @return string
+     */
     public function getResult() {
         return $this->result;
     }
 
+    /**
+     * Check if fail.
+     *
+     * @return bool
+     */
     public function isFail() {
         return ('' !== $this->failText);
     }
+
+    /**
+     * Get fial code.
+     *
+     * @return int
+     */
     public function getFailCode() {
         return $this->failCode;
     }
+
+    /**
+     * Get fail text.
+     *
+     * @return string
+     */
     public function getFailText() {
         return $this->failText;
     }
 
+    // @wait
     public static function parseRequestHeaders($headers) {}
 
+    /**
+     * Parse response headers.
+     *
+     * @param  string $headers
+     * @return array
+     */
     public static function parseResponseHeaders($headers) {
         $headers =@ explode("\r\n", trim($headers));
+
+        // extract status line
         preg_match('~^HTTP/\d\.\d (\d+) ([\w- ]+)~i', array_shift($headers), $match);
 
+        // set status stuff
         $statusCode = 0;
         $statusText = '';
         if (isset($match[1], $match[2])) {
             $statusCode = (int) $match[1];
             $statusText = $match[2];
         }
-
         $return = array();
         $return['_status']['code'] = $statusCode;
         $return['_status']['text'] = $statusText;
@@ -97,11 +132,13 @@ abstract class Agent
                 continue;
             }
             $value = trim($value);
+
             // handle multi-headers as array
             if (isset($return[$key])) {
                 $return[$key] = array_merge((array) $return[$key], [$value]);
                 continue;
             }
+
             $return[$key] = $value;
         }
 
