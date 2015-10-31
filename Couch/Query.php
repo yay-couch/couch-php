@@ -159,7 +159,7 @@ class Query
     }
 
     /**
-     * Add skip param to query.
+     * Add skip param to query data.
      *
      * @param  int $num
      * @return self
@@ -170,7 +170,7 @@ class Query
     }
 
     /**
-     * Add limit param to query.
+     * Add limit param to query data.
      *
      * @param  int $num
      * @return self
