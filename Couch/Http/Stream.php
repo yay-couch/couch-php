@@ -73,22 +73,44 @@ abstract class Stream
         return $value;
     }
 
+    /**
+     * Get body.
+     *
+     * @return mixed
+     */
     public function getBody() {
         return $this->body;
     }
 
+    /**
+     * Get header.
+     *
+     * @param  string $key
+     * @return string|null
+     */
     public function getHeader($key) {
         if (isset($this->headers[$key])) {
             return $this->headers[$key];
         }
     }
 
+    /**
+     * Get all headers.
+     *
+     * @return array
+     */
     public function getHeaderAll() {
         return $this->headers;
     }
 
+    /**
+     * Get raw stream data both headers & body.
+     *
+     * @return string
+     */
     public function toString() {
         $string = '';
+        // prepare request stream
         if ($this->type == self::TYPE_REQUEST) {
             $url = parse_url($this->uri);
             if (isset($url['query'])) {
