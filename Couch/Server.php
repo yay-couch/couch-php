@@ -20,10 +20,24 @@
  */
 namespace Couch;
 
+/**
+ * @package Couch
+ * @object  Couch\Server
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Server
 {
+    /**
+     * Client object.
+     * @var Couch\Client
+     */
     private $client;
 
+    /**
+     * Object constructor.
+     *
+     * @param Couch\Client $client
+     */
     public function __construct(Client $client) {
         $this->client = $client;
     }
