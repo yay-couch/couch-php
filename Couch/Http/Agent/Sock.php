@@ -36,7 +36,7 @@ class Sock
 {
     public function run(Request $request) {
         // @tmp
-        pre($request->toString());
+        // pre($request->toString());
 
         $url = parse_url($request->uri);
         if (isset($url['query'])) {
