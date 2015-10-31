@@ -145,6 +145,18 @@ abstract class Agent
         return $return;
     }
 
+    /**
+     * Run a request using agent object.
+     *
+     * @param  Couch\Http\Request $request
+     * @return bool
+     */
     abstract public function run(Request $request);
+
+    /**
+     * Clean resource.
+     *
+     * @return void
+     */
     abstract public function clean();
 }
