@@ -24,11 +24,28 @@ use \Couch\Couch;
 use \Couch\Client;
 use \Couch\Util\Property;
 
+/**
+ * @package    Couch
+ * @subpackage Couch\Http
+ * @object     Couch\Http\Request
+ * @uses       Couch\Couch
+ * @uses       Couch\Client
+ * @uses       Couch\Util\Property
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Request
     extends Stream
 {
+    /**
+     * Property object.
+     * @var Couch\Util\Property
+     */
     use Property;
 
+    /**
+     * Request methods.
+     * @const string
+     */
     const METHOD_HEAD   = 'HEAD',
           METHOD_GET    = 'GET',
           METHOD_POST   = 'POST',
@@ -36,9 +53,22 @@ class Request
           METHOD_COPY   = 'COPY',
           METHOD_DELETE = 'DELETE';
 
+    /**
+     * Client object.
+     * @var Couch\Client
+     */
     private $client;
 
+    /**
+     * Request method.
+     * @var string
+     */
     private $method;
+
+    /**
+     * Request URI.
+     * @var string
+     */
     private $uri;
 
     public function __construct(Client $client) {
