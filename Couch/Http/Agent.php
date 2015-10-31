@@ -150,6 +150,7 @@ abstract class Agent
      *
      * @param  Couch\Http\Request $request
      * @return bool
+     * @throws Couch\Http\Exception
      */
     abstract public function run(Request $request);
 
