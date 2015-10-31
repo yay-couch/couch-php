@@ -105,16 +105,6 @@ class Uuid
      */
     public static function generate($method = self::METHOD_RANDOM, $algo = self::HASH_ALGO_MD5) {
         switch ($method) {
-            // simply unixtime
-            case self::METHOD_TIMESTAMP:
-                $uuid = time();
-                break;
-
-            // simply unixtime (hexed)
-            case self::METHOD_TIMESTAMP_HEXED:
-                $uuid = base_convert(time(), 10, 16);
-                break;
-
             // random also as default
             case self::METHOD_RANDOM:
                 // check availability of given algo
@@ -133,6 +123,16 @@ class Uuid
                 // use mcrypt & hash it
                 $size = mcrypt_get_iv_size(MCRYPT_CAST_256, MCRYPT_MODE_CFB);
                 $uuid = hash($algo, mcrypt_create_iv($size, $rand));
+                break;
+
+            // simply unixtime
+            case self::METHOD_TIMESTAMP:
+                $uuid = time();
+                break;
+
+            // simply unixtime (hexed)
+            case self::METHOD_TIMESTAMP_HEXED:
+                $uuid = base_convert(time(), 10, 16);
                 break;
 
             // ops!
