@@ -22,6 +22,13 @@ namespace Couch\Util;
 
 use \Couch\Exception;
 
+/**
+ * @package    Couch
+ * @subpackage Couch\Util
+ * @object     Couch\Util\Property
+ * @uses       Couch\Exception
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 trait Property
 {
     /**
