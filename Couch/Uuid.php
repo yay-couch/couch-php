@@ -20,16 +20,33 @@
  */
 namespace Couch;
 
+/**
+ * @package Couch
+ * @object  Couch\Uuid
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Uuid
 {
+    /**
+     * Generate methods.
+     * @const int
+     */
     const METHOD_RANDOM = 1,
           METHOD_TIMESTAMP = 2,
           METHOD_TIMESTAMP_HEXED = 3;
 
+    /**
+     * Generate algos.
+     * @const string
+     */
     const HASH_ALGO_MD5 = 'md5',
           HASH_ALGO_SHA1 = 'sha1',
           HASH_ALGO_CRC32B = 'crc32b';
 
+    /**
+     * Uuid value.
+     * @var string|int
+     */
     private $value;
 
     public function __construct($value) {
