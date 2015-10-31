@@ -91,7 +91,7 @@ class Couch
     /**
      * Get default HTTP agent name.
      *
-     * @return string|null
+     * @return string
      */
     public function getHttpAgentDefault() {
         return $this->httpAgentDefault;
