@@ -20,18 +20,45 @@
  */
 namespace Couch\Util;
 
+/**
+ * @package    Couch
+ * @subpackage Couch\Util
+ * @object     Couch\Util\Util
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 abstract class Util
 {
+    /**
+     * Pagination method that calculates skip param.
+     *
+     * @param  int $offset
+     * @param  int $limit
+     * @return int
+     */
     public static function getSkip($offset, $limit) {
         $page = ($offset / $limit) + 1;
         $skip = $page * $limit;
         return $skip;
     }
 
+    /**
+     * Quote method.
+     *
+     * @param  string $input
+     * @return string
+     */
     public static function quote($input) {
         return str_replace('"', '%22', $input);
     }
 
+    /**
+     * Array fetch method.
+     *
+     * @param  mixed      $key
+     * @param  array      $array
+     * @param  mixed|null $defaultValue
+     * @return mixed
+     */
     public static function dig($key, array $array, $defaultValue = null) {
         return array_key_exists($key, $array)
             ? $array[$key] : $defaultValue;
