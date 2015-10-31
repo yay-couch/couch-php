@@ -94,17 +94,35 @@ class Server
         return $this->client->get('/_all_dbs')->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#db-updates
+    /**
+     * Get all database events.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#get--_db_updates
+     * @param  array|string $query
+     * @return array
+     */
     public function getDatabaseUpdates($query = null) {
         return $this->client->get('/_db_updates', $query)->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#log
+    /**
+     * Get server logs.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#log
+     * @param  array|string $query
+     * @return string
+     */
     public function getLogs($query = null) {
         return $this->client->get('/_log', $query)->getBody();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#replicate
+    /**
+     * Request, configure, or stop, a replication operation.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#replicate
+     * @param  array $query
+     * @return array
+     */
     public function replicate($query) {
         if (!isset($query['source'], $query['target'])) {
             throw new Exception('Both source & target required!');
