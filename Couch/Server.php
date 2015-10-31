@@ -153,7 +153,13 @@ class Server
         return $this->client->get('/_stats/'. $path)->getData();
     }
 
-    // http://docs.couchdb.org/en/1.5.1/api/server/common.html#uuids
+    /**
+     * Get new uuid(s).
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#uuids
+     * @param  int $count
+     * @return string|array
+     */
     public function getUuid($count = 1) {
         $data = $this->client->get('/_uuids', ['count' => $count])->getData('uuids');
         return ($count === 1) ? $data[0] : $data;
