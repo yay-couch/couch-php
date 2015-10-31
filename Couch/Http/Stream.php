@@ -20,13 +20,37 @@
  */
 namespace Couch\Http;
 
+/**
+ * @package    Couch
+ * @subpackage Couch\Http
+ * @object     Couch\Http\Stream
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 abstract class Stream
 {
+    /**
+     * Stream types.
+     * @const int
+     */
     const TYPE_REQUEST = 1,
           TYPE_RESPONSE = 2;
 
+    /**
+     * Stream type that used in self.toString method.
+     * @var int
+     */
     protected $type;
+
+    /**
+     * Stream body.
+     * @var mixed
+     */
     protected $body;
+
+    /**
+     * Stream headers.
+     * @var array
+     */
     protected $headers = array();
 
     public function getData($key = null) {
