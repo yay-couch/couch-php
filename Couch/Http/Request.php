@@ -31,6 +31,7 @@ use \Couch\Util\Property;
  * @uses       Couch\Couch
  * @uses       Couch\Client
  * @uses       Couch\Util\Property
+ * @extends    Couch\Http\Stream
  * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 class Request
