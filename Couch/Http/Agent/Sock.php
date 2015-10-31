@@ -23,6 +23,14 @@ namespace Couch\Http\Agent;
 use \Couch\Http\Request;
 use \Couch\Http\Exception;
 
+/**
+ * @package    Couch
+ * @subpackage Couch\Http\Agent
+ * @object     Couch\Http\Agent\Sock
+ * @uses       Couch\Http\Request
+ * @uses       Couch\Http\Exception
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Sock
     extends \Couch\Http\Agent
 {
