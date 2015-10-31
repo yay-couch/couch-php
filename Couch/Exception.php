@@ -20,4 +20,10 @@
  */
 namespace Couch;
 
+/**
+ * @package Couch
+ * @object  Couch\Exception
+ * @extends Exception
+ * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ */
 class Exception extends \Exception {}
