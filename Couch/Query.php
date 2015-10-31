@@ -154,10 +154,23 @@ class Query
         return ($this->dataString = join('&', $data));
     }
 
+    /**
+     * Add skip param to query.
+     *
+     * @param  int $num
+     * @return self
+     */
     public function skip($num) {
         $this->data['skip'] = $num;
         return $this;
     }
+
+    /**
+     * Add limit param to query.
+     *
+     * @param  int $num
+     * @return self
+     */
     public function limit($num) {
         $this->data['limit'] = $num;
         return $this;
