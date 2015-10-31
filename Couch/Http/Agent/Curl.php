@@ -111,6 +111,11 @@ class Curl
         return false;
     }
 
+    /**
+     * Clean resource.
+     *
+     * @return void
+     */
     public function clean() {
         if (is_resource($this->link)) {
             curl_close($this->link);
