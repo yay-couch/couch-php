@@ -33,30 +33,47 @@ use \Couch\Util\Property;
 class Response
     extends Stream
 {
+    /**
+     * Property object.
+     * @var Couch\Util\Property
+     */
     use Property;
 
+    /**
+     * Status stuff.
+     * @var int, string
+     */
     private $statusCode,
             $statusText;
 
+    /**
+     * Object constructor.
+     *
+     * @param Couch\Http\Agent $agent
+     */
     public function __construct(Agent $agent) {
         $this->type = parent::TYPE_RESPONSE;
 
         // @tmp
         pre($agent->getResult());
 
+        // split raw response
         @list($headers, $body) =
             explode("\r\n\r\n", $agent->getResult(), 2);
 
+        // parse headers
         $headers = Agent::parseResponseHeaders($headers);
         foreach ($headers as $key => $value) {
             $this->setHeader($key, $value);
         }
 
+        // set status stuff
         if (isset($headers['_status']['code'], $headers['_status']['text'])) {
             $this->setStatusCode($headers['_status']['code'])
                  ->setStatusText($headers['_status']['text']);
         }
 
+        // set body
         $this->setBody($body,
             (isset($headers['Content-Type']) &&
                    $headers['Content-Type'] == 'application/json'));
