@@ -168,7 +168,8 @@ class Server
     /**
      * Get config(s).
      *
-     * @link   http://docs.couchdb.org/en/1.5.1/api/server/configuration.html
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/configuration.html#get--_config
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/configuration.html#get--_config-{section}
      * @param  string $section
      * @param  string $key
      * @return mixed
