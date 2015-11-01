@@ -123,6 +123,29 @@ dump $db->info();
 dump $db->create();
 dump $db->remove();
 dump $db->replicate('foo2');
+dump $db->getChanges();
+dump $db->getChanges(null, ['e90636c398458a9d5969d2e71b04b0a4']);
+dump $db->compact();
+dump $db->ensureFullCommit();
+dump $db->viewCleanup();
+dump $db->getSecurity();
+dump $db->setSecurity(['names' => ['superuser'], 'roles' => ['admins']],
+                      ['names' => ['user1', 'user2'], 'roles' => ['developers']]);
+
+dump $db->getRevisionLimit();
+dump $db->setRevisionLimit(1000);
+
+/** tmp view method  */
+$db->viewTemp('function(doc){ if(doc.name){ emit(doc.name, null); }}');
+$db->viewTemp('function(doc){ if(doc.name){ emit(doc.name, null); }}', $reduce='_count');
+
+/** document methods  */
+
+$db->purge('test_3', ['4-53348db493c7323e9d539e77df4fe3af']);
+$db->getMissingRevisions('test_3',
+    ['3-b06fcd1c1c9e0ec7c480ee8aa467bf3b', '3-0e871ef78849b0c206091f1a7af6ec41']);
+$db->getMissingRevisionsDiff('a0ecb3e2bc442e7bd768ea78070349da',
+    ['4-265c7f224875a6da3aa4ba79d01ee0b0']);
 
 // get a document
 dump $db->getDocument('667b0208441066a0954717b50c0008a9');
