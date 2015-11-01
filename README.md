@@ -292,3 +292,23 @@ dump json_encode($attc);
 ```php
 // @todo
 ```
+
+##Error Handling##
+
+```php
+// create issue
+$doc = new Couch\Document();
+$doc->_id = 'an_existing_docid';
+
+// no error will be thrown
+$doc->save();
+
+// but could be so
+if (201 != $client->getResponse()->getStatusCode()) {
+    print 'nö!';
+    // or print response error data
+    $data = $client->getResponse()->getData();
+    print $data['error'];
+    print $data['reason'];
+}
+```
