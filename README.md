@@ -133,15 +133,48 @@ dump $db->getDocumentAll($query=null,
     ['667b0208441066a0954717b50c0008a9','83b5e0a0b3bd41d9a21cee7ae8000615']);
 
 // create a document
-// param as Couch\Document
 $doc = new Couch\Document();
 $doc->test = 'the test 20';
-dump $db->createDocument($doc));
+// param as Couch\Document
+dump $db->createDocument($doc);
 // param as array
-dump $db->createDocument(['test' => 'test 30']));
-// param as array & Couch\Document
-dump $db->createDocumentAll([
-    ['test' => 'test 4'],
-    new Couch\Document(null, ['test' => 'the test 5']),
+dump $db->createDocument(['test' => 'test 30']);
+
+// update a document
+$doc = new Couch\Document();
+$doc->_id = 'e90636c398458a9d5969d2e71b04ad81';
+$doc->_rev = '3-9aeefae43b9fad5df8cc87fe8bcc2718';
+// param as Couch\Document
+dump $db->updateDocument($doc);
+// param as array
+dump $db->updateDocument([
+    ['_id'  => 'e90636c398458a9d5969d2e71b04b0a4',
+     '_rev' => '1-afa338dcbc6870f1a1dd441557f79859',
+     'test' => 'test 2 (update)']
 ]);
+
+// delete a document
+$doc = new Couch\Document(null, [
+    '_id'  => 'e90636c398458a9d5969d2e71b04b0a4',
+    '_rev' => '2-d4ef449903f67ee5559f1ee42bafcfcf',
+]);
+dump $db->deleteDocument($doc);
+
+/** multiple CRUD */
+
+$docs = [];
+// all accepted, just fill the doc data
+$docs[] = [/* doc data id etc (and rev for updade/delete) */];
+$docs[] = new Couch\Document(null, [/* doc data id etc (and rev for updade/delete) */]);
+$doc = new Couch\Document(); $doc->foo = ...
+$docs[] = $doc;
+$doc = new stdClass;         $doc->foo = ...
+$docs[] = $doc;
+
+// multiple create
+dump $db->createDocumentAll($docs);
+// multiple update
+dump $db->updateDocumentAll($docs);
+// multiple delete
+dump $db->deleteDocumentAll($docs);
 ```
