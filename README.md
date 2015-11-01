@@ -22,9 +22,9 @@ $autoload = require('path/to/Couch/Autoload.php');
 $autoload->register();
 ```
 
-##As a Nutshell##
+##In a Nutshell##
 ```php
-// create a fress document
+// create a fresh document
 $doc = new Couch\Document($client);
 $doc->name = 'The Doc!';
 $doc->save();
