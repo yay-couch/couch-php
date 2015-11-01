@@ -1,13 +1,14 @@
 ##Couch##
 
-Couch is a great tool that makes all interactions with your CouchDB server.
-
+Couch is a great library that makes all interactions with your CouchDB server providing a lot of tools for that.
 
 Before beginning;
 
 - Set your autoloader properly or use composer
 - Use PHP >= 5.4 (cos it uses traits)
 - Handle errors with try/catch blocks
+
+Notice: See CouchDB's official documents before using this library.
 
 ##Autoload##
 
@@ -92,8 +93,22 @@ $response = $client->getResponse();
 ```php
 $server = new Couch\Server($client);
 
-// ping server
-bool $server->ping()
-// get server info
-array $server->info()
+// methods
+dump $server->ping();
+dump $server->info();
+dump $server->version();
+dump $server->getActiveTasks();
+dump $server->getAllDatabases();
+dump $server->getDatabaseUpdates();
+dump $server->getLogs();
+dump $server->replicate(['source' => 'foo', 'target' => 'foo_replica', 'create_target' => true]);
+dump $server->restart();
+dump $server->getStats();
+dump $server->getStats('/couchdb/request_time');
+dump $server->getUuid(3);
+dump $server->getConfig();
+dump $server->getConfig('couchdb');
+dump $server->getConfig('couchdb', 'uuid');
+dump $server->setConfig('couchdb', 'foo', 'the foo!');
+dump $server->removeConfig('couchdb', 'foo');
 ```
