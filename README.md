@@ -44,7 +44,10 @@ $config['blocking'] = 0;
 
 ##Usage##
 
+###Couch Object###
+
 ```php
+// init couch object
 $couch = new Couch\Couch();
 $couch->setConfig($config);
 // or
