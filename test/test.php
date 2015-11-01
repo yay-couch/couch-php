@@ -199,3 +199,11 @@ $db = new Couch\Database($client, 'foo2');
 // } catch (Couch\Http\Exception $e) {
 //     print $e->getMessage();
 // }
+
+// $server->info();
+// $client->request('GET /');
+
+// $request = $client->getRequest()->toString();
+// $response = $client->getResponse()->toString();
+// pre($request);
+// pre($response);
