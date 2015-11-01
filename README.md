@@ -21,6 +21,18 @@ $autoload = require('path/to/Couch/Autoload.php');
 $autoload->register();
 ```
 
+##As a Nutshell##
+```php
+// create a fress document
+$doc = new Couch\Document($client);
+$doc->name = 'The Doc!';
+$doc->save();
+
+// append an attachment
+$doc->setAttachment(new Couch\DocumentAttachment($doc, './file.txt'));
+$doc->save();
+```
+
 ##Configuration##
 
 Configuration is optional but you can provide all this options;
@@ -43,19 +55,7 @@ $config['timeout'] = 10;
 $config['blocking'] = 0;
 ```
 
-##Usage##
-
-#####As a Nutshell#####
-```php
-// create a fress document
-$doc = new Couch\Document($client);
-$doc->name = 'The Doc!';
-$doc->save();
-
-// append an attachment
-$doc->setAttachment(new Couch\DocumentAttachment($doc, './file.txt'));
-$doc->save();
-```
+##Objects##
 
 #####Couch Object#####
 ```php
