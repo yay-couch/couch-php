@@ -77,10 +77,12 @@ class Client
      * Object constructor.
      *
      * @param Couch\Couch $couch
-     * @param array $config
      */
-    public function __construct(Couch $couch, array $config = array()) {
+    public function __construct(Couch $couch) {
         $this->couch = $couch;
+
+        // use config if provided
+        $config = $this->couch->getConfig();
 
         // set host & port
         if (isset($config['host'])) {
@@ -89,6 +91,7 @@ class Client
         if (isset($config['port'])) {
             $this->port = $config['port'];
         }
+
         // set credentials
         if (isset($config['username'])) {
             $this->username = $config['username'];
