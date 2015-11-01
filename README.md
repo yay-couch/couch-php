@@ -45,6 +45,18 @@ $config['blocking'] = 0;
 
 ##Usage##
 
+#####As a Nutshell#####
+```php
+// create a fress document
+$doc = new Couch\Document($client);
+$doc->name = 'The Doc!';
+$doc->save();
+
+// append an attachment
+$doc->setAttachment(new Couch\DocumentAttachment($doc, './file.txt'));
+$doc->save();
+```
+
 #####Couch Object#####
 ```php
 // init couch object
@@ -113,7 +125,7 @@ dump $server->setConfig('couchdb', 'foo', 'the foo!');
 dump $server->removeConfig('couchdb', 'foo');
 ```
 
-####Database Object####
+#####Database Object#####
 ```php
 $db = new Couch\Database($client, 'foo');
 
@@ -202,7 +214,7 @@ dump $db->updateDocumentAll($docs);
 dump $db->deleteDocumentAll($docs);
 ```
 
-####Document Object####
+#####Document Object#####
 ```php
 $doc = new Couch\Document($db);
 // set props (so data)
