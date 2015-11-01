@@ -178,3 +178,24 @@ $db = new Couch\Database($client, 'foo2');
 // pre($db->getDocumentAll($query));
 
 // pre($client->request('GET /foo/_design/repsum/_view/repsum?group=true')->getData());
+
+// $doc = new Couch\Document($db);
+// $doc->_id = 'e90636c398458a9d5969d2e71b04b2e4';
+// $doc->save();
+
+// if (201 != $client->getResponse()->getStatusCode()) {
+//     print 'nö!';
+//     // or print response error data
+//     $data = $client->getResponse()->getData();
+//     print $data['error'];
+//     print $data['reason'];
+// }
+
+// $db = new Couch\Database(
+//         new Couch\Client(
+//             new Couch\Couch(null, ['timeout' => 0])), 'foo2');
+// try {
+//     $db->ping();
+// } catch (Couch\Http\Exception $e) {
+//     print $e->getMessage();
+// }
