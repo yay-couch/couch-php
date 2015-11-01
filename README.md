@@ -11,17 +11,6 @@ Before beginning;
 
 Notice: See CouchDB's official documents before using this library.
 
-##Autoload##
-
-```php
-// composer
-{"require": {"qeremy/couch": "dev-master"}}
-
-// manual
-$autoload = require('path/to/Couch/Autoload.php');
-$autoload->register();
-```
-
 ##In a Nutshell##
 ```php
 // create a fresh document
@@ -32,6 +21,17 @@ $doc->save();
 // append an attachment
 $doc->setAttachment(new Couch\DocumentAttachment($doc, './file.txt'));
 $doc->save();
+```
+
+##Autoload##
+
+```php
+// composer
+{"require": {"qeremy/couch": "dev-master"}}
+
+// manual
+$autoload = require('path/to/Couch/Autoload.php');
+$autoload->register();
 ```
 
 ##Configuration##
