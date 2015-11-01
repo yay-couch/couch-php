@@ -1,0 +1,20 @@
+{
+    "name": "qeremy/couch",
+    "type": "library",
+    "version": "v1.0",
+    "homepage": "http://github.com/qeremy/couch",
+    "description": "Couch: A PHP CouchDB Wrapper.",
+    "keywords": ["couch", "couchdb", "rest", "restfull"],
+    "license": "Apache License, Version 2.0",
+    "authors": [{
+        "name": "Kerem Gunes",
+        "email": "qeremy@gmail.com",
+        "homepage": "http://qeremy.com"
+    }],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {"Couch\\": "Couch/"}
+    }
+}
