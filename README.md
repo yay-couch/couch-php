@@ -41,7 +41,7 @@ Configuration is optional but you can provide all this options;
 ```php
 /** client **/
 // default=localhost
-$config['host'] = 'couchdbhost';
+$config['host'] = 'couchdb_host';
 // default=5984
 $config['port'] = 1234;
 // default=NULL
