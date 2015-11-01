@@ -217,9 +217,10 @@ dump $doc->isNotModified();
 // CRUD methods
 dump $doc->find();
 dump $doc->save(); // create or update
-dump $doc->copy('test_copy3');
+dump $doc->remove();
 
 // copies
+dump $doc->copy('test_copy3');
 dump $doc->copyFrom('test_copy3_1');
 dump $doc->copyTo('test_copy3_1', '1-88a2e6eeb67da643871995ddd8d9d57d');
 
