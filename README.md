@@ -293,37 +293,6 @@ dump json_encode($attc);
 // @todo
 ```
 
-##Error Handling##
-
-```php
-// create issue
-$doc = new Couch\Document($db);
-$doc->_id = 'an_existing_docid';
-
-// no error will be thrown
-$doc->save();
-
-// but could be so
-if (201 != $client->getResponse()->getStatusCode()) {
-    print 'nö!';
-    // or print response error data
-    $data = $client->getResponse()->getData();
-    print $data['error'];
-    print $data['reason'];
-}
-
-// this will throw error ie. timed out
-$db = new Couch\Database(
-        new Couch\Client(
-            new Couch\Couch(null, ['timeout' => 0])), 'foo2');
-
-try {
-    $db->ping();
-} catch (Couch\Http\Exception $e) {
-    print $e->getMessage();
-}
-```
-
 ##Uuid##
 ```php
 // create uuid
@@ -412,4 +381,35 @@ dump $client->getResponse()->getBody();
 // get response data
 dump $client->getResponse()->getData();
 dump $client->getResponse()->getData('vendor');
+```
+
+##Error Handling##
+
+```php
+// create issue
+$doc = new Couch\Document($db);
+$doc->_id = 'an_existing_docid';
+
+// no error will be thrown
+$doc->save();
+
+// but could be so
+if (201 != $client->getResponse()->getStatusCode()) {
+    print 'nö!';
+    // or print response error data
+    $data = $client->getResponse()->getData();
+    print $data['error'];
+    print $data['reason'];
+}
+
+// this will throw error ie. timed out
+$db = new Couch\Database(
+        new Couch\Client(
+            new Couch\Couch(null, ['timeout' => 0])), 'foo2');
+
+try {
+    $db->ping();
+} catch (Couch\Http\Exception $e) {
+    print $e->getMessage();
+}
 ```
