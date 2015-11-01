@@ -324,6 +324,30 @@ try {
 }
 ```
 
+##Query##
+```php
+// inti query with db
+$query = new Couch\Query($db);
+// or
+$query->setDatabase($db);
+
+// add params
+$query->set('conflicts', true)
+    ->set('stale', 'ok')
+    ->skip(1)
+    ->limit(2)
+;
+
+// get as string
+dump $query; // print
+dump $query->toString();
+
+// actually run is only to get document
+dump $query->run();
+// as same as
+dump $db->getDocumentAll($query);
+```
+
 ##Request / Response##
 ```php
 // after any http stream (server ping, database ping, document save etc)
