@@ -90,8 +90,6 @@ $db = new Couch\Database($client, 'foo');
 //                      ['names' => ['user1', 'user2'], 'roles' => ['developers']]));
 
 $db = new Couch\Database($client, 'foo2');
-// pre($db->getChanges());
-
 // $db->viewTemp('function(doc){ if(doc.name) { emit(doc.name, null); }}');
 // $db->purge('test_3', ['4-53348db493c7323e9d539e77df4fe3af']);
 // $db->getMissingRevisions('test_3', ['3-b06fcd1c1c9e0ec7c480ee8aa467bf3b', '3-0e871ef78849b0c206091f1a7af6ec41']);
