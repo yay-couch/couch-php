@@ -331,9 +331,27 @@ try {
 // ie.
 $client->request('GET /');
 
-// get raw
+// get raw stuffs
 dump $client->getRequest()->toString();
 dump $client->getResponse()->toString();
+
+/*
+GET / HTTP/1.0
+Host: localhost:5984
+Connection: close
+Accept: application/json
+Content-Type: application/json
+User-Agent: Couch/v1.0 (+http://github.com/qeremy/couch)
+
+HTTP/1.0 200 OK
+Server: CouchDB/1.5.0 (Erlang OTP/R16B03)
+Date: Sun, 01 Nov 2015 18:04:42 GMT
+Content-Type: application/json
+Content-Length: 127
+Cache-Control: must-revalidate
+
+{"couchdb":"Welcome","uuid":"5a660f4695a5fa9ab2cd22722bc01e96","version":"1.5.0","vendor":{"version":"14.04","name":"Ubuntu"}}
+*/
 
 // get response body
 dump $client->getResponse()->getBody();
