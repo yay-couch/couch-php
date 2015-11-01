@@ -74,7 +74,7 @@ $uriParams = ['param_name' => 'param_value'];
 $headers   = ['X-Foo' => 'The foo!'];
 $body      = null; // array or string etc
 
-// request methods
+// shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
 $client->head($uri, $uriParams, $headers);
 $client->get($uri, $uriParams, $headers);
 $client->post($uri, array $uriParams, $body, $headers)
