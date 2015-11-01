@@ -58,6 +58,12 @@ class Couch
     private $httpAgentDefault = self::HTTP_AGENT_SOCK;
 
     /**
+     * Config.
+     * @var array
+     */
+    private $config = array();
+
+    /**
      * Object constructor.
      *
      * @param  string|Couch\Http\Agent $httpAgent
@@ -77,6 +83,8 @@ class Couch
         } else {
             throw new Exception('Unknown HTTP agent given!');
         }
+
+        $this->config = $config;
     }
 
     /**
@@ -95,5 +103,23 @@ class Couch
      */
     public function getHttpAgentDefault() {
         return $this->httpAgentDefault;
+    }
+
+    /**
+     * Set config.
+     *
+     * @param array $config
+     */
+    public function setConfig(array $config = array()) {
+        $this->config = $config;
+    }
+
+    /**
+     * Get config.
+     *
+     * @return array
+     */
+    public function getConfig() {
+        return $this->config;
     }
 }
