@@ -7,6 +7,7 @@ Before beginning;
 - Set your autoloader properly or use composer
 - Use PHP >= 5.4 (cos it uses traits)
 - Handle errors with try/catch blocks
+- On README, `dump` means `var_dump`, I am using it just for fun.
 
 Notice: See CouchDB's official documents before using this library.
 
