@@ -77,8 +77,23 @@ $body      = null; // array or string etc
 // shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
 $client->head($uri, $uriParams, $headers);
 $client->get($uri, $uriParams, $headers);
-$client->post($uri, $uriParams, $body, $headers)
-$client->put($uri, $uriParams, $body, $headers)
-$client->copy($uri, $uriParams, $headers)
-$client->delete($uri, $uriParams, $headers)
+$client->copy($uri, $uriParams, $headers);
+$client->delete($uri, $uriParams, $headers);
+// with body
+$client->put($uri, $uriParams, $body, $headers);
+$client->post($uri, $uriParams, $body, $headers);
+
+// after request operations
+$request  = $client->getRequest();
+$response = $client->getResponse();
+```
+
+#####Server Object#####
+```php
+$server = new Couch\Server($client);
+
+// ping server
+bool $server->ping()
+// get server info
+array $server->info()
 ```
