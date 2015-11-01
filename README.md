@@ -44,7 +44,7 @@ $config['blocking'] = 0;
 
 ##Usage##
 
-######Couch Object######
+#####Couch Object#####
 ```php
 // init couch object
 $couch = new Couch\Couch();
@@ -55,7 +55,7 @@ $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL);
 $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL, $config);
 ```
 
-######Client Object######
+#####Client Object#####
 ```php
 // used in Server and Database objects
 $client = new Couch\Client($couch);
