@@ -44,8 +44,7 @@ $config['blocking'] = 0;
 
 ##Usage##
 
-###Couch Object###
-
+######Couch Object######
 ```php
 // init couch object
 $couch = new Couch\Couch();
@@ -54,4 +53,32 @@ $couch->setConfig($config);
 $couch = new Couch\Couch(null, $config); // uses sock as http agent
 $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL);
 $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL, $config);
+```
+
+######Client Object######
+```php
+// used in Server and Database objects
+$client = new Couch\Client($couch);
+```
+
+If you need any direct request for any reason, you can use the methods below.
+
+```php
+// direct request
+$data = $client->request('GET /<DB>/_design/<DDOC>/_view/<DDOC>',
+    $uriParams=['group' => true], $body=null, $headers=[])->getData();
+
+// args
+$uri       = '/<DB>';
+$uriParams = ['param_name' => 'param_value'];
+$headers   = ['X-Foo' => 'The foo!'];
+$body      = null; // array or string etc
+
+// request methods
+$client->head($uri, $uriParams, $headers);
+$client->get($uri, $uriParams, $headers);
+$client->post($uri, array $uriParams, $body, $headers)
+$client->put($uri, array $uriParams, $body, $headers)
+$client->copy($uri, array $uriParams, $headers)
+$client->delete($uri, array $uriParams, $headers)
 ```
