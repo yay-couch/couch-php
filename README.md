@@ -112,3 +112,23 @@ dump $server->getConfig('couchdb', 'uuid');
 dump $server->setConfig('couchdb', 'foo', 'the foo!');
 dump $server->removeConfig('couchdb', 'foo');
 ```
+
+####Database Object####
+```php
+$db = new Couch\Database($client, 'foo');
+
+// db methods
+dump $db->ping();
+dump $db->info();
+dump $db->create();
+dump $db->remove();
+dump $db->replicate('foo2');
+
+// get a document
+dump $db->getDocument('667b0208441066a0954717b50c0008a9');
+// get all documents
+dump $db->getDocumentAll();
+// get all documents by keys
+dump $db->getDocumentAll($query=null,
+    ['667b0208441066a0954717b50c0008a9','83b5e0a0b3bd41d9a21cee7ae8000615']);
+```
