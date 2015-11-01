@@ -77,8 +77,8 @@ $body      = null; // array or string etc
 // shortcut methods that handle HEAD, GET, POST, PUT, COPY, DELETE
 $client->head($uri, $uriParams, $headers);
 $client->get($uri, $uriParams, $headers);
-$client->post($uri, array $uriParams, $body, $headers)
-$client->put($uri, array $uriParams, $body, $headers)
-$client->copy($uri, array $uriParams, $headers)
-$client->delete($uri, array $uriParams, $headers)
+$client->post($uri, $uriParams, $body, $headers)
+$client->put($uri, $uriParams, $body, $headers)
+$client->copy($uri, $uriParams, $headers)
+$client->delete($uri, $uriParams, $headers)
 ```
