@@ -287,3 +287,8 @@ dump $attc->remove();
 dump $attc->toJson();
 dump json_encode($attc);
 ```
+
+#####DocumentDesign Object#####
+```php
+// @todo
+```
