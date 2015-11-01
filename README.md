@@ -52,5 +52,6 @@ $couch = new Couch\Couch();
 $couch->setConfig($config);
 // or
 $couch = new Couch\Couch(null, $config); // uses sock as http agent
+$couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL);
 $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL, $config);
 ```
