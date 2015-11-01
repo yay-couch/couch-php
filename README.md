@@ -323,3 +323,22 @@ try {
     print $e->getMessage();
 }
 ```
+
+##Request / Response##
+```php
+// after any http stream (server ping, database ping, document save etc)
+
+// ie.
+$client->request('GET /');
+
+// get raw
+dump $client->getRequest()->toString();
+dump $client->getResponse()->toString();
+
+// get response body
+dump $client->getResponse()->getBody();
+
+// get response data
+dump $client->getResponse()->getData();
+dump $client->getResponse()->getData('vendor');
+```
