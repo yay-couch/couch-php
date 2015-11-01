@@ -274,7 +274,6 @@ $attc->fileName = 'attc_1';
 $attc->digest   = 'U1p5BLvdnOZVRyR6YrXBoQ==';
 dump $attc->find();
 
-
 // add an attachment to document
 $attc->file     = 'attc.txt';
 $attc->fileName = 'attc_2';
