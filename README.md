@@ -19,3 +19,25 @@ Before beginning;
 $autoload = require('path/to/Couch/Autoload.php');
 $autoload->register();
 ```
+
+##Configuration##
+
+Configuration is optional but you can provide all this options;
+
+```php
+/** client **/
+// default=localhost
+$config['host'] = 'couchdbhost';
+// default=5984
+$config['port'] = 1234;
+// default=NULL
+$config['username'] = 'couchdb_user';
+// default=NULL
+$config['password'] = '************';
+
+/** agent **/
+// default=5 (used in sock & curl)
+$config['timeout'] = 10;
+// default=1 (used in sock)
+$config['blocking'] = 0;
+```
