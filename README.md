@@ -341,7 +341,7 @@ $query->set('conflicts', true)
 dump $query; // print
 dump $query->toString();
 
-// actually run is only to get document
+// actually run is only to get documents with given query
 dump $query->run();
 // as same as
 dump $db->getDocumentAll($query);
