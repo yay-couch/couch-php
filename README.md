@@ -324,6 +324,35 @@ try {
 }
 ```
 
+##Uuid##
+```php
+// create uuid
+$uuid = new Couch\Uuid('docid'); // set given value
+$uuid = new Couch\Uuid(true);    // auto-generate randomly using mcrypt
+$uuid = new Couch\Uuid($server); // triggers $server->getUuid() method
+
+// also setValue & getValue methods available
+$uuid = new Couch\Uuid();
+$uuid->setValue(...);
+
+// print
+print $uuid;
+
+// generate method
+$uuidValue = Couch\Uuid::generate(
+    $method=Couch\Uuid::METHOD_RANDOM, $algo=Couch\Uuid::HASH_ALGO_MD5);
+
+// available methods
+METHOD_RANDOM // default
+METHOD_TIMESTAMP
+METHOD_TIMESTAMP_HEXED
+
+// available algos (also you can provide any valid "hash algo")
+HASH_ALGO_MD5 // default
+HASH_ALGO_SHA1
+HASH_ALGO_CRC32B
+```
+
 ##Query##
 ```php
 // inti query with db
