@@ -201,3 +201,46 @@ dump $db->updateDocumentAll($docs);
 // multiple delete
 dump $db->deleteDocumentAll($docs);
 ```
+
+####Document Object####
+```php
+$doc = new Couch\Document($db);
+// set props (so data)
+$doc->_id = 'e90636c398458a9d5969d2e71b04b2e4';
+$doc->_rev = '2-393dbbc2cca7eea546a3c750ebeddd70';
+
+// checker methods
+dump $doc->ping();
+dump $doc->isExists();
+dump $doc->isNotModified();
+
+// CRUD methods
+dump $doc->find();
+dump $doc->save(); // create or update
+dump $doc->copy('test_copy3');
+
+// copies
+dump $doc->copyFrom('test_copy3_1');
+dump $doc->copyTo('test_copy3_1', '1-88a2e6eeb67da643871995ddd8d9d57d');
+
+// delete
+dump $doc->remove();
+
+// find revisions
+dump $doc->findRevisions();
+dump $doc->findRevisionsExtended();
+
+// find attachments
+dump $doc->findAttachments();
+dump $doc->findAttachments(true, ['2-6a0508cce9d2b4f3b83159648415c5e0']);
+
+// add attachments
+$doc->_attachments = [['file' => './attc1.txt']];
+$doc->_attachments = [['file' => './attc1.txt', 'file_name' => 'attc1']];
+// or
+$doc->setAttachment(['file' => './attc1.txt', 'file_name' => 'attc1']);
+dump $doc->save();
+
+// to json
+dump json_encode($doc);
+```
