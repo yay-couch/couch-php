@@ -41,3 +41,13 @@ $config['timeout'] = 10;
 // default=1 (used in sock)
 $config['blocking'] = 0;
 ```
+
+##Usage##
+
+```php
+$couch = new Couch\Couch();
+$couch->setConfig($config);
+// or
+$couch = new Couch\Couch(null, $config); // uses sock as http agent
+$couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL, $config);
+```
