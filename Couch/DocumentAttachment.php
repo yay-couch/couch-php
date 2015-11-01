@@ -21,11 +21,13 @@
 namespace Couch;
 
 /**
- * @package Couch
- * @object  Couch\DocumentAttachment
- * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
+ * @package    Couch
+ * @object     Couch\DocumentAttachment
+ * @implements JsonSerializable
+ * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
  */
 class DocumentAttachment
+    implements \JsonSerializable
 {
     /**
      * Owner document.
@@ -118,6 +120,15 @@ class DocumentAttachment
         }
 
         return $this->{$name};
+    }
+
+    /**
+     * JSON encoding method of JsonSerializable object.
+     *
+     * @return array
+     */
+    public function jsonSerialize() {
+        return $this->toArray();
     }
 
     /**
