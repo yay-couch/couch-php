@@ -257,3 +257,34 @@ dump $doc->save();
 // to json
 dump json_encode($doc);
 ```
+
+#####DocumentAttachment Object#####
+```php
+$attc = new Couch\DocumentAttachment($doc);
+
+// ping attachment
+dump $attc->ping();
+
+// find an attachment
+$attc->fileName = 'attc_1';
+dump $attc->find();
+
+// find an attachment by digest
+$attc->fileName = 'attc_1';
+$attc->digest   = 'U1p5BLvdnOZVRyR6YrXBoQ==';
+dump $attc->find();
+
+
+// add an attachment to document
+$attc->file     = 'attc.txt';
+$attc->fileName = 'attc_2';
+dump $attc->save();
+
+// remove an attachment from document
+$attc->fileName = 'attc_2';
+dump $attc->remove();
+
+// to json
+dump $attc->toJson();
+dump json_encode($attc);
+```
