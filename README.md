@@ -36,7 +36,7 @@ $autoload->register();
 
 ##Configuration##
 
-Configuration is optional but you can provide all this options;
+Configuration is optional but you can provide all these options;
 
 ```php
 /** client **/
