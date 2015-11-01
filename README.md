@@ -101,7 +101,7 @@ dump $server->getActiveTasks();
 dump $server->getAllDatabases();
 dump $server->getDatabaseUpdates();
 dump $server->getLogs();
-dump $server->replicate(['source' => 'foo', 'target' => 'foo_replica', 'create_target' => true]);
+dump $server->replicate(['source' => 'foo', 'target' => 'foo2', 'create_target' => true]);
 dump $server->restart();
 dump $server->getStats();
 dump $server->getStats('/couchdb/request_time');
@@ -131,4 +131,17 @@ dump $db->getDocumentAll();
 // get all documents by keys
 dump $db->getDocumentAll($query=null,
     ['667b0208441066a0954717b50c0008a9','83b5e0a0b3bd41d9a21cee7ae8000615']);
+
+// create a document
+// param as Couch\Document
+$doc = new Couch\Document();
+$doc->test = 'the test 20';
+dump $db->createDocument($doc));
+// param as array
+dump $db->createDocument(['test' => 'test 30']));
+// param as array & Couch\Document
+dump $db->createDocumentAll([
+    ['test' => 'test 4'],
+    new Couch\Document(null, ['test' => 'the test 5']),
+]);
 ```
