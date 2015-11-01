@@ -73,8 +73,7 @@ class Autoload
 
             // prepare file name & path
             $name = substr($name, 1 + strlen(__namespace__));
-            $name = str_replace('\\', '/', $name);
-            $file = sprintf('%s/%s.php', __dir__, $name);
+            $file = sprintf('%s/%s.php', __dir__, str_replace('\\', '/', $name));
 
             require($file);
         });
