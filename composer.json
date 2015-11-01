@@ -4,7 +4,7 @@
     "version": "v1.0",
     "homepage": "http://github.com/qeremy/couch",
     "description": "Couch: A PHP Wrapper for CouchDB.",
-    "keywords": ["couch", "couchdb", "rest", "restful"],
+    "keywords": ["couch", "couchdb", "rest", "restful", "nosql"],
     "license": "Apache License Version 2.0",
     "authors": [{
         "name": "Kerem Güneş",
