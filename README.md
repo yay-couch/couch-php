@@ -408,7 +408,7 @@ if (201 != $client->getResponse()->getStatusCode()) {
 // this will throw error ie. timed out
 $db = new Couch\Database(
         new Couch\Client(
-            new Couch\Couch(null, ['timeout' => 0])), 'foo2');
+          new Couch\Couch(null, ['timeout' => 0])), 'foo2');
 
 try {
     $db->ping();
