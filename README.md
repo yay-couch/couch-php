@@ -325,7 +325,7 @@ HASH_ALGO_CRC32B
 
 ##Query##
 ```php
-// inti query with db
+// init query with db
 $query = new Couch\Query($db);
 // or
 $query->setDatabase($db);
