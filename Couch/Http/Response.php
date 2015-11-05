@@ -92,6 +92,15 @@ class Response
     }
 
     /**
+     * Get status code.
+     *
+     * @return int
+     */
+    public function getStatusCode() {
+        return $this->statusCode;
+    }
+
+    /**
      * Set status text.
      *
      * @param  int $statusText
@@ -101,15 +110,6 @@ class Response
         $this->statusText = $statusText;
 
         return $this;
-    }
-
-    /**
-     * Get status code.
-     *
-     * @return int
-     */
-    public function getStatusCode() {
-        return $this->statusCode;
     }
 
     /**
