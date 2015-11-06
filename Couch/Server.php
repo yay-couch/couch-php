@@ -51,15 +51,6 @@ class Server
     }
 
     /**
-     * Get server version.
-     *
-     * @return string
-     */
-    public function version() {
-        return $this->info('version');
-    }
-
-    /**
      * Get server info.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#api-server-root
@@ -72,6 +63,15 @@ class Server
             return Util\Util::dig($key, $info);
         }
         return $info;
+    }
+
+    /**
+     * Get server version.
+     *
+     * @return string
+     */
+    public function version() {
+        return $this->info('version');
     }
 
     /**
