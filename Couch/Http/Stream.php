@@ -156,19 +156,23 @@ abstract class Stream
     }
 
     /**
+     * Set a request/response header.
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return self
+     */
+    public function setHeader($key, $value) {
+        $this->headers[$key] = $value;
+
+        return $this;
+    }
+
+    /**
      * Set body.
      *
      * @param  string $body
      * @return self
      */
     abstract public function setBody($body);
-
-    /**
-     * Set header.
-     *
-     * @param  string $key
-     * @param  string $value
-     * @return self
-     */
-    abstract public function setHeader($key, $value);
 }

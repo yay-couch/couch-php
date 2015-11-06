@@ -196,17 +196,4 @@ class Request
 
         return $this;
     }
-
-    /**
-     * Set a request header.
-     *
-     * @param  string $key
-     * @param  string $value
-     * @return self
-     */
-    public function setHeader($key, $value) {
-        $this->headers[$key] = $value;
-
-        return $this;
-    }
 }
