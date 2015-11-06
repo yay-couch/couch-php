@@ -58,11 +58,7 @@ class Server
      * @return mixed
      */
     public function info($key = null) {
-        $info = $this->client->get('/')->getData();
-        if ($key) {
-            return Util\Util::dig($key, $info);
-        }
-        return $info;
+        return $this->client->get('/')->getData($key);
     }
 
     /**
