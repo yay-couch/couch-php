@@ -132,7 +132,7 @@ class Document
      * @return void
      */
     public function setId($id) {
-        if (!$this->id instanceof Uuid) {
+        if (!$id instanceof Uuid) {
             $id = new Uuid($id);
         }
         $this->id = $id;
