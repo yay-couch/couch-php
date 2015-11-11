@@ -190,7 +190,7 @@ class DocumentAttachment
 
         $database = $this->document->getDatabase();
         $response = $database->client->head(sprintf('%s/%s/%s',
-            $database->name, $docId, $this->fileName), $query, $headers);
+            $database->name, $docId, urlencode($this->fileName)), $query, $headers);
 
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
