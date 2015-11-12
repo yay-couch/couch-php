@@ -437,6 +437,11 @@ class Document
             $headers['X-Couch-Full-Commit'] = 'true';
         }
 
+        // update action
+        if ($this->rev) {
+            $headers['If-Match'] = $this->rev;
+        }
+
         $data = $this->getData();
         if (!empty($this->attachments)) {
             foreach ($this->attachments as $name => $attachment) {
