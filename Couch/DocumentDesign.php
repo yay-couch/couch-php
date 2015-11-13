@@ -25,4 +25,6 @@ namespace Couch;
  * @object  Couch\DocumentDesign
  * @author  Kerem Güneş <qeremy[at]gmail[dot]com>
  */
-class DocumentDesign {}
+class DocumentDesign {
+    // @todo
+}
