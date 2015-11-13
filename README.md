@@ -373,7 +373,7 @@ Content-Type: application/json
 Content-Length: 127
 Cache-Control: must-revalidate
 
-{"couchdb":"Welcome","uuid":"5a660f4695a5fa9ab2cd22722bc01e96","version":"1.5.0","vendor":{"version":"14.04","name":"Ubuntu"}}
+{"couchdb":"Welcome","uuid":"5a660f4695a5fa9ab2cd22722bc01e96", ...
 */
 
 // get response body
