@@ -394,7 +394,7 @@ $doc = new Couch\Document($db);
 $doc->_id = 'an_existing_docid';
 
 // no error will be thrown
-$doc->save();
+$doc->remove();
 
 // but could be so
 if (201 != $client->getResponse()->getStatusCode()) {
