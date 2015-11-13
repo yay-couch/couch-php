@@ -389,7 +389,7 @@ dump $client->getResponse()->getData('vendor');
 Couch will not throw any server response error, such as `409 Conflict` etc. It only throws library-related errors ie. "timeout" or wrong usages of the library (ie. when `_id` is required for some action but you did not provide it).
 
 ```php
-// create issue
+// remove example
 $doc = new Couch\Document($db);
 $doc->_id = 'an_existing_docid';
 
