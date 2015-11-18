@@ -1,7 +1,7 @@
 {
     "name": "qeremy/couch",
     "type": "library",
-    "version": "1.0.0",
+    "version": "v1.0",
     "homepage": "http://github.com/qeremy/couch",
     "description": "Couch: A PHP Wrapper for CouchDB.",
     "keywords": ["couch", "couchdb", "rest", "restful", "nosql"],
