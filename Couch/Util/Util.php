@@ -56,11 +56,22 @@ abstract class Util
      *
      * @param  mixed      $key
      * @param  array      $array
-     * @param  mixed|null $defaultValue
+     * @param  mixed|null $valueDefault
      * @return mixed
      */
-    public static function dig($key, array $array, $defaultValue = null) {
-        return array_key_exists($key, $array)
-            ? $array[$key] : $defaultValue;
+    public static function dig($key, array $array, $valueDefault = null) {
+        // direct access
+        if (isset($array[$key])) {
+            $value =& $array[$key];
+        }
+        // trace element path
+        else {
+            $value =& $array;
+            foreach (explode('.', $key) as $key) {
+                $value =& $value[$key];
+            }
+        }
+
+        return ($value !== null) ? $value : $valueDefault;
     }
 }
