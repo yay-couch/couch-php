@@ -102,6 +102,7 @@ class Uuid
      * @param  int    $method
      * @param  string $algo
      * @return string|int
+     * @todo   Implement RFC-4122
      */
     public static function generate($method = self::METHOD_RANDOM, $algo = self::HASH_ALGO_MD5) {
         switch ($method) {
