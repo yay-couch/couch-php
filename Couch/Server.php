@@ -124,15 +124,24 @@ class Server
     }
 
     /**
+     * Get a new uuid.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#uuids
+     * @return string
+     */
+    public function getUuid() {
+        return $this->getUuids(1)[0];
+    }
+
+    /**
      * Get new uuid(s).
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#uuids
      * @param  int $count
-     * @return string|array
+     * @return array
      */
-    public function getUuid($count = 1) {
-        $data = $this->client->get('/_uuids', ['count' => $count])->getData('uuids');
-        return ($count === 1) ? $data[0] : $data;
+    public function getUuids($count) {
+        return $this->client->get('/_uuids', ['count' => $count])->getData('uuids');
     }
 
     /**
