@@ -113,6 +113,29 @@ class Server
     }
 
     /**
+     * Get server stats.
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#stats
+     * @param  string $path
+     * @return array
+     */
+    public function getStats($path = null) {
+        return $this->client->get('/_stats/'. $path)->getData();
+    }
+
+    /**
+     * Get new uuid(s).
+     *
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#uuids
+     * @param  int $count
+     * @return string|array
+     */
+    public function getUuid($count = 1) {
+        $data = $this->client->get('/_uuids', ['count' => $count])->getData('uuids');
+        return ($count === 1) ? $data[0] : $data;
+    }
+
+    /**
      * Request, configure, or stop, a replication operation.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#replicate
@@ -136,29 +159,6 @@ class Server
      */
     public function restart() {
         return (202 === $this->client->post('/_restart')->getStatusCode());
-    }
-
-    /**
-     * Get server stats.
-     *
-     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#stats
-     * @param  string $path
-     * @return array
-     */
-    public function getStats($path = null) {
-        return $this->client->get('/_stats/'. $path)->getData();
-    }
-
-    /**
-     * Get new uuid(s).
-     *
-     * @link   http://docs.couchdb.org/en/1.5.1/api/server/common.html#uuids
-     * @param  int $count
-     * @return string|array
-     */
-    public function getUuid($count = 1) {
-        $data = $this->client->get('/_uuids', ['count' => $count])->getData('uuids');
-        return ($count === 1) ? $data[0] : $data;
     }
 
     /**
