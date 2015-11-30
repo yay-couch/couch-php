@@ -140,7 +140,7 @@ class Server
      * @param  int $count
      * @return array
      */
-    public function getUuids($count) {
+    public function getUuids($count = 1) {
         return $this->client->get('/_uuids', ['count' => $count])->getData('uuids');
     }
 
