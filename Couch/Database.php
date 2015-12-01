@@ -124,7 +124,9 @@ class Database
      */
     public function replicate($target, $targetCreate = true) {
         return $this->client->post('/_replicate', null, [
-            'source' => $this->name, 'target' => $target, 'create_target' => $targetCreate
+            'source'        => $this->name,
+            'target'        => $target,
+            'create_target' => $targetCreate
         ])->getData();
     }
 
