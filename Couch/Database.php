@@ -72,7 +72,7 @@ class Database
      * @return bool
      */
     public function ping() {
-        return (200 === $this->client->head('/')->getStatusCode());
+        return (200 === $this->client->head($this->name)->getStatusCode());
     }
 
     /**
