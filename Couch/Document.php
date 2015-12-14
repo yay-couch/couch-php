@@ -30,7 +30,7 @@ class Document
     implements \JsonSerializable
 {
     /**
-     * Document ID and document revision ID.
+     * Document ID & document revision ID.
      * @var string, string
      */
     private $id, $rev;
