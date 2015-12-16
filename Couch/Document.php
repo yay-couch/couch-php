@@ -355,7 +355,7 @@ class Document
             throw new Exception('_id field could not be empty!');
         }
         // check rev and add if not already adden into query
-        if (!empty($this->rev) && !isset($query['rev'])) {
+        if (!isset($query['rev']) && !empty($this->rev)) {
             $query['rev'] = $this->rev;
         }
 
