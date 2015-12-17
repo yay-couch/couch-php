@@ -402,7 +402,9 @@ class Document
         $query = array();
         $query['attachments'] = true;
         $query['att_encoding_info'] = $attEncInfo;
-        if ($attsSince)  {
+
+        // include revisions
+        if (!empty($attsSince))  {
             $attsSinceArray = array();
             foreach ($attsSince as $attsSinceValue) {
                 $attsSinceArray[] = sprintf('"%s"', Util\Util::quote($attsSinceValue));
