@@ -452,7 +452,8 @@ class Document
             }
         }
 
-        return $this->database->client->post($this->database->name . $batch, null, $data, $headers)->getData();
+        return $this->database->client->post($this->database->name . $batch, null, $data,
+            $headers)->getData();
     }
 
     /**
