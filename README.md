@@ -14,7 +14,7 @@ Notice: See CouchDB's official documents before using this library.
 ##In a Nutshell##
 ```php
 // create a fresh document
-$doc = new Couch\Document($client);
+$doc = new Couch\Document($db);
 $doc->name = 'The Doc!';
 $doc->save();
 
