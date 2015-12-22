@@ -422,7 +422,7 @@ class Document
      * Create or update a document.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/common.html#post--{db}
-     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid} (not used)
+     * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#put--{db}-{docid}
      * @note   If document has no ID then will be created, otherwise updated
      * @param  bool $batch
      * @param  bool $fullCommit
@@ -452,8 +452,25 @@ class Document
             }
         }
 
-        return $this->database->client->post($this->database->name . $batch, null, $data,
-            $headers)->getData();
+        if (empty($this->id)) {
+            // insert action
+            $return = $this->database->client->post($this->database->name . $batch, null, $data,
+                $headers)->getData();
+            if (isset($return['id'])) {
+                $this->setId($return['id']);
+            }
+        } else {
+            // update action
+            $return = $this->database->client->put($this->database->name .'/'. $this->id . $batch,
+                null, $data, $headers)->getData();
+        }
+
+        // for next instant call(s)
+        if (isset($return['rev'])) {
+            $this->setRev($return['rev']);
+        }
+
+        return $return;
     }
 
     /**
