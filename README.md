@@ -69,7 +69,7 @@ $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL);
 $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL, $config);
 ```
 
-## ###Client Object###
+## Client Object
 ```php
 // used in Server and Database objects
 $client = new Couch\Client($couch);
@@ -102,7 +102,7 @@ $request  = $client->getRequest();
 $response = $client->getResponse();
 ```
 
-## ###Server Object###
+## Server Object
 ```php
 $server = new Couch\Server($client);
 
@@ -126,7 +126,7 @@ dump $server->setConfig('couchdb', 'foo', 'the foo!');
 dump $server->removeConfig('couchdb', 'foo');
 ```
 
-## ###Database Object###
+## Database Object
 ```php
 $db = new Couch\Database($client, 'foo');
 
@@ -215,7 +215,7 @@ dump $db->updateDocumentAll($docs);
 dump $db->deleteDocumentAll($docs);
 ```
 
-## ###Document Object###
+## Document Object
 ```php
 $doc = new Couch\Document($db);
 // set props (so data)
@@ -259,7 +259,7 @@ dump $doc->save();
 dump json_encode($doc);
 ```
 
-## ###DocumentAttachment Object###
+## DocumentAttachment Object
 ```php
 $attc = new Couch\DocumentAttachment($doc);
 
@@ -289,7 +289,7 @@ dump $attc->toJson();
 dump json_encode($attc);
 ```
 
-## ###DocumentDesign Object###
+## DocumentDesign Object
 ```php
 // @todo
 ```
