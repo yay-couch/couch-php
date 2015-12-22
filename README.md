@@ -18,7 +18,7 @@ $doc = new Couch\Document($db);
 $doc->name = 'The Doc!';
 $doc->save();
 
-// append an attachment
+// append an attachment to same document
 $doc->setAttachment(new Couch\DocumentAttachment($doc, './file.txt'));
 $doc->save();
 ```
