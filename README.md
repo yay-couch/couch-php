@@ -1,4 +1,4 @@
-##Couch##
+## Couch
 
 Couch is a great library that makes all interactions with your CouchDB server providing a lot of tools for that.
 
@@ -11,7 +11,7 @@ Before beginning;
 
 Notice: See CouchDB's official documents before using this library.
 
-##In a Nutshell##
+## In a Nutshell
 ```php
 // create a fresh document
 $doc = new Couch\Document($db);
@@ -23,7 +23,7 @@ $doc->setAttachment(new Couch\DocumentAttachment($doc, './file.txt'));
 $doc->save();
 ```
 
-##Autoload##
+## Autoload
 
 ```php
 // composer
@@ -34,7 +34,7 @@ $autoload = require('path/to/Couch/Autoload.php');
 $autoload->register();
 ```
 
-##Configuration##
+## Configuration
 
 Configuration is optional but you can provide all these options;
 
@@ -56,9 +56,9 @@ $config['timeout'] = 10;
 $config['blocking'] = 0;
 ```
 
-##Objects##
+## Objects
 
-#####Couch Object#####
+### Couch Object
 ```php
 // init couch object
 $couch = new Couch\Couch();
@@ -69,7 +69,7 @@ $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL);
 $couch = new Couch\Couch(Couch\Couch::HTTP_AGENT_CURL, $config);
 ```
 
-#####Client Object#####
+## ###Client Object###
 ```php
 // used in Server and Database objects
 $client = new Couch\Client($couch);
@@ -102,7 +102,7 @@ $request  = $client->getRequest();
 $response = $client->getResponse();
 ```
 
-#####Server Object#####
+## ###Server Object###
 ```php
 $server = new Couch\Server($client);
 
@@ -126,7 +126,7 @@ dump $server->setConfig('couchdb', 'foo', 'the foo!');
 dump $server->removeConfig('couchdb', 'foo');
 ```
 
-#####Database Object#####
+## ###Database Object###
 ```php
 $db = new Couch\Database($client, 'foo');
 
@@ -215,7 +215,7 @@ dump $db->updateDocumentAll($docs);
 dump $db->deleteDocumentAll($docs);
 ```
 
-#####Document Object#####
+## ###Document Object###
 ```php
 $doc = new Couch\Document($db);
 // set props (so data)
@@ -259,7 +259,7 @@ dump $doc->save();
 dump json_encode($doc);
 ```
 
-#####DocumentAttachment Object#####
+## ###DocumentAttachment Object###
 ```php
 $attc = new Couch\DocumentAttachment($doc);
 
@@ -289,12 +289,12 @@ dump $attc->toJson();
 dump json_encode($attc);
 ```
 
-#####DocumentDesign Object#####
+## ###DocumentDesign Object###
 ```php
 // @todo
 ```
 
-##Uuid##
+## Uuid
 ```php
 // create uuid
 $uuid = new Couch\Uuid('docid'); // set given value
@@ -323,7 +323,7 @@ HASH_ALGO_SHA1
 HASH_ALGO_CRC32B
 ```
 
-##Query##
+## Query
 ```php
 // init query with db
 $query = new Couch\Query($db);
@@ -347,7 +347,7 @@ dump $query->run();
 dump $db->getDocumentAll($query);
 ```
 
-##Request / Response##
+## Request / Response
 ```php
 // after any http stream (server ping, database ping, document save etc)
 
@@ -384,7 +384,7 @@ dump $client->getResponse()->getData();
 dump $client->getResponse()->getData('vendor');
 ```
 
-##Error Handling##
+## Error Handling
 
 Couch will not throw any server response error, such as `409 Conflict` etc. It only throws library-related errors ie. "timeout" or wrong usages of the library (ie. when `_id` is required for some action but you did not provide it).
 
