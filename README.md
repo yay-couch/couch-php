@@ -79,11 +79,11 @@ If you need any direct request for any reason, you can use the methods below.
 
 ```php
 // direct request
-$data = $client->request('GET /<DB>/_design/<DDOC>/_view/<DDOC>',
+$data = $client->request('GET /<URI>',
     $uriParams=['group' => true], $body=null, $headers=[])->getData();
 
 // args
-$uri       = '/<DB>';
+$uri       = '/<URI>';
 $uriParams = ['param_name' => 'param_value'];
 $headers   = ['X-Foo' => 'The foo!'];
 $body      = null; // array or string etc
