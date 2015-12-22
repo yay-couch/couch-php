@@ -439,7 +439,7 @@ class Document
             $headers['X-Couch-Full-Commit'] = 'true';
         }
 
-        // update action
+        // update?
         if ($this->rev) {
             $headers['If-Match'] = $this->rev;
         }
