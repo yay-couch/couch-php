@@ -55,7 +55,7 @@ class Autoload
     }
 
     /**
-     * Registerer.
+     * Registrar.
      *
      * @return void
      */
