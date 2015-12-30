@@ -1,9 +1,9 @@
 {
-    "name": "qeremy/couch",
+    "name": "yay-couch/couch-php",
     "type": "library",
     "version": "1.0.4",
-    "homepage": "http://github.com/qeremy/couch",
-    "description": "Couch: A PHP Wrapper for CouchDB.",
+    "homepage": "http://github.com/yay-couch/couch-php",
+    "description": "CouchDB Wrapper for PHP.",
     "keywords": ["couch", "couchdb", "rest", "restful", "nosql"],
     "license": "Apache License Version 2.0",
     "authors": [{
