@@ -92,7 +92,7 @@ class Request
         // add default headers
         $this->headers['Accept'] = 'application/json';
         $this->headers['Content-Type'] = 'application/json';
-        $this->headers['User-Agent'] = 'Couch/v'. Couch::VERSION .' (+http://github.com/qeremy/couch)';
+        $this->headers['User-Agent'] = 'Couch/v'. Couch::VERSION .' (+http://github.com/yay-couch/couch-php)';
     }
 
     /**
