@@ -30,7 +30,7 @@ $doc->save();
 {"require": {"yay-couch/couch": "dev-master"}}
 
 // manual
-$autoload = require('path/to/Couch/Autoload.php');
+$autoload = include('./vendor/yay-couch/couch/Couch/Autoload.php');
 $autoload->register();
 ```
 
