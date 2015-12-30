@@ -7,7 +7,7 @@ Before beginning;
 - Set your autoloader properly or use composer
 - Use PHP >= 5.4 (cos it uses traits)
 - Handle errors with try/catch blocks
-- On README, `dump` means `var_dump`, I am using it just for fun.
+- On README, `dump` means `var_dump`
 
 Notice: See CouchDB's official documents before using this library.
 
@@ -27,7 +27,7 @@ $doc->save();
 
 ```php
 // composer
-{"require": {"qeremy/couch": "dev-master"}}
+{"require": {"yay-couch/couch": "dev-master"}}
 
 // manual
 $autoload = require('path/to/Couch/Autoload.php');
@@ -364,7 +364,7 @@ Host: localhost:5984
 Connection: close
 Accept: application/json
 Content-Type: application/json
-User-Agent: Couch/v1.0 (+http://github.com/qeremy/couch)
+User-Agent: Couch/v1.0.4 (+http://github.com/yay-couch/couch-php)
 
 HTTP/1.0 200 OK
 Server: CouchDB/1.5.0 (Erlang OTP/R16B03)
