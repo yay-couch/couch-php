@@ -212,7 +212,6 @@ class Database
             }
 
             // this is create method, no update allowed
-            if (isset($document['_id']))      unset($document['_id']);
             if (isset($document['_rev']))     unset($document['_rev']);
             if (isset($document['_deleted'])) unset($document['_deleted']);
 
