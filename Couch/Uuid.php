@@ -93,7 +93,7 @@ class Uuid
      * @return string|int
      */
     public function getValue() {
-        return $this->value;
+        return (string) $this->value;
     }
 
     /**
