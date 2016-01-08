@@ -190,7 +190,7 @@ class DocumentAttachment
 
         $database = $this->document->getDatabase();
         $response = $database->client->head(sprintf('%s/%s/%s',
-            $database->name, $docId, urlencode($this->fileName)), $query, $headers);
+            $database->name, urlencode($docId), urlencode($this->fileName)), $query, $headers);
 
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
@@ -236,7 +236,7 @@ class DocumentAttachment
 
         $database = $this->document->getDatabase();
         $response = $database->client->get(sprintf('%s/%s/%s',
-            $database->name, $docId, urlencode($this->fileName)), $query, $headers);
+            $database->name, urlencode($docId), urlencode($this->fileName)), $query, $headers);
 
         // check response status code
         if (in_array($response->getStatusCode(), [200, 304])) {
@@ -293,7 +293,7 @@ class DocumentAttachment
         $database = $this->document->getDatabase();
 
         return $database->client->put(sprintf('%s/%s/%s',
-            $database->name, $docId, urlencode($this->fileName)
+            $database->name, urlencode($docId), urlencode($this->fileName)
         ), null, $this->data, $headers)->getData();
     }
 
@@ -339,7 +339,7 @@ class DocumentAttachment
         $database = $this->document->getDatabase();
 
         return $database->client->delete(sprintf('%s/%s/%s%s',
-            $database->name, $docId, urlencode($this->fileName), $batch
+            $database->name, urlencode($docId), urlencode($this->fileName), $batch
         ), null, $headers)->getData();
     }
 
