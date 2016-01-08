@@ -36,7 +36,7 @@ class Couch
      * Couch version
      * @const string
      */
-    const VERSION = '1.0.5';
+    const VERSION = '1.0.6';
 
     /**
      * HTTP agent name.
