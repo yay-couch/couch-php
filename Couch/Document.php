@@ -313,7 +313,7 @@ class Document
             $headers['If-None-Match'] = sprintf('"%s"', $this->rev);
         }
 
-        $response = $this->database->client->head($this->database->name .'/'. $this->id, null, $headers);
+        $response = $this->database->client->head($this->database->name .'/'. urlencode($this->id), null, $headers);
 
         return in_array($response->getStatusCode(), (array) $statusCode);
     }
@@ -359,7 +359,7 @@ class Document
             $query['rev'] = $this->rev;
         }
 
-        return $this->database->client->get($this->database->name .'/'. $this->id, $query)->getData();
+        return $this->database->client->get($this->database->name .'/'. urlencode($this->id), $query)->getData();
     }
 
     /**
@@ -461,7 +461,7 @@ class Document
             }
         } else {
             // update action
-            $return = $this->database->client->put($this->database->name .'/'. $this->id . $batch,
+            $return = $this->database->client->put($this->database->name .'/'. urlencode($this->id) . $batch,
                 null, $data, $headers)->getData();
         }
 
@@ -497,7 +497,7 @@ class Document
             $headers['X-Couch-Full-Commit'] = 'true';
         }
 
-        return $this->database->client->delete($this->database->name .'/'. $this->id . $batch,
+        return $this->database->client->delete($this->database->name .'/'. urlencode($this->id) . $batch,
             null, $headers)->getData();
     }
 
@@ -531,7 +531,7 @@ class Document
             $headers['X-Couch-Full-Commit'] = 'true';
         }
 
-        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch,
+        return $this->database->client->copy($this->database->name .'/'. urlencode($this->id) . $batch,
             null, $headers)->getData();
     }
 
@@ -566,7 +566,7 @@ class Document
             $headers['X-Couch-Full-Commit'] = 'true';
         }
 
-        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch,
+        return $this->database->client->copy($this->database->name .'/'. urlencode($this->id) . $batch,
             null, $headers)->getData();
     }
 
@@ -603,7 +603,7 @@ class Document
             $headers['X-Couch-Full-Commit'] = 'true';
         }
 
-        return $this->database->client->copy($this->database->name .'/'. $this->id . $batch,
+        return $this->database->client->copy($this->database->name .'/'. urlencode($this->id) . $batch,
             null, $headers)->getData();
     }
 }
