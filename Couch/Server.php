@@ -130,7 +130,10 @@ class Server
      * @return string
      */
     public function getUuid() {
-        return $this->getUuids(1)[0];
+        $uuids = $this->getUuids(1);
+        if (isset($uuids[0])) {
+            return $uuids[0];
+        }
     }
 
     /**
