@@ -43,8 +43,8 @@ class Query
     /**
      * Object constructor.
      *
-     * @param Database|null $database
-     * @param array         $data
+     * @param Couch\Database|null $database
+     * @param array               $data
      */
     public function __construct(Database $database = null, array $data = array()) {
         // set database if provided
