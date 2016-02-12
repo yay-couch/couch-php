@@ -122,7 +122,7 @@ class Client
     /**
      * Make a HTTP request using Request and return Response.
      *
-     * @param strin        $uri
+     * @param string       $uri
      * @param array|null   $uriParams
      * @param array|string $body      If array than JSON data will be sent as request body.
      * @param array        $headers
