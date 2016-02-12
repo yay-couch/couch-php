@@ -228,6 +228,7 @@ class Database
      * @note   Both document _id & _rev are required.
      * @param  mixed $document
      * @return mixed|null
+     * @throws Couch\Exception
      */
     public function updateDocument($document) {
         $data = $this->updateDocumentAll([$document]);
