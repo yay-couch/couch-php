@@ -259,7 +259,8 @@ class Document
     /**
      * Set document data.
      *
-     * @param array $data
+     * @param  array $data
+     * @return void
      */
     public function setData(array $data) {
         // set special properties
@@ -452,15 +453,15 @@ class Document
             }
         }
 
+        // insert action
         if (empty($this->id)) {
-            // insert action
             $return = $this->database->client->post($this->database->name . $batch, null, $data,
                 $headers)->getData();
             if (isset($return['id'])) {
                 $this->setId($return['id']);
             }
+        // update action
         } else {
-            // update action
             $return = $this->database->client->put($this->database->name .'/'. urlencode($this->id) . $batch,
                 null, $data, $headers)->getData();
         }
