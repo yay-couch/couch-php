@@ -330,7 +330,7 @@ class Database
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact
      * @link   http://docs.couchdb.org/en/1.5.1/api/database/compact.html#db-compact-design-doc
-     * @param  string $ddoc|null
+     * @param  string|null $ddoc
      * @return mixed
      */
     public function compact($ddoc = null) {
