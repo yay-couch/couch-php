@@ -248,7 +248,7 @@ class Document
     }
 
     /**
-     * Dump all document attachments.
+     * Unset all document attachments.
      *
      * @return void
      */
