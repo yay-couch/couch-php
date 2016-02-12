@@ -481,6 +481,7 @@ class Document
      * @param  bool $batch
      * @param  bool $fullCommit
      * @return mixed
+     * @throws Couch\Exception
      */
     public function remove($batch = false, $fullCommit = false) {
         // check required fields
@@ -510,6 +511,7 @@ class Document
      * @param  bool   $batch
      * @param  bool   $fullCommit
      * @return mixed
+     * @throws Couch\Exception
      */
     public function copy($dest, $batch = false, $fullCommit = false) {
         // check id
@@ -544,6 +546,7 @@ class Document
      * @param  bool  $batch
      * @param  bool  $fullCommit
      * @return mixed
+     * @throws Couch\Exception
      */
     public function copyFrom($dest, $batch = false, $fullCommit = false) {
         // check required fields
@@ -581,6 +584,7 @@ class Document
      * @param  bool   $batch
      * @param  bool   $fullCommit
      * @return mixed
+     * @throws Couch\Exception
      */
     public function copyTo($dest, $destRev, $batch = false, $fullCommit = false) {
         // check required fields
