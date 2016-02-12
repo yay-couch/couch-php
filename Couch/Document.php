@@ -542,9 +542,9 @@ class Document
      * Copy a (this) document to a destination with a specific revision.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/document/common.html#copying-from-a-specific-revision
-     * @param  sring $dest
-     * @param  bool  $batch
-     * @param  bool  $fullCommit
+     * @param  string $dest
+     * @param  bool   $batch
+     * @param  bool   $fullCommit
      * @return mixed
      * @throws Couch\Exception
      */
