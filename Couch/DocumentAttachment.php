@@ -73,13 +73,8 @@ class DocumentAttachment
 
         if (!empty($file)) {
             $this->file = $file;
-            if (!empty($fileName)) {
-                // set filename if provided
-                $this->fileName = $fileName;
-            } else {
-                // extract filename
-                $this->fileName = basename($file);
-            }
+            $this->fileName = !empty($fileName)
+                ? $fileName : basename($file);
         }
     }
 
