@@ -191,7 +191,7 @@ class DocumentAttachment
     }
 
     /**
-     * find the file attachment associated with the document.
+     * Find the file attachment associated with the document.
      *
      * @link   http://docs.couchdb.org/en/1.5.1/api/document/attachments.html#get--{db}-{docid}-{attname}
      * @return mixed|null
