@@ -195,7 +195,7 @@ class Server
      * @param  string $section
      * @param  string $key
      * @param  mixed  $value
-     * @return bool
+     * @return mixed
      */
     public function setConfig($section, $key, $value) {
         $path = join('/', [$section, $key]);
