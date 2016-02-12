@@ -215,7 +215,7 @@ class Document
     }
 
     /**
-     * Get a document attachment by name.
+     * Get an attachment by name.
      *
      * @param  string $name
      * @return Couch\DocumentAttachment|null
@@ -236,7 +236,7 @@ class Document
     }
 
     /**
-     * Remove a document attachment.
+     * Unset an attachment.
      *
      * @param  string $name
      * @return void
