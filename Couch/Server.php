@@ -191,10 +191,11 @@ class Server
     /**
      * Set a config value.
      *
-     * @link  http://docs.couchdb.org/en/1.5.1/api/server/configuration.html#put--_config-{section}-{key}
-     * @param string $section
-     * @param string $key
-     * @param mixed  $value
+     * @link   http://docs.couchdb.org/en/1.5.1/api/server/configuration.html#put--_config-{section}-{key}
+     * @param  string $section
+     * @param  string $key
+     * @param  mixed  $value
+     * @return bool
      */
     public function setConfig($section, $key, $value) {
         $path = join('/', [$section, $key]);
