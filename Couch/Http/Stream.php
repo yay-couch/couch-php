@@ -36,7 +36,7 @@ abstract class Stream
           TYPE_RESPONSE = 2;
 
     /**
-     * Stream type that used in self.toString method.
+     * Stream type that used in self.toString().
      * @var int
      */
     protected $type;
