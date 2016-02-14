@@ -1,20 +1,16 @@
 {
-    "name": "yay-couch/couch",
-    "type": "library",
-    "version": "1.0.7",
-    "homepage": "http://github.com/yay-couch/couch-php",
-    "description": "CouchDB Wrapper for PHP.",
-    "keywords": ["couch", "couchdb", "rest", "restful", "nosql"],
-    "license": "Apache License Version 2.0",
-    "authors": [{
-        "name": "Kerem Güneş",
-        "email": "qeremy@gmail.com",
-        "homepage": "http://qeremy.com"
-    }],
-    "require": {
-        "php": ">=5.4.0"
-    },
-    "autoload": {
-        "psr-4": {"Couch\\": "Couch/"}
-    }
+   "name": "yay-couch/couch",
+   "type": "library",
+   "version": "1.0.7",
+   "homepage": "http://github.com/yay-couch/couch-php",
+   "description": "CouchDB Wrapper for PHP.",
+   "keywords": ["couch", "couchdb", "rest", "restful", "nosql"],
+   "license": "Apache License Version 2.0",
+   "authors": [{
+      "name": "Kerem Güneş",
+      "email": "k-gun@mail.com"
+   }],
+   "require": {
+      "php": ">=5.4.0"
+   }
 }
