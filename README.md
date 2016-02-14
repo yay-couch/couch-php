@@ -80,7 +80,7 @@ If you need any direct request for any reason, you can use the methods below.
 ```php
 // direct request
 $data = $client->request('GET /<URI>',
-    $uriParams=['group' => true], $body=null, $headers=[])->getData();
+   $uriParams=['group' => true], $body=null, $headers=[])->getData();
 
 // args
 $uri       = '/<URI>';
@@ -137,7 +137,7 @@ dump $db->create();
 dump $db->remove();
 dump $db->replicate('foo2');
 dump $db->getChanges();
-dump $db->getChanges(null, ['e90636c398458a9d5969d2e71b04b0a4']);
+dump $db->getChanges(null, ['abc']);
 dump $db->compact();
 dump $db->ensureFullCommit();
 dump $db->viewCleanup();
@@ -154,19 +154,16 @@ $db->viewTemp('function(doc){ if(doc.name){ emit(doc.name, null); }}', $reduce='
 
 /** document methods  */
 
-$db->purge('test_3', ['4-53348db493c7323e9d539e77df4fe3af']);
-$db->getMissingRevisions('test_3',
-    ['3-b06fcd1c1c9e0ec7c480ee8aa467bf3b', '3-0e871ef78849b0c206091f1a7af6ec41']);
-$db->getMissingRevisionsDiff('a0ecb3e2bc442e7bd768ea78070349da',
-    ['4-265c7f224875a6da3aa4ba79d01ee0b0']);
+$db->purge('test_3', ['4-abc']);
+$db->getMissingRevisions('test_3', ['3-abc', '3-abd']);
+$db->getMissingRevisionsDiff('abc', ['4-abc']);
 
 // get a document
-dump $db->getDocument('667b0208441066a0954717b50c0008a9');
+dump $db->getDocument('abc');
 // get all documents
 dump $db->getDocumentAll();
 // get all documents by keys
-dump $db->getDocumentAll($query=null,
-    ['667b0208441066a0954717b50c0008a9','83b5e0a0b3bd41d9a21cee7ae8000615']);
+dump $db->getDocumentAll($query=null, ['abc','abd']);
 
 // create a document
 $doc = new Couch\Document();
@@ -178,21 +175,21 @@ dump $db->createDocument(['test' => 'test 30']);
 
 // update a document
 $doc = new Couch\Document();
-$doc->_id = 'e90636c398458a9d5969d2e71b04ad81';
-$doc->_rev = '3-9aeefae43b9fad5df8cc87fe8bcc2718';
+$doc->_id = 'abc';
+$doc->_rev = '3-abc';
 // param as Couch\Document
 dump $db->updateDocument($doc);
 // param as array
 dump $db->updateDocument([
-    ['_id'  => 'e90636c398458a9d5969d2e71b04b0a4',
-     '_rev' => '1-afa338dcbc6870f1a1dd441557f79859',
-     'test' => 'test 2 (update)']
+   ['_id'  => 'abc',
+    '_rev' => '1-abc',
+    'test' => 'test 2 (update)']
 ]);
 
 // delete a document
 $doc = new Couch\Document(null, [
-    '_id'  => 'e90636c398458a9d5969d2e71b04b0a4',
-    '_rev' => '2-d4ef449903f67ee5559f1ee42bafcfcf',
+   '_id'  => 'abc',
+   '_rev' => '2-abc',
 ]);
 dump $db->deleteDocument($doc);
 
@@ -219,8 +216,8 @@ dump $db->deleteDocumentAll($docs);
 ```php
 $doc = new Couch\Document($db);
 // set props (so data)
-$doc->_id = 'e90636c398458a9d5969d2e71b04b2e4';
-$doc->_rev = '2-393dbbc2cca7eea546a3c750ebeddd70';
+$doc->_id = 'abc';
+$doc->_rev = '2-abc';
 
 // checker methods
 dump $doc->ping();
@@ -235,7 +232,7 @@ dump $doc->remove();
 // copies
 dump $doc->copy('test_copy3');
 dump $doc->copyFrom('test_copy3_1');
-dump $doc->copyTo('test_copy3_1', '1-88a2e6eeb67da643871995ddd8d9d57d');
+dump $doc->copyTo('test_copy3_1', '1-abc');
 
 // delete
 dump $doc->remove();
@@ -246,7 +243,7 @@ dump $doc->findRevisionsExtended();
 
 // find attachments
 dump $doc->findAttachments();
-dump $doc->findAttachments(true, ['2-6a0508cce9d2b4f3b83159648415c5e0']);
+dump $doc->findAttachments(true, ['2-abc']);
 
 // add attachments
 $doc->_attachments = [['file' => './attc1.txt']];
@@ -310,7 +307,7 @@ print $uuid;
 
 // generate method
 $uuidValue = Couch\Uuid::generate(
-    $method=Couch\Uuid::METHOD_RANDOM, $algo=Couch\Uuid::HASH_ALGO_MD5);
+   $method=Couch\Uuid::METHOD_RANDOM, $algo=Couch\Uuid::HASH_ALGO_MD5);
 
 // available methods
 METHOD_RANDOM // default
@@ -332,9 +329,9 @@ $query->setDatabase($db);
 
 // add params
 $query->set('conflicts', true)
-    ->set('stale', 'ok')
-    ->skip(1)
-    ->limit(2)
+   ->set('stale', 'ok')
+   ->skip(1)
+   ->limit(2)
 ;
 
 // get as string
@@ -398,21 +395,21 @@ $doc->save();
 
 // but could be so
 if (201 != $client->getResponse()->getStatusCode()) {
-    print 'nö!';
-    // or print response error data
-    $data = $client->getResponse()->getData();
-    print $data['error'];
-    print $data['reason'];
+   print 'nö!';
+   // or print response error data
+   $data = $client->getResponse()->getData();
+   print $data['error'];
+   print $data['reason'];
 }
 
 // this will throw error ie. timed out
 $db = new Couch\Database(
-        new Couch\Client(
-          new Couch\Couch(null, ['timeout' => 0])), 'foo2');
+       new Couch\Client(
+         new Couch\Couch(null, ['timeout' => 0])), 'foo2');
 
 try {
-    $db->ping();
+   $db->ping();
 } catch (Couch\Http\Exception $e) {
-    print $e->getMessage();
+   print $e->getMessage();
 }
 ```
