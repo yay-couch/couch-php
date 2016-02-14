@@ -1,16 +1,16 @@
 <?php
 /**
  * Copyright 2015 Kerem Güneş
- *     <http://qeremy.com>
+ *    <k-gun@mail.com>
  *
  * Apache License, Version 2.0
- *     <http://www.apache.org/licenses/LICENSE-2.0>
+ *    <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,8 @@ namespace Couch\Http;
  * @package    Couch
  * @subpackage Couch\Http
  * @object     Couch\Http\Exception
- * @extends    Exception
- * @author     Kerem Güneş <qeremy[at]gmail[dot]com>
+ * @extends    \Exception
+ * @author     Kerem Güneş <k-gun@mail.com>
  */
-class Exception extends \Exception {}
+class Exception extends \Exception
+{}

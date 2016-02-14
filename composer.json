@@ -1,7 +1,7 @@
 {
    "name": "yay-couch/couch",
    "type": "library",
-   "version": "1.0.7",
+   "version": "1.0.8",
    "homepage": "http://github.com/yay-couch/couch-php",
    "description": "CouchDB Wrapper for PHP.",
    "keywords": ["couch", "couchdb", "rest", "restful", "nosql"],
