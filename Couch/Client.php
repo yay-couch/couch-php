@@ -163,6 +163,7 @@ class Client
 
     /**
      * Make a HEAD request (i.e HEAD /foo).
+     *
      * @param  string     $uri
      * @param  array|null $uriParams
      * @param  array      $headers
@@ -174,6 +175,7 @@ class Client
 
     /**
      * Make a GET request (i.e GET /foo).
+     *
      * @param  string     $uri
      * @param  array|null $uriParams
      * @param  array      $headers
@@ -185,6 +187,7 @@ class Client
 
     /**
      * Make a POST request (i.e POST /foo).
+     *
      * @param  string     $uri
      * @param  array|null $uriParams
      * @param  array|null $body
@@ -197,6 +200,7 @@ class Client
 
     /**
      * Make a PUT request (i.e PUT /foo).
+     *
      * @param  string     $uri
      * @param  array|null $uriParams
      * @param  array|null $body
@@ -209,6 +213,7 @@ class Client
 
     /**
      * Make a COPY request (i.e COPY /foo).
+     *
      * @param  string     $uri
      * @param  array|null $uriParams
      * @param  array      $headers
@@ -220,6 +225,7 @@ class Client
 
     /**
      * Make a DELETE request (i.e DELETE /foo).
+     *
      * @param  string     $uri
      * @param  array|null $uriParams
      * @param  array      $headers
