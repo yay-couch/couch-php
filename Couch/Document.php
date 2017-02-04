@@ -219,7 +219,7 @@ class Document
 
       // check if attachment is duplicate
       if (isset($this->data['_attachments'][$attachment->fileName])) {
-         throw new Exception('Attachment is alredy exists on this document!');
+         throw new Exception('Attachment is already exists on this document!');
       }
 
       // add attachment object using file name as key
